@@ -4,29 +4,32 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[900],
       bottomNavigationBar: BottomNavigationBar(
-       currentIndex: 0, // this will be set when a new tab is tapped
-       items: [
-         BottomNavigationBarItem(
-           backgroundColor: Colors.grey,
-           icon: Icon(Icons.home),
-           title: Text('Home'),
-         ),
-         BottomNavigationBarItem(
-           icon: Icon(Icons.person),
-           title: Text('Profile'),
-         ),
-         BottomNavigationBarItem(
-           icon: Icon(Icons.menu),
-           title: Text('Menu')
-         ),
-         BottomNavigationBarItem(
-           icon: Icon(Icons.settings),
-           title: Text('Settings')
-         ),
-       ],
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey[600],
+        backgroundColor: Colors.black,
+        currentIndex: 0, // this will be set when a new tab is tapped
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            title: Text('Profile'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            title: Text('Leaderboards'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            title: Text('Settings'),
+          ),
+        ],
       ),
-      backgroundColor: Colors.white,
       body: Container(
           margin: EdgeInsets.all(50),
           alignment: Alignment.topLeft,
@@ -37,6 +40,7 @@ class Home extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 50,
                     fontWeight: FontWeight.w500,
+                    color: Colors.white,
                   )),
               Text("Wednesday, February 5",
                   style: TextStyle(
@@ -48,17 +52,18 @@ class Home extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
+                    color: Colors.white,
                   )),
               Container(
                   margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                   width: 350,
-                  height: 200,
+                  height: 190,
                   decoration: BoxDecoration(
-                    border: Border.all(width: 3.0),
+                    border: Border.all(width: 3.0, color: Colors.white),
                     borderRadius: BorderRadius.all(Radius.circular(20.0)),
                   ),
                   child: Column(children: <Widget>[
-                    SizedBox(height: 40),
+                    SizedBox(height: 35),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
@@ -66,16 +71,19 @@ class Home extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w300,
+                              color: Colors.white,
                             )),
                         Text("60.2",
                             style: TextStyle(
                               fontSize: 40,
                               fontWeight: FontWeight.w500,
+                              color: Colors.white,
                             )),
                         Text("1.56",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w300,
+                              color: Colors.white,
                             )),
                       ],
                     ),
@@ -87,22 +95,25 @@ class Home extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w300,
+                              color: Colors.white,
                             )),
                         Text("RPM",
                             style: TextStyle(
                               fontSize: 40,
                               fontWeight: FontWeight.w500,
+                              color: Colors.white,
                             )),
                         Text("Distance",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w300,
+                              color: Colors.white,
                             )),
                       ],
                     ),
                   ])),
               Container(
-                height: 351, //Causes a problem when not the right height
+                height: 355, //Causes a problem when not the right height
                   child: GridView.count(
                     crossAxisCount: 2,
                     crossAxisSpacing: 4.0,
