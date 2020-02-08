@@ -7,8 +7,8 @@ class Home extends StatelessWidget {
       backgroundColor: Colors.grey[900],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.grey[600],
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.white,
         backgroundColor: Colors.black,
         currentIndex: 0, // this will be set when a new tab is tapped
         items: [
@@ -40,7 +40,7 @@ class Home extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 50,
                     fontWeight: FontWeight.w500,
-                    color: Colors.white,
+                    color: Colors.red,
                   )),
               Text("Wednesday, February 5",
                   style: TextStyle(
@@ -52,7 +52,7 @@ class Home extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
-                    color: Colors.white,
+                    color: Colors.red,
                   )),
               Container(
                   margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -70,7 +70,7 @@ class Home extends StatelessWidget {
                         Text("213",
                             style: TextStyle(
                               fontSize: 20,
-                              fontWeight: FontWeight.w300,
+                              fontWeight: FontWeight.w600,
                               color: Colors.white,
                             )),
                         Text("60.2",
@@ -82,7 +82,7 @@ class Home extends StatelessWidget {
                         Text("1.56",
                             style: TextStyle(
                               fontSize: 20,
-                              fontWeight: FontWeight.w300,
+                              fontWeight: FontWeight.w600,
                               color: Colors.white,
                             )),
                       ],
