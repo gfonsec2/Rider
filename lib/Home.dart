@@ -213,49 +213,54 @@ class _HomeState extends State<Home> {
               ),
               elevation: 10,
               child: Container(
-                margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+                margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Container(
-                      width: 90,
-                      height: 90,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [Color(0xffFFCC00), Color(0xffFF6666)])),
-                      child: Center(
-                        child: Text("Q",
-                          style: TextStyle(
-                            fontSize: 64,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          )
-                        ),
-                      ),
-                    ),
-                    SizedBox(width:20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: <Widget>[
-                        Text("Quick Start",
-                          style: TextStyle(
-                            fontSize: 34,
-                            fontWeight: FontWeight.w200,
-                            color: Colors.black,
-                          )
+                        Container(
+                          width: 90,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [Color(0xffFFCC00), Color(0xffFF6666)])),
+                          child: Center(
+                            child: Text("Q",
+                              style: TextStyle(
+                                fontSize: 64,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              )
+                            ),
+                          ),
                         ),
-                        Text("Jump straight into the\nspeedometer and stopwatch\nmenu.",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w200,
-                            color: Color(0xff838383),
-                          )
+                        SizedBox(width:20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("Quick Start",
+                              style: TextStyle(
+                                fontFamily: 'ProximaNova',
+                                fontSize: 34,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ),
+                            Text("Jump straight into the\nspeedometer and stop-\nwatch menu.",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w200,
+                                color: Color(0xff838383),
+                              )
+                            ),
+                          ]
                         ),
-                      ]
+                      ],
                     ),
-                    SizedBox(width:20),
                     Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
                   ],
                 ),
@@ -273,49 +278,53 @@ class _HomeState extends State<Home> {
               ),
               elevation: 10,
               child: Container(
-                margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+                margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Container(
-                      width: 90,
-                      height: 90,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [Color(0xffFF6666), Color(0xff60CECE)])),
-                      child: Center(
-                        child: Text("T",
-                          style: TextStyle(
-                            fontSize: 64,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          )
-                        ),
-                      ),
-                    ),
-                    SizedBox(width:20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: <Widget>[
-                        Text("Trials",
-                          style: TextStyle(
-                            fontSize: 34,
-                            fontWeight: FontWeight.w200,
-                            color: Colors.black,
-                          )
+                        Container(
+                          width: 90,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [Color(0xffFF6666), Color(0xff60CECE)])),
+                          child: Center(
+                            child: Text("T",
+                              style: TextStyle(
+                                fontSize: 64,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              )
+                            ),
+                          ),
                         ),
-                        Text("Race against the clock and\ncover a set distance with an\neasy, medium, and hard modes",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w200,
-                            color: Color(0xff838383),
-                          )
+                        SizedBox(width:20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("Time Trials",
+                              style: TextStyle(
+                                fontSize: 34,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ),
+                            Text("Race against the clock to\ncross the finish line.\nCompare with friends.",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w200,
+                                color: Color(0xff838383),
+                              )
+                            ),
+                          ]
                         ),
-                      ]
+                      ],
                     ),
-                    SizedBox(width:20),
                     Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
                   ],
                 ),
@@ -333,49 +342,54 @@ class _HomeState extends State<Home> {
               ),
               elevation: 10,
               child: Container(
-                margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+                margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Container(
-                      width: 90,
-                      height: 90,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [Color(0xff60CECE), Color(0xff916DD5)])),
-                      child: Center(
-                        child: Text("M",
-                          style: TextStyle(
-                            fontSize: 64,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          )
-                        ),
-                      ),
-                    ),
-                    SizedBox(width:20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: <Widget>[
-                        Text("Multiplayer",
-                          style: TextStyle(
-                            fontSize: 34,
-                            fontWeight: FontWeight.w200,
-                            color: Colors.black,
-                          )
+                        Container(
+                          width: 90,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [Color(0xff60CECE), Color(0xff916DD5)])),
+                          child: Center(
+                            child: Text("M",
+                              style: TextStyle(
+                                fontSize: 64,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              )
+                            ),
+                          ),
                         ),
-                        Text("Connect with friends and\nplay games designed to test\nyour abilities.",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w200,
-                            color: Color(0xff838383),
-                          )
+                        SizedBox(width:20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("Multiplayer",
+                              style: TextStyle(
+                                fontSize: 34,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ),
+                            Text("Connect with friends and\nplay games designed to\ntest your abilities.",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w200,
+                                color: Color(0xff838383),
+                              )
+                            ),
+                          ]
                         ),
-                      ]
+                        
+                      ],
                     ),
-                    SizedBox(width:20),
                     Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
                   ],
                 ),
@@ -393,49 +407,53 @@ class _HomeState extends State<Home> {
               ),
               elevation: 10,
               child: Container(
-                margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+                margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Container(
-                      width: 90,
-                      height: 90,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [Color(0xff916DD5), Color(0xffFFCC00)])),
-                      child: Center(
-                        child: Text("S",
-                          style: TextStyle(
-                            fontSize: 64,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          )
-                        ),
-                      ),
-                    ),
-                    SizedBox(width:20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: <Widget>[
-                        Text("Singles",
-                          style: TextStyle(
-                            fontSize: 34,
-                            fontWeight: FontWeight.w200,
-                            color: Colors.black,
-                          )
+                        Container(
+                          width: 90,
+                          height: 90,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [Color(0xff916DD5), Color(0xffFFCC00)])),
+                          child: Center(
+                            child: Text("S",
+                              style: TextStyle(
+                                fontSize: 64,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              )
+                            ),
+                          ),
                         ),
-                        Text("Solo player minigames. Play a\nvariety of assault bike games to\nbeat your personal high score.",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w200,
-                            color: Color(0xff838383),
-                          )
+                        SizedBox(width:20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text("Singles",
+                              style: TextStyle(
+                                fontSize: 34,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ),
+                            Text("Solo player minigames.\nBeat your high score in\nthese assault bike games.",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w200,
+                                color: Color(0xff838383),
+                              )
+                            ),
+                          ]
                         ),
-                      ]
+                      ],
                     ),
-                    SizedBox(width:20),
                     Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
                   ],
                 ),
@@ -480,7 +498,7 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: Container(
-        margin: EdgeInsets.fromLTRB(30, 40, 30, 30),
+        margin: EdgeInsets.fromLTRB(15, 40, 15, 0),
         child: Column(
           children: <Widget>[
             _title(),

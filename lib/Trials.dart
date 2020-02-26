@@ -77,7 +77,7 @@ final List<Color> color = <Color>[Color(0xff85B684),Color(0xff85B684),Color(0xff
         ],
       ),
       body: Container(
-        margin: EdgeInsets.fromLTRB(30, 40, 30, 30),
+        margin: EdgeInsets.fromLTRB(15, 40, 15, 0),
         child: Column(
           children: <Widget>[
             _title(),
