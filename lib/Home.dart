@@ -1,189 +1,495 @@
 import 'package:flutter/material.dart';
+import 'Records.dart';
+import 'Settings.dart';
+import 'QuickStart.dart';
+import 'Trials.dart';
+import 'Multiplayer.dart';
+import 'Singles.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  final int selectedIndex;
+  Home({Key key, @required this.selectedIndex}): super(key: key);
+  @override
+  _HomeState createState() => _HomeState(selectedIndex: selectedIndex);
+}
+
+class _HomeState extends State<Home> {
+  final int selectedIndex;
+  _HomeState({Key key, @required this.selectedIndex});
+  Widget _title(){
+    return Column(
+      children: <Widget>[
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Text("Home",
+            style: TextStyle(
+              fontSize: 64,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+            )),
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Text("Tuesday, February 25",
+              style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey)),
+        ),
+        SizedBox(height:10),
+      ]
+    );
+  }
+
+  Widget _prevWorkout(){
+    return Column(
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+          child: Row(
+            children: <Widget>[
+              Icon(IconData(59406, fontFamily: 'MaterialIcons'), size: 22, color: Color(0xffffcc00)),
+              Text("Previous Workout",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xffffcc00),
+                )
+              ),
+            ],
+          ),
+        ),
+        Container(
+          child: Card(
+            shape: RoundedRectangleBorder(
+              side: BorderSide(color: Colors.white70, width: 1),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 10,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: Row(
+                    children: <Widget>[
+                      Text("12.9",
+                        style: TextStyle(
+                          fontSize: 60,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.black,
+                        )
+                      ),
+                      SizedBox(width:10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("AVG",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black,
+                            )
+                          ),
+                          Text("SPEED",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black,
+                            )
+                          ),
+                        ]
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: Row(
+                    children: <Widget>[
+                      Text("1.56",
+                        style: TextStyle(
+                          fontSize: 60,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.black,
+                        )
+                      ),
+                      SizedBox(width:10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("TOTAL",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black,
+                            )
+                          ),
+                          Text("MILES",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black,
+                            )
+                          ),
+                        ]
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: Row(
+                    children: <Widget>[
+                      Text("173",
+                        style: TextStyle(
+                          fontSize: 60,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.black,
+                        )
+                      ),
+                      SizedBox(width:10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("TOTAL",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black,
+                            )
+                          ),
+                          Text("CAL",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black,
+                            )
+                          ),
+                        ]
+                      )
+                    ],
+                  ),
+                ),
+              ]
+            )
+          )
+        ),
+      ]
+    );
+  }
+
+  Widget _menuHeader(){
+    return Container(
+      margin: EdgeInsets.fromLTRB(10, 10, 0, 0),
+      child: Row(
+        children: <Widget>[
+          Icon(IconData(59406, fontFamily: 'MaterialIcons'), size: 22, color: Color(0xffffcc00)),
+          Text("Menu",
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w600,
+              color: Color(0xffffcc00),
+            )
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _menu(){
+    return Expanded(
+      child: ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.fromLTRB(8, 8, 8, 25),
+        children: <Widget>[
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context,MaterialPageRoute(builder: (context) => QuickStart()));
+            },
+            child: Card(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.white70, width: 1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              elevation: 10,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: 90,
+                      height: 90,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [Color(0xffFFCC00), Color(0xffFF6666)])),
+                      child: Center(
+                        child: Text("Q",
+                          style: TextStyle(
+                            fontSize: 64,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          )
+                        ),
+                      ),
+                    ),
+                    SizedBox(width:20),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text("Quick Start",
+                          style: TextStyle(
+                            fontSize: 34,
+                            fontWeight: FontWeight.w200,
+                            color: Colors.black,
+                          )
+                        ),
+                        Text("Jump straight into the\nspeedometer and stopwatch\nmenu.",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w200,
+                            color: Color(0xff838383),
+                          )
+                        ),
+                      ]
+                    ),
+                    SizedBox(width:20),
+                    Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context,MaterialPageRoute(builder: (context) => Trials()));
+            },
+            child: Card(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.white70, width: 1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              elevation: 10,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: 90,
+                      height: 90,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [Color(0xffFF6666), Color(0xff60CECE)])),
+                      child: Center(
+                        child: Text("T",
+                          style: TextStyle(
+                            fontSize: 64,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          )
+                        ),
+                      ),
+                    ),
+                    SizedBox(width:20),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text("Trials",
+                          style: TextStyle(
+                            fontSize: 34,
+                            fontWeight: FontWeight.w200,
+                            color: Colors.black,
+                          )
+                        ),
+                        Text("Race against the clock and\ncover a set distance with an\neasy, medium, and hard modes",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w200,
+                            color: Color(0xff838383),
+                          )
+                        ),
+                      ]
+                    ),
+                    SizedBox(width:20),
+                    Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context,MaterialPageRoute(builder: (context) => Multiplayer()));
+            },
+            child: Card(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.white70, width: 1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              elevation: 10,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: 90,
+                      height: 90,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [Color(0xff60CECE), Color(0xff916DD5)])),
+                      child: Center(
+                        child: Text("M",
+                          style: TextStyle(
+                            fontSize: 64,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          )
+                        ),
+                      ),
+                    ),
+                    SizedBox(width:20),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text("Multiplayer",
+                          style: TextStyle(
+                            fontSize: 34,
+                            fontWeight: FontWeight.w200,
+                            color: Colors.black,
+                          )
+                        ),
+                        Text("Connect with friends and\nplay games designed to test\nyour abilities.",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w200,
+                            color: Color(0xff838383),
+                          )
+                        ),
+                      ]
+                    ),
+                    SizedBox(width:20),
+                    Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context,MaterialPageRoute(builder: (context) => Singles()));
+            },
+            child: Card(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.white70, width: 1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              elevation: 10,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: 90,
+                      height: 90,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [Color(0xff916DD5), Color(0xffFFCC00)])),
+                      child: Center(
+                        child: Text("S",
+                          style: TextStyle(
+                            fontSize: 64,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          )
+                        ),
+                      ),
+                    ),
+                    SizedBox(width:20),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text("Singles",
+                          style: TextStyle(
+                            fontSize: 34,
+                            fontWeight: FontWeight.w200,
+                            color: Colors.black,
+                          )
+                        ),
+                        Text("Solo player minigames. Play a\nvariety of assault bike games to\nbeat your personal high score.",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w200,
+                            color: Color(0xff838383),
+                          )
+                        ),
+                      ]
+                    ),
+                    SizedBox(width:20),
+                    Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      if(index == 1){
+        Navigator.push(context,MaterialPageRoute(builder: (context) => Records(selectedIndex: 1)));
+      }
+      if(index == 2){
+        Navigator.push(context,MaterialPageRoute(builder: (context) => Settings(selectedIndex: 2)));
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.white,
-        backgroundColor: Colors.black,
-        currentIndex: 0, // this will be set when a new tab is tapped
-        items: [
+        onTap: _onItemTapped,
+        currentIndex: selectedIndex, // this will be set when a new tab is tapped
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            title: Text('Profile'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            title: Text('Leaderboards'),
+            icon: Icon(Icons.format_list_bulleted),
+            title: Text('Records'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            title: Text('Settings'),
+            title: Text('Settings')
           ),
         ],
       ),
       body: Container(
-          margin: EdgeInsets.all(50),
-          alignment: Alignment.topLeft,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text("Home",
-                  style: TextStyle(
-                    fontSize: 50,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.red,
-                  )),
-              Text("Wednesday, February 5",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey)),
-              SizedBox(height: 50),
-              Text("Previous Workout",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.red,
-                  )),
-              Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  width: 350,
-                  height: 190,
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 3.0, color: Colors.white),
-                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  ),
-                  child: Column(children: <Widget>[
-                    SizedBox(height: 35),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Text("213",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            )),
-                        Text("60.2",
-                            style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            )),
-                        Text("1.56",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            )),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Text("Calories",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white,
-                            )),
-                        Text("RPM",
-                            style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            )),
-                        Text("Distance",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white,
-                            )),
-                      ],
-                    ),
-                  ])),
-              Container(
-                height: 355, //Causes a problem when not the right height
-                  child: GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 4.0,
-                    mainAxisSpacing: 4.0,
-                    children: <Widget>[
-                      Card(
-                          color: Colors.red[300],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                          ),
-                          child: ListTile(
-                            // leading: Icon(const IconData(59499, fontFamily: 'MaterialIcons')),
-                            title: Text('Manual',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                )),
-                          )),
-                          Card(
-                          color: Colors.blue[300],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                          ),
-                          child: ListTile(
-                            // leading: Icon(const IconData(59499, fontFamily: 'MaterialIcons')),
-                            title: Text('Trials',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                )),
-                          )),
-                          Card(
-                          color: Colors.yellow[300],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                          ),
-                          child: ListTile(
-                            // leading: Icon(const IconData(59499, fontFamily: 'MaterialIcons')),
-                            title: Text('Singles',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                )),
-                          )),
-                          Card(
-                          color: Colors.green[200],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                          ),
-                          child: ListTile(
-                            // leading: Icon(const IconData(59499, fontFamily: 'MaterialIcons')),
-                            title: Text('Multiplayer',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                )),
-                          )),
-                    ],
-                  ),
-                ),
-            ],
-          )),
+        margin: EdgeInsets.fromLTRB(30, 40, 30, 30),
+        child: Column(
+          children: <Widget>[
+            _title(),
+            _prevWorkout(),
+            _menuHeader(),
+            _menu()
+          ],
+        )
+      ),
     );
   }
 }

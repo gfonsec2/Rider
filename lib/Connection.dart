@@ -43,7 +43,7 @@ class ConnectionPage extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.center,
                   child: FloatingActionButton(onPressed:(){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));
                   })
                 ),
               ),
