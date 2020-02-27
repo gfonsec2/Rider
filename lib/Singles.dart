@@ -9,6 +9,20 @@ class Singles extends StatefulWidget {
 }
 
 class _SinglesState extends State<Singles> {
+  Widget _back(){
+    return GestureDetector(
+      onTap: (){
+        Navigator.pop(context);
+      },
+      child: Row(
+        children: <Widget>[
+          Icon(IconData(58848, fontFamily: 'MaterialIcons', matchTextDirection: true), size: 13),
+          Text("Back"),
+        ],
+      )
+    );        
+  }
+
   Widget _title(){
     return Column(
       children: <Widget>[
@@ -34,45 +48,14 @@ class _SinglesState extends State<Singles> {
     );
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      if(index == 0){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));
-      }
-      if(index == 1){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => Records(selectedIndex: 1)));
-      }
-      if(index == 2){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => Settings(selectedIndex: 2)));
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.grey),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.format_list_bulleted, color: Colors.grey),
-            title: Text('Records'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings, color: Colors.grey),
-            title: Text('Settings')
-          ),
-        ],
-      ),
       body: Container(
         margin: EdgeInsets.fromLTRB(30, 40, 30, 30),
         child: Column(
           children: <Widget>[
+            _back(),
             _title(),
           ],
         )

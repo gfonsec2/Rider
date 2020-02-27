@@ -9,290 +9,231 @@ class QuickStart extends StatefulWidget {
 }
 
 class _QuickStartState extends State<QuickStart> {
-
-  Widget _title (){
-    return Container(
-      child: Column(
+  Widget _back(){
+    return GestureDetector(
+      onTap: (){
+        Navigator.pop(context);
+      },
+      child: Row(
         children: <Widget>[
-          Padding(padding:const EdgeInsets.all(23.0)),
-          Row(
-            children: <Widget>[
-              Padding(padding:const EdgeInsets.only(left: 15.0)),
-              Text("Quick Start",
-              style: TextStyle(fontSize: 64, fontWeight: FontWeight.w500),
-              )
-            ],
+          Icon(IconData(58848, fontFamily: 'MaterialIcons', matchTextDirection: true), size: 13),
+          Text("Back"),
+        ],
+      )
+    );        
+  }
+  
+  Widget _title(){
+    return Column(
+      children: <Widget>[
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Text("Quick Start",
+            style: TextStyle(
+              fontSize: 64,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+            )),
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Text("Tuesday, February 25",
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w500,
+              color: Colors.grey
+            )
           ),
-          Row(
-            children: <Widget>[
-              Padding(padding:const EdgeInsets.only( left: 15.0),),
-              Text("Tuesday, January 21",
-              style: TextStyle(fontSize: 22, 
-                color: Colors.grey
+        ),
+        SizedBox(height: 10)
+      ]
+    );
+  }
+  
+  Widget _mph(){
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(150),
+      ),
+      elevation: 20,
+      child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+            Container(
+              height: 300.0,
+              width: 300.0,
+              decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [Color(0xffFFCC00), Color(0xffFF6666)], 
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
-              )
-            ], 
-          ),
+              borderRadius: BorderRadius.all( Radius.circular(150.0)),
+               ),
+            ),
+            Container(
+              height: 285.0,
+              width: 285.0,
+              decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all( Radius.circular(150.0)),
+               ),
+            ),
+            Container(
+              child: Column(
+                children: <Widget>[
+                  Text("23",
+                  style: TextStyle(fontSize: 120)
+                  ),
+                  Text("MPH",
+                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.w300),
+                  )
+                ],
+              ),
+            )
         ],
       ),
     );
   }
 
-  Widget _mph(){
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-          Container(
-            height: 300.0,
-            width: 300.0,
-            decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [Color(0xffFFCC00), Color(0xffFF6666)], 
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.all( Radius.circular(150.0)),
-             ),
-          ),
-          Container(
-            height: 285.0,
-            width: 285.0,
-            decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all( Radius.circular(150.0)),
-             ),
-          ),
-          Container(
-            child: Column(
-              children: <Widget>[
-                Text("23",
-                style: TextStyle(fontSize: 120)
-                ),
-                Text("MPH",
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w300),
-                )
-              ],
-            ),
-          )
-      ],
-    );
-  }
-
   Widget _dist(){
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-          Container(
-            height: 125.0,
-            width: 125.0,
-            decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [Color(0xff916DD5), Color(0xff66CCCC)]),
-            borderRadius: BorderRadius.all( Radius.circular(150.0)),
-             ),
-          ),
-          Container(
-            height: 110.0,
-            width: 110.0,
-            decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all( Radius.circular(150.0)),
-             ),
-          ),
-                    Container(
-            child: Column(
-              children: <Widget>[
-                //Mau, Insert int _calories
-                Text("1.56",
-                style: TextStyle(fontSize: 45)
-                ),
-                Text("Miles",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
-                )
-              ],
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(150),
+      ),
+      elevation: 20,
+      child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+            Container(
+              height: 125.0,
+              width: 125.0,
+              decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [Color(0xff916DD5), Color(0xff66CCCC)]),
+              borderRadius: BorderRadius.all( Radius.circular(150.0)),
+               ),
             ),
-          )
-      ],
+            Container(
+              height: 110.0,
+              width: 110.0,
+              decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all( Radius.circular(150.0)),
+               ),
+            ),
+                      Container(
+              child: Column(
+                children: <Widget>[
+                  //Mau, Insert int _calories
+                  Text("1.56",
+                  style: TextStyle(fontSize: 45)
+                  ),
+                  Text("Miles",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
+                  )
+                ],
+              ),
+            )
+        ],
+      ),
     );
   }
 
   Widget _cal(){
-      return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-          Container(
-            height: 125.0,
-            width: 125.0,
-            decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [Color(0xff66CCCC), Color(0xffFF6666)]),
-            borderRadius: BorderRadius.all( Radius.circular(150.0)),
-             ),
-          ),
-          Container(
-            height: 110.0,
-            width: 110.0,
-            decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all( Radius.circular(150.0)),
-             ),
-          ),
-                    Container(
-            child: Column(
-              children: <Widget>[
-                Text("173",
-                style: TextStyle(fontSize: 45)
-                ),
-                Text("Calories",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
-                )
-              ],
+      return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(150),
+        ),
+        elevation: 20,
+        child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+            Container(
+              height: 125.0,
+              width: 125.0,
+              decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [Color(0xff66CCCC), Color(0xffFF6666)]),
+              borderRadius: BorderRadius.all( Radius.circular(150.0)),
+               ),
             ),
-          )
-      ],
-    );
+            Container(
+              height: 110.0,
+              width: 110.0,
+              decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all( Radius.circular(150.0)),
+               ),
+            ),
+                      Container(
+              child: Column(
+                children: <Widget>[
+                  Text("173",
+                  style: TextStyle(fontSize: 45)
+                  ),
+                  Text("Calories",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
+                  )
+                ],
+              ),
+            )
+        ],
+    ),
+      );
   }
 
-  Widget _card(context){
+  Widget _stopwatch(context){
     return Container(
       height: 225,
       width: 400,
       child: Container(
-        // shape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.circular(15.0)
-        // ),
-        // elevation: 10,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Padding(padding: const EdgeInsets.all(10.0),),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("00:00.00",
-                style: TextStyle( fontSize: 80),
-                ),
-              ],
+            Text("00:00.00",
+            style: TextStyle( fontSize: 80),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("Elapsed Time",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
-                ),
-              ],
+            Text("Elapsed Time",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
             ),
-            SizedBox(
-              height:30
+            OutlineButton(
+              highlightElevation: 20,
+              borderSide: BorderSide(
+                color: Colors.black
+              ),
+              child: Text("Start", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w300)),
+              onPressed: () {Navigator.pop(context);}
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Row(      
-                  children: <Widget>[
-                    OutlineButton(
-                      borderSide: BorderSide(
-                        color: Colors.black
-                      ),
-                  child: Text("Cancel"),
-                  onPressed: () {Navigator.pop(context);}
-                )
-                  ],
-                ),
-                SizedBox(
-                  width: 50
-                ),
-                Row(
-                  children: <Widget>[
-                    OutlineButton(
-                      borderSide: BorderSide(
-                        color: Colors.black
-                      ),
-                  child: Text("Start"),
-                  onPressed: () {Navigator.pop(context);}
-                )
-                  ],
-                ),
-            ],
-            ),
-            
           ],
         ),
       ),
     );
   }
 
-
-  void _onItemTapped(int index) {
-    setState(() {
-      if(index == 0){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));
-      }
-      if(index == 1){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => Records(selectedIndex: 1)));
-      }
-      if(index == 2){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => Settings(selectedIndex: 2)));
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // bottomNavigationBar: BottomNavigationBar(
-      //   selectedItemColor: Colors.grey,
-      //   onTap: _onItemTapped,
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home, color: Colors.grey),
-      //       title: Text('Home'),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.format_list_bulleted, color: Colors.grey),
-      //       title: Text('Records'),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.settings, color: Colors.grey),
-      //       title: Text('Settings')
-      //     ),
-      //   ],
-      // ),
       body: Container(
-      // margin: EdgeInsets.fromLTRB(30, 40, 30, 30),
-      alignment: Alignment.topCenter,
+      margin: EdgeInsets.fromLTRB(15, 40, 15, 0),
       child: Column(
         children: <Widget>[
+          _back(),
           _title(),
-          SizedBox(
-            height: 18,
-          ),
-          _mph(),
-          SizedBox(
-            height: 9,
-          ),
-          Row(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Padding(padding: const EdgeInsets.all(20.0)),
-              _dist(),
-              SizedBox(
-                width: 80,
+              _mph(),
+                Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  _dist(),
+                  _cal(),
+                ],
               ),
-              _cal(),
+              _stopwatch(context)
             ],
           ),
-          SizedBox(
-                height:20 ,
-              ),
-          _card(context)
         ],
       ),
-
       ),
-      // body: Container(
-      //   margin: EdgeInsets.fromLTRB(30, 40, 30, 30),
-      //   child: Column(
-      //     children: <Widget>[
-
-      //     ],
-      //   )
-      // ),
     );
   }
 }
