@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'Home.dart';
 import 'Settings.dart';
 import 'Records.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
+final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
+double mph;
+double distance =0;
 
 class QuickStart extends StatefulWidget {
   @override
@@ -51,6 +57,7 @@ class _QuickStartState extends State<QuickStart> {
   }
   
   Widget _mph(){
+    double diameter =50;
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(150),
@@ -81,9 +88,26 @@ class _QuickStartState extends State<QuickStart> {
             Container(
               child: Column(
                 children: <Widget>[
-                  Text("23",
-                  style: TextStyle(fontSize: 120)
-                  ),
+                   new StreamBuilder(
+                      stream: databaseReference.onValue,
+                      builder: (context, snap) {
+                            if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null)
+                            {
+                              DataSnapshot snapshot = snap.data.snapshot;
+                              var value = snapshot.value;
+                              mph = double.parse(value.toString());
+                              mph = (mph * diameter * 3.14159 *60/63360);
+
+                              return Text( mph.toInt().toString(),
+                              style: TextStyle(fontSize: 80)
+                                );
+                            }
+                            else
+                        {
+                          return Text("i am not reading");
+                        }
+                        }
+                      ,),
                   Text("MPH",
                   style: TextStyle(fontSize: 35, fontWeight: FontWeight.w300),
                   )
@@ -124,9 +148,26 @@ class _QuickStartState extends State<QuickStart> {
               child: Column(
                 children: <Widget>[
                   //Mau, Insert int _calories
-                  Text("1.56",
-                  style: TextStyle(fontSize: 45)
-                  ),
+                  new StreamBuilder(
+                      stream: databaseReferencePulses.onValue,
+                      builder: (context, snap) {
+                            if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null)
+                            {
+                              DataSnapshot snapshot = snap.data.snapshot;
+                              var value = snapshot.value;
+                              distance = value.toInt()*50*3.14159/63360;
+
+                              return Text( distance.toStringAsFixed(2),
+                              style: TextStyle(fontSize: 45)
+                                );
+                            }
+                            else
+                        {
+                          return Text("0",
+                          style: TextStyle(fontSize: 20));
+                        }
+                        }
+                      ,),
                   Text("Miles",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
                   )
@@ -139,6 +180,7 @@ class _QuickStartState extends State<QuickStart> {
   }
 
   Widget _cal(){
+     int calories;
       return Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(150),
@@ -165,10 +207,28 @@ class _QuickStartState extends State<QuickStart> {
             ),
                       Container(
               child: Column(
-                children: <Widget>[
-                  Text("173",
-                  style: TextStyle(fontSize: 45)
-                  ),
+                
+                children: <Widget>[new StreamBuilder(
+                      stream: databaseReferencePulses.onValue,
+                      builder: (context, snap) {
+                            if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null)
+                            {
+                              DataSnapshot snapshot = snap.data.snapshot;
+                              var value = snapshot.value;
+                              distance = value.toInt()*50*3.14159/63360;
+                              calories = (distance*50).toInt();
+                              return Text( calories.toString(),
+                              style: TextStyle(fontSize: 45)
+                                );
+                            }
+                            else
+                        {
+                          return Text("0",
+                          style: TextStyle(fontSize: 45));
+                        }
+                        }
+                      ,),
+                 
                   Text("Calories",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
                   )
