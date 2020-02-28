@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>57549387921-cns89n7vmcop290aqjmrff14q39cn6dk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.57549387921-cns89n7vmcop290aqjmrff14q39cn6dk</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDAy-PGOA8OWb4AicmxCOMa2YJoma6rWOM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>57549387921</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.rider.readRPM</string>
+	<key>PROJECT_ID</key>
+	<string>magic-counter-a3e15</string>
+	<key>STORAGE_BUCKET</key>
+	<string>magic-counter-a3e15.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:57549387921:ios:93e4062019df10c3972730</string>
+	<key>DATABASE_URL</key>
+	<string>https://magic-counter-a3e15.firebaseio.com</string>
+</dict>
+</plist>
