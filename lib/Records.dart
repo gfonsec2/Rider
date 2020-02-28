@@ -16,7 +16,7 @@ class _RecordsState extends State<Records> {
       children: <Widget>[
         Container(
           alignment: Alignment.centerLeft,
-          child: Text("Records",
+          child: Text("Profile",
             style: TextStyle(
               fontSize: 64,
               fontWeight: FontWeight.w500,
@@ -51,19 +51,22 @@ class _RecordsState extends State<Records> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         onTap: _onItemTapped,
         currentIndex: selectedIndex, // this will be set when a new tab is tapped
+        selectedItemColor: Color(0xffffcc00),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home,size:35,),
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.format_list_bulleted),
+            icon: Icon(Icons.account_circle,size:35,),
             title: Text('Records'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.settings,size:35,),
             title: Text('Settings')
           ),
         ],

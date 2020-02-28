@@ -53,10 +53,19 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Image.asset("assets/OriRider.png",
+                      // Container(
+                      //   decoration: BoxDecoration(
+                      //     color: Colors.white,
+                      //     borderRadius: BorderRadius.all(Radius.circular(150.0))
+                      //   ),
+                        Image.asset("assets/OriRider.png",
                         width: 200,
                         height: 200,
+                    
                         ),
+
+                      // ),
+                      
                       CircularProgressIndicator(),
                       Padding(
                         padding: EdgeInsets.only(top: 10.0),

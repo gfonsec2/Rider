@@ -61,7 +61,7 @@ class _TrialsState extends State<Trials> {
       child: ListView.builder(
         shrinkWrap: true,
         itemCount: name.length,
-        padding: EdgeInsets.all(0),
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
         itemBuilder: (BuildContext context, int index) {
         return
           GestureDetector(
