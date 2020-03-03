@@ -3,6 +3,7 @@ import 'Home.dart';
 import 'Settings.dart';
 import 'Records.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'timer_page.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
@@ -147,7 +148,6 @@ class _QuickStartState extends State<QuickStart> {
                       Container(
               child: Column(
                 children: <Widget>[
-                  //Mau, Insert int _calories
                   new StreamBuilder(
                       stream: databaseReferencePulses.onValue,
                       builder: (context, snap) {
@@ -164,7 +164,7 @@ class _QuickStartState extends State<QuickStart> {
                             else
                         {
                           return Text("0",
-                          style: TextStyle(fontSize: 20));
+                          style: TextStyle(fontSize: 45));
                         }
                         }
                       ,),
@@ -248,20 +248,21 @@ class _QuickStartState extends State<QuickStart> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Text("00:00.00",
-            style: TextStyle( fontSize: 80),
-            ),
-            Text("Elapsed Time",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
-            ),
-            OutlineButton(
-              highlightElevation: 20,
-              borderSide: BorderSide(
-                color: Colors.black
-              ),
-              child: Text("Start", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w300)),
-              onPressed: () {Navigator.pop(context);}
-            ),
+            // Text("00:00.00",
+            // style: TextStyle( fontSize: 80),
+            // ),
+            TimerPage(),
+            // Text("Elapsed Time",
+            //   style: TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
+            // ),
+            // OutlineButton(
+            //   highlightElevation: 20,
+            //   borderSide: BorderSide(
+            //     color: Colors.black
+            //   ),
+            //   child: Text("Start", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w300)),
+            //   onPressed: () {Navigator.pop(context);}
+            // ),
           ],
         ),
       ),

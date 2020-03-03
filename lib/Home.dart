@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Records.dart';
 import 'Settings.dart';
@@ -5,6 +6,8 @@ import 'QuickStart.dart';
 import 'Trials.dart';
 import 'Multiplayer.dart';
 import 'Singles.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+
 
 class Home extends StatefulWidget {
   final int selectedIndex;
@@ -229,13 +232,7 @@ class _HomeState extends State<Home> {
                               end: Alignment.bottomRight,
                               colors: [Color(0xffFFCC00), Color(0xffFF6666)])),
                           child: Center(
-                            child: Text("Q",
-                              style: TextStyle(
-                                fontSize: 64,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              )
-                            ),
+                            child: Icon(IconData(0xF3E6,fontFamily: CupertinoIcons.iconFont, fontPackage: CupertinoIcons.iconFontPackage), size: 75, color: Colors.white,),
                           ),
                         ),
                         SizedBox(width:20),
@@ -294,20 +291,14 @@ class _HomeState extends State<Home> {
                               end: Alignment.bottomRight,
                               colors: [Color(0xffFF6666), Color(0xff60CECE)])),
                           child: Center(
-                            child: Text("T",
-                              style: TextStyle(
-                                fontSize: 64,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              )
-                            ),
+                            child: Icon(Entypo.stopwatch, size: 65,color: Colors.white,)
                           ),
                         ),
                         SizedBox(width:20),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text("Time Trials",
+                            Text("Trials",
                               style: TextStyle(
                                 fontSize: 34,
                                 fontWeight: FontWeight.w200,
@@ -358,13 +349,14 @@ class _HomeState extends State<Home> {
                               end: Alignment.bottomRight,
                               colors: [Color(0xff60CECE), Color(0xff916DD5)])),
                           child: Center(
-                            child: Text("M",
-                              style: TextStyle(
-                                fontSize: 64,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              )
-                            ),
+                            child: Icon(Icons.people,size:65, color: Colors.white,),
+                            // child: Text("M",
+                            //   style: TextStyle(
+                            //     fontSize: 64,
+                            //     fontWeight: FontWeight.w600,
+                            //     color: Colors.white,
+                            //   )
+                            // ),
                           ),
                         ),
                         SizedBox(width:20),
@@ -423,13 +415,7 @@ class _HomeState extends State<Home> {
                               end: Alignment.bottomRight,
                               colors: [Color(0xff916DD5), Color(0xffFFCC00)])),
                           child: Center(
-                            child: Text("S",
-                              style: TextStyle(
-                                fontSize: 64,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              )
-                            ),
+                            child: Icon(Icons.person,size:65, color: Colors.white,),
                           ),
                         ),
                         SizedBox(width:20),
