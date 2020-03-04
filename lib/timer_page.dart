@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'Home.dart';
 
 class ElapsedTime {
   final int hundreds;
@@ -22,7 +23,7 @@ class Dependencies {
 }
 
 class TimerPage extends StatefulWidget {
-  TimerPage({Key key}) : super(key: key);
+  TimerPage({Key key,}) : super(key: key);
 
   TimerPageState createState() => new TimerPageState();
 }
@@ -30,93 +31,103 @@ class TimerPage extends StatefulWidget {
 class TimerPageState extends State<TimerPage> {
   final Dependencies dependencies = new Dependencies();
 
-  void leftButtonPressed() {
-    setState(() {
-      if (dependencies.stopwatch.isRunning) {
-        print("${dependencies.stopwatch.elapsedMilliseconds}");
-      } else {
-        dependencies.stopwatch.reset();
-      }
-    });
+  showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("Cancel",
+        style: TextStyle(
+          color: Colors.redAccent,
+          fontSize: 25,
+        )
+      ),
+      onPressed:  () => Navigator.pop(context)
+    );
+    Widget saveButton = FlatButton(
+      child: Text("Save",
+        style: TextStyle(
+          fontSize: 25,
+        )
+      ),
+      onPressed:  () {Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));},
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      title: Center(
+        child: Text("Save Workout",
+          style: TextStyle(
+            fontSize: 25,
+          )
+        ),
+      ),
+      content: Text("You are about to end the workout, would you like to save it?",
+        style: TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.w200
+        )
+      ),
+      //Text("You're about to exit the Quick Start session. Would you like to save session?"),
+      actions: [
+        cancelButton,
+        saveButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   void rightButtonPressed() {
     setState(() {
       if (dependencies.stopwatch.isRunning) {
         dependencies.stopwatch.stop();
+        showAlertDialog(context);
       } else {
         dependencies.stopwatch.start();
       }
     });
   }
 
-  // Widget buildFloatingButton(String text, VoidCallback callback) {
-  //   TextStyle roundTextStyle = const TextStyle(fontSize: 8.0, color: Colors.white);
-  //   return new FloatingActionButton(
-  //     child: new Text(text, style: roundTextStyle),
-  //     onPressed: callback);
-  // }
-
-  Widget buttons(String text, VoidCallback callback)
-  {
+  Widget buttons(String text, VoidCallback callback){
     return OutlineButton(
       highlightElevation: 20,
       borderSide: BorderSide(
-      color: Colors.black
+        color: Colors.black
       ),
-      child: new Text(text, style: TextStyle(fontSize: 25.0,fontWeight: FontWeight.w300, color: Colors.black)),
+      child: Text(text, style: TextStyle(fontSize: 25.0,fontWeight: FontWeight.w300, color: Colors.black)),
       onPressed: callback, 
-      );
+    );
   }
-  
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
-      children: <Widget>[
-        TimerText(dependencies: dependencies),
-        Text("Elapsed Time",
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w100),
+        children: <Widget>[
+          TimerText(dependencies: dependencies),
+          Text("Elapsed Time",
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w100),
           ),
           Padding(
             padding:EdgeInsets.fromLTRB(0, 20, 0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-              // buttons(dependencies.stopwatch.isRunning ? "Pause" : "Start", rightButtonPressed),
-              // button(dependencies.stopwatch.isRunning ? "Pause" : "Start", rightButtonPressed),
-              buttons("Reset", leftButtonPressed),
-              buttons(dependencies.stopwatch.isRunning ? "Pause" : "Start", rightButtonPressed),
+                buttons(dependencies.stopwatch.isRunning ? "End" : "Start", rightButtonPressed),
               ],
             ),
           )
-        
-
-        // buildFloatingButton(dependencies.stopwatch.isRunning ? "lap" : "reset", leftButtonPressed),
-        // buildFloatingButton(dependencies.stopwatch.isRunning ? "stop" : "start", rightButtonPressed),
-
-      ],
+        ],
       ),
     );
-    // return new Column(
-    //   crossAxisAlignment: CrossAxisAlignment.stretch,
-    //   children: <Widget>[
-    //     new Expanded(
-    //       child: new TimerText(dependencies: dependencies),
-    //     ),
-    //     new Expanded(
-    //       flex: 0,
-    //       child:  Row(
-    //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //           children: <Widget>[
-    //             buildFloatingButton(dependencies.stopwatch.isRunning ? "lap" : "reset", leftButtonPressed),
-    //             buildFloatingButton(dependencies.stopwatch.isRunning ? "stop" : "start", rightButtonPressed),
-    //           ],
-    //         ),
-    //     ),
-    //   ],
-    // );
   }
 }
 

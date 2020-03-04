@@ -7,7 +7,10 @@ import 'Trials.dart';
 import 'Multiplayer.dart';
 import 'Singles.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:firebase_database/firebase_database.dart';
 
+final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
+final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
 
 class Home extends StatefulWidget {
   final int selectedIndex;
@@ -75,7 +78,7 @@ class _HomeState extends State<Home> {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                      Text("12.9",
+                      Text("45.5",
                         style: TextStyle(
                           fontSize: 60,
                           fontWeight: FontWeight.w300,
@@ -207,7 +210,7 @@ class _HomeState extends State<Home> {
         children: <Widget>[
           GestureDetector(
             onTap: (){
-              Navigator.push(context,MaterialPageRoute(builder: (context) => QuickStart()));
+              Navigator.push(context,MaterialPageRoute(builder: (context) => QuickStart(mph: 0,distance: 0,calories: 0,)));
             },
             child: Card(
               shape: RoundedRectangleBorder(
@@ -461,8 +464,6 @@ class _HomeState extends State<Home> {
       }
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
