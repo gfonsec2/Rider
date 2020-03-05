@@ -140,32 +140,6 @@ class _QuickStartState extends State<QuickStart> {
               color: Colors.white,
               borderRadius: BorderRadius.all( Radius.circular(150.0)),
             ),
-<<<<<<< HEAD
-                      Container(
-              child: Column(
-                children: <Widget>[
-                  new StreamBuilder(
-                      stream: databaseReferencePulses.onValue,
-                      builder: (context, snap) {
-                            if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null)
-                            {
-                              DataSnapshot snapshot = snap.data.snapshot;
-                              var value = snapshot.value;
-                              distance = value.toInt()*50*3.14159/63360;
-
-                              return Text( distance.toStringAsFixed(2),
-                              style: TextStyle(fontSize: 45)
-                                );
-                            }
-                            else
-                        {
-                          return Text("0",
-                          style: TextStyle(fontSize: 45));
-                        }
-                        }
-                      ,),
-                  Text("Miles",
-=======
           ),
           Container(
             child: Column(
@@ -189,7 +163,6 @@ class _QuickStartState extends State<QuickStart> {
                   }
                 ),
                 Text("Miles",
->>>>>>> a81fb465277618e658c16d00b8c419f13089f7b8
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
                 )
               ],
