@@ -33,22 +33,28 @@ class TimerPageState extends State<TimerPage> {
 
   showAlertDialog(BuildContext context) {
     // set up the buttons
-    Widget cancelButton = FlatButton(
-      child: Text("Cancel",
-        style: TextStyle(
-          color: Colors.redAccent,
-          fontSize: 25,
+    Widget buttons = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        FlatButton(
+          child: Text("Cancel",
+            style: TextStyle(
+              color: Colors.redAccent,
+              fontSize: 25,
+            )
+          ),
+          onPressed:  () => Navigator.pop(context)
+        ),
+        FlatButton(
+          child: Text("Save",
+            style: TextStyle(
+              color: Color(0xff66CCCC),
+              fontSize: 25,
+            )
+          ),
+          onPressed:  () {Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));},
         )
-      ),
-      onPressed:  () => Navigator.pop(context)
-    );
-    Widget saveButton = FlatButton(
-      child: Text("Save",
-        style: TextStyle(
-          fontSize: 25,
-        )
-      ),
-      onPressed:  () {Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));},
+      ]
     );
 
     // set up the AlertDialog
@@ -63,17 +69,21 @@ class TimerPageState extends State<TimerPage> {
           )
         ),
       ),
-      content: Text("You are about to end the workout, would you like to save it?",
-        style: TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.w200
-        )
+      content: Container(
+        height: 140,
+        child: Column(
+          children: <Widget>[
+            Text("You are about to end the workout, would you like to save it?",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w200
+              )
+            ),
+            buttons,
+          ],
+        ),
       ),
       //Text("You're about to exit the Quick Start session. Would you like to save session?"),
-      actions: [
-        cancelButton,
-        saveButton,
-      ],
     );
 
     // show the dialog

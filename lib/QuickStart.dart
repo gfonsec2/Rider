@@ -24,24 +24,29 @@ class _QuickStartState extends State<QuickStart> {
 
   showAlertDialog(BuildContext context) {
     // set up the buttons
-    Widget cancelButton = FlatButton(
-      child: Text("Cancel",
-        style: TextStyle(
-          color: Colors.redAccent,
-          fontSize: 25,
+    Widget buttons = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        FlatButton(
+          child: Text("Cancel",
+            style: TextStyle(
+              color: Colors.redAccent,
+              fontSize: 25,
+            )
+          ),
+          onPressed:  () => Navigator.pop(context)
+        ),
+        FlatButton(
+          child: Text("OK",
+            style: TextStyle(
+              color: Color(0xff66CCCC),
+              fontSize: 25,
+            )
+          ),
+          onPressed:  () {Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));},
         )
-      ),
-      onPressed:  () => Navigator.pop(context)
+      ]
     );
-    Widget saveButton = FlatButton(
-      child: Text("OK",
-        style: TextStyle(
-          fontSize: 25,
-        )
-      ),
-      onPressed:  () {Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));},
-    );
-
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       shape: RoundedRectangleBorder(
@@ -54,17 +59,24 @@ class _QuickStartState extends State<QuickStart> {
           )
         ),
       ),
-      content: Text("You're about to exit Quick Start, press ok to go back.",
-        style: TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.w200
-        )
-      ),
+      content: Container(
+        height:130,
+        child: Column(
+          children: <Widget>[
+            Text("You're about to exit Quick Start, press ok to go back.",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w200
+              )
+            ),
+            Container(
+              height: 70,
+              child: buttons
+            )
+          ],
+        ),
+      )
       //Text("You're about to exit the Quick Start session. Would you like to save session?"),
-      actions: [
-        cancelButton,
-        saveButton,
-      ],
     );
 
     // show the dialog

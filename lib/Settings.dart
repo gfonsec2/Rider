@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Login.dart';
+import 'package:rider/main.dart';
 import 'Home.dart';
 import 'Records.dart';
 
@@ -12,6 +12,8 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   final int selectedIndex;
   _SettingsState({Key key, @required this.selectedIndex});
+  final List<String> entries = <String>['Change Password', 'Sign Out', 'About Us'];
+
   Widget _title(){
     return Column(
       children: <Widget>[
@@ -77,24 +79,39 @@ class _SettingsState extends State<Settings> {
         child: Column(
           children: <Widget>[
             _title(),
-            FlatButton(
-              onPressed:(){
-                Navigator.push(context,MaterialPageRoute(builder: (context) => LoginPage()));
-              },
-              child: new Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.0),
-                  color: Colors.blue[300],
-                ),
-                alignment: Alignment.center,
-                margin: const EdgeInsets.only(top: 10.0),
-                width: 500.0,
-                height: 40.0,
-                child: Text(
-                  "Logout",
-                  style: TextStyle(color: Colors.white, fontSize: 15),
-                ),
-              ),
+            Expanded(
+              child: ListView(
+                shrinkWrap: true,
+                padding: EdgeInsets.fromLTRB(8, 10, 8, 25),
+                children: <Widget>[
+                  Divider(thickness: 2),
+                  ListTile(
+                    leading: Icon(IconData(59543, fontFamily: 'MaterialIcons'),size: 35, color: Color(0xffffcc00)),
+                    title: Text(
+                      "Change Password",
+                      style: TextStyle(color: Colors.grey, fontSize: 20),
+                    ),
+                  ),
+                  Divider(thickness: 2),
+                  ListTile(
+                    leading: Icon(IconData(59534, fontFamily: 'MaterialIcons'), size: 35, color: Color(0xffffcc00)),
+                    title: Text(
+                      "About Us",
+                      style: TextStyle(color: Colors.grey, fontSize: 20),
+                    ),
+                  ),
+                  Divider(thickness: 2),
+                  ListTile(
+                    onTap: (){Navigator.push(context,MaterialPageRoute(builder: (context) => SplashScreen()));},
+                    leading: Icon(IconData(59513, fontFamily: 'MaterialIcons'), size: 35, color: Color(0xffffcc00)),
+                    title: Text(
+                      "Sign Out",
+                      style: TextStyle(color: Colors.grey, fontSize: 20),
+                    ),
+                  ),
+                  Divider(thickness: 2),
+                ]
+              )
             ),
           ],
         )
