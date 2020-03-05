@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'TrialStart.dart';
 import 'Home.dart';
-import 'Settings.dart';
-import 'Records.dart';
+import 'package:intl/intl.dart';
 
 class Trials extends StatefulWidget {
   @override
@@ -16,11 +16,12 @@ class _TrialsState extends State<Trials> {
   final List<int> colorCodes = <int>[600, 500, 100];
   final List<String> difficulty = <String>["Beginner","Beginner","Beginner","Intermediate","Intermediate","Intermediate","Advanced","Advanced","Advanced"];
   final List<Color> color = <Color>[Color(0xff85B684),Color(0xff85B684),Color(0xff85B684),Color(0xffFFCC00),Color(0xffFFCC00),Color(0xffFFCC00),Color(0xffFF6666),Color(0xffFF6666),Color(0xffFF6666)];
-  
+  DateTime now = DateTime.now();
+
   Widget _back(){
     return GestureDetector(
       onTap: (){
-        Navigator.pop(context);
+        Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));
       },
       child: Row(
         children: <Widget>[
@@ -45,7 +46,7 @@ class _TrialsState extends State<Trials> {
         ),
         Container(
           alignment: Alignment.centerLeft,
-          child: Text("Tuesday, February 25",
+          child: Text(DateFormat("EEEE, MMMM d").format(now),
               style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w500,
@@ -65,6 +66,9 @@ class _TrialsState extends State<Trials> {
         itemBuilder: (BuildContext context, int index) {
         return
           GestureDetector(
+            onTap: (){
+              Navigator.push(context,MaterialPageRoute(builder: (context) => TrialStart(title: "${time[index]} - minute ${name[index]}")));
+            },
             child: Card(
               shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.white70, width: 1),

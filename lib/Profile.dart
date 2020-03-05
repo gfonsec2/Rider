@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'Home.dart';
 import 'Settings.dart';
+import 'package:intl/intl.dart';
 
-class Records extends StatefulWidget {
+class Profile extends StatefulWidget {
   final int selectedIndex;
-  Records({Key key, @required this.selectedIndex}): super(key: key);
-  _RecordsState createState() => _RecordsState(selectedIndex: selectedIndex);
+  Profile({Key key, @required this.selectedIndex}): super(key: key);
+  _ProfileState createState() => _ProfileState(selectedIndex: selectedIndex);
 }
 
-class _RecordsState extends State<Records> {
+class _ProfileState extends State<Profile> {
+  DateTime now = DateTime.now();
   final int selectedIndex;
-  _RecordsState({Key key, @required this.selectedIndex});
+  _ProfileState({Key key, @required this.selectedIndex});
+  
   Widget _title(){
     return Column(
       children: <Widget>[
@@ -25,7 +28,7 @@ class _RecordsState extends State<Records> {
         ),
         Container(
           alignment: Alignment.centerLeft,
-          child: Text("Tuesday, February 25",
+          child: Text(DateFormat("EEEE, MMMM d").format(now),
               style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w500,
@@ -63,7 +66,7 @@ class _RecordsState extends State<Records> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle,size:35,),
-            title: Text('Records'),
+            title: Text('Profile'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings,size:35,),
