@@ -1,22 +1,97 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'timer_page.dart';
+import 'Home.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
-double mph;
-double distance =0;
 
 class QuickStart extends StatefulWidget {
+  final double mph;
+  final double distance;
+  final int calories;
+
+  QuickStart({Key key, @required this.mph, this.distance,this.calories}): super(key: key);
   @override
-  _QuickStartState createState() => _QuickStartState();
+  _QuickStartState createState() => _QuickStartState(mph: mph, distance: distance,calories: calories);
 }
 
 class _QuickStartState extends State<QuickStart> {
+  double mph=0;
+  double distance=0;
+  int calories=0;
+  _QuickStartState({Key key, @required this.mph, this.distance, this.calories});
+
+  showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget buttons = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        FlatButton(
+          child: Text("Cancel",
+            style: TextStyle(
+              color: Colors.redAccent,
+              fontSize: 25,
+            )
+          ),
+          onPressed:  () => Navigator.pop(context)
+        ),
+        FlatButton(
+          child: Text("OK",
+            style: TextStyle(
+              color: Color(0xff66CCCC),
+              fontSize: 25,
+            )
+          ),
+          onPressed:  () {Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));},
+        )
+      ]
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      title: Center(
+        child: Text("Navigate Home",
+          style: TextStyle(
+            fontSize: 25,
+          )
+        ),
+      ),
+      content: Container(
+        height:130,
+        child: Column(
+          children: <Widget>[
+            Text("You're about to exit Quick Start, press ok to go back.",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w200
+              )
+            ),
+            Container(
+              height: 70,
+              child: buttons
+            )
+          ],
+        ),
+      )
+      //Text("You're about to exit the Quick Start session. Would you like to save session?"),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   Widget _back(){
     return GestureDetector(
       onTap: (){
-        Navigator.pop(context);
+        showAlertDialog(context);
       },
       child: Row(
         children: <Widget>[
@@ -100,7 +175,9 @@ class _QuickStartState extends State<QuickStart> {
                       );
                     }
                     else{
-                      return Text("i am not reading");
+                      return Text("0",
+                        style: TextStyle(fontSize: 80)
+                      );
                     }
                   }
                 ),
@@ -242,21 +319,7 @@ class _QuickStartState extends State<QuickStart> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            // Text("00:00.00",
-            // style: TextStyle( fontSize: 80),
-            // ),
-            TimerPage(),
-            // Text("Elapsed Time",
-            //   style: TextStyle(fontSize: 22, fontWeight: FontWeight.w200),
-            // ),
-            // OutlineButton(
-            //   highlightElevation: 20,
-            //   borderSide: BorderSide(
-            //     color: Colors.black
-            //   ),
-            //   child: Text("Start", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w300)),
-            //   onPressed: () {Navigator.pop(context);}
-            // ),
+            TimerPage()
           ],
         ),
       ),
@@ -276,7 +339,7 @@ class _QuickStartState extends State<QuickStart> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 _mph(),
-                  Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     _dist(),

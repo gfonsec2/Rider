@@ -7,7 +7,10 @@ import 'Trials.dart';
 import 'Multiplayer.dart';
 import 'Singles.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:firebase_database/firebase_database.dart';
 
+final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
+final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
 
 class Home extends StatefulWidget {
   final int selectedIndex;
@@ -45,6 +48,9 @@ class _HomeState extends State<Home> {
   }
 
   Widget _prevWorkout(){
+    double avg;
+    double miles;
+    int calories;
     return Column(
       children: <Widget>[
         Container(
@@ -75,12 +81,28 @@ class _HomeState extends State<Home> {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                      Text("12.9",
-                        style: TextStyle(
-                          fontSize: 60,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black,
-                        )
+                      StreamBuilder(
+                        stream: databaseReference.onValue,
+                        builder: (context, snap) {
+                          if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
+                            DataSnapshot snapshot = snap.data.snapshot;
+                            var value = snapshot.value;
+                            avg = double.parse(value.toString());
+                            avg = (avg * 50 * 3.14159 *60/63360); //Diameter of Assault bike fan is 50 in.
+                            return Text( avg.toInt().toString(),
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black,
+                              )
+                            );
+                          }
+                          else{
+                            return Text("0.0",
+                              style: TextStyle(fontSize: 60)
+                            );
+                          }
+                        }
                       ),
                       SizedBox(width:10),
                       Column(
@@ -93,7 +115,7 @@ class _HomeState extends State<Home> {
                               color: Colors.black,
                             )
                           ),
-                          Text("SPEED",
+                          Text("MPH",
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w300,
@@ -109,12 +131,27 @@ class _HomeState extends State<Home> {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                      Text("1.56",
-                        style: TextStyle(
-                          fontSize: 60,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black,
-                        )
+                      StreamBuilder(
+                        stream: databaseReferencePulses.onValue,
+                        builder: (context, snap) {
+                          if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
+                            DataSnapshot snapshot = snap.data.snapshot;
+                            var value = snapshot.value;
+                            miles = value.toInt()*50*3.14159/63360;
+                            return Text(
+                              miles.toStringAsFixed(1),
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black,
+                              )
+                            );
+                          }
+                          else{
+                            return Text("0.0",
+                            style: TextStyle(fontSize: 60));
+                          }
+                        }
                       ),
                       SizedBox(width:10),
                       Column(
@@ -143,12 +180,28 @@ class _HomeState extends State<Home> {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                      Text("173",
-                        style: TextStyle(
-                          fontSize: 60,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black,
-                        )
+                      StreamBuilder(
+                        stream: databaseReferencePulses.onValue,
+                        builder: (context, snap) {
+                          if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
+                            DataSnapshot snapshot = snap.data.snapshot;
+                            var value = snapshot.value;
+                            miles = value.toInt()*50*3.14159/63360;
+                            calories = (miles*50).toInt();
+                            return Text(calories.toString(),
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.black,
+                              )
+                            );
+                          }
+                          else{
+                            return Text("0.0",
+                              style: TextStyle(fontSize: 60)
+                            );
+                          }
+                        }
                       ),
                       SizedBox(width:10),
                       Column(
@@ -207,7 +260,7 @@ class _HomeState extends State<Home> {
         children: <Widget>[
           GestureDetector(
             onTap: (){
-              Navigator.push(context,MaterialPageRoute(builder: (context) => QuickStart()));
+              Navigator.push(context,MaterialPageRoute(builder: (context) => QuickStart(mph: 0,distance: 0,calories: 0,)));
             },
             child: Card(
               shape: RoundedRectangleBorder(
@@ -461,8 +514,6 @@ class _HomeState extends State<Home> {
       }
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {

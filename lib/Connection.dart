@@ -26,7 +26,7 @@ class ConnectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffe60CECE),
+      backgroundColor: Color(0xffffcc00),
       body: Container(
           alignment: Alignment.topCenter,
           child: Column(
