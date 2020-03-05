@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'Home.dart';
 
 class ConnectionPage extends StatelessWidget {
-  
+  ConnectionPage({Key key, this.user}) : super(key: key);
+  final FirebaseUser user;
+
   final text = RichText(
       textAlign: TextAlign.center,
       text: TextSpan(

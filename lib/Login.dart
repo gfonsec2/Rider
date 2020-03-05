@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'Signup.dart';
 import 'Connection.dart';
 
 class LoginPage extends StatelessWidget {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String _email, _password;
   @override
   Widget _userIDEditContainer() {
     return new Container(
-      child: new TextField(
+      child: new TextFormField(
+         validator: (input) {
+          if(input.isEmpty){
+            return 'Provide an email';
+          }
+            },
+            onSaved: (input) => _email = input,
         // controller: _userId,
         decoration: new InputDecoration(
             hintText: 'Email',
@@ -22,7 +31,13 @@ class LoginPage extends StatelessWidget {
   Widget _passwordEditContainer() {
     return new Container(
       padding: const EdgeInsets.only(top: 5.0),
-      child: new TextField(
+      child: new TextFormField(
+         validator: (input) {
+          if(input.isEmpty){
+            return 'Provide a password';
+          }
+            },
+            onSaved: (input) => _password = input,
         // controller: _password,
         obscureText: true,
         decoration: new InputDecoration(
@@ -40,7 +55,7 @@ class LoginPage extends StatelessWidget {
   Widget _loginContainer(context) {
     return FlatButton(
       onPressed:(){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => ConnectionPage()));
+       signIn(context);
       },
       child: new Container(
         decoration: BoxDecoration(
@@ -61,116 +76,132 @@ class LoginPage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
+        body: Form(
+          key: _formKey,
+      child: Container(
       alignment: Alignment.topCenter,
       padding: const EdgeInsets.all(30.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-              padding: const EdgeInsets.only(top: 25.0, bottom: 15.0),
-              child: Image.asset(
-                "assets/OriRider.png",
-                width: 225,
-                height: 225,
-              )),
-          _userIDEditContainer(),
-          SizedBox(
-            height: 12,
-          ),
-          _passwordEditContainer(),
-          SizedBox(
-            height: 12,
-          ),
-          _loginContainer(context),
-          SizedBox(
-            height: 12,
-          ),
-          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                'Forgot your login details?',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey,
-                ),
+              Padding(
+          padding: const EdgeInsets.only(top: 25.0, bottom: 15.0),
+          child: Image.asset(
+            "assets/OriRider.png",
+            width: 225,
+            height: 225,
+          )),
+              _userIDEditContainer(),
+              SizedBox(
+      height: 12,
               ),
-              FlatButton(
-                onPressed: () {},
-                child: Text(
-                  'Get help signing in.',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.grey,
-                  ),
-                ),
-              )
-            ],
+              _passwordEditContainer(),
+              SizedBox(
+      height: 12,
+              ),
+              _loginContainer(context),
+              SizedBox(
+      height: 12,
+              ),
+              Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+          Text(
+            'Forgot your login details?',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.grey,
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                height: 1.0,
-                width: MediaQuery.of(context).size.width / 2.7,
+          FlatButton(
+            onPressed: () {},
+            child: Text(
+              'Get help signing in.',
+              style: TextStyle(
+                fontSize: 15,
                 color: Colors.grey,
               ),
-              Text(
-                ' OR ',
-                style: new TextStyle(color: Colors.grey),
+            ),
+          )
+      ],
               ),
-              Container(
-                height: 1.0,
-                width: MediaQuery.of(context).size.width / 2.7,
-                color: Colors.grey,
-              ),
-            ],
+              Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+          Container(
+            height: 1.0,
+            width: MediaQuery.of(context).size.width / 2.7,
+            color: Colors.grey,
+          ),
+          Text(
+            ' OR ',
+            style: new TextStyle(color: Colors.grey),
           ),
           Container(
-              alignment: Alignment.center,
-              // height: 50.0,
-              child: Column(
-                children: <Widget>[
-                  Column(
+            height: 1.0,
+            width: MediaQuery.of(context).size.width / 2.7,
+            color: Colors.grey,
+          ),
+      ],
+              ),
+              Container(
+          alignment: Alignment.center,
+          // height: 50.0,
+          child: Column(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 17.5),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(top: 17.5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              'Dont have an account?',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            FlatButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => SignUpPage()));
-                              },
-                              child: Text(
-                                'Sign up',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            )
-                          ],
+                      Text(
+                        'Dont have an account?',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignUpPage()));
+                        },
+                        child: Text(
+                          'Sign up',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.grey,
+                          ),
                         ),
                       )
                     ],
-                  )
-                ],
-              )),
-        ],
-      ),
-    ));
+                  ),
+                )
+              ],
+            )
+          ],
+            ),),
+            ],
+          ),
+    ),
+        ));
+  }
+  void signIn(context) async {
+    if(_formKey.currentState.validate()){
+      _formKey.currentState.save();
+      try{
+        AuthResult result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+        FirebaseUser user = result.user;
+        print("i am here");
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ConnectionPage(user: user)));
+      }catch(e){
+        print(e.message);
+      }
+    }
   }
 }
