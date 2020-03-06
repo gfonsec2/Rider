@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rider/main.dart';
 import 'Home.dart';
-import 'Records.dart';
+import 'Profile.dart';
+import 'package:intl/intl.dart';
 
 class Settings extends StatefulWidget {
   final int selectedIndex;
@@ -10,6 +11,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  DateTime now = DateTime.now();
   final int selectedIndex;
   _SettingsState({Key key, @required this.selectedIndex});
   final List<String> entries = <String>['Change Password', 'Sign Out', 'About Us'];
@@ -28,7 +30,7 @@ class _SettingsState extends State<Settings> {
         ),
         Container(
           alignment: Alignment.centerLeft,
-          child: Text("Tuesday, February 25",
+          child: Text(DateFormat("EEEE, MMMM d").format(now),
               style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w500,
@@ -45,7 +47,7 @@ class _SettingsState extends State<Settings> {
         Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));
       }
       if(index == 1){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => Records(selectedIndex: 1)));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => Profile(selectedIndex: 1)));
       }
     });
   }

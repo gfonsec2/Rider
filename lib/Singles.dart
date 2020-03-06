@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Home.dart';
-import 'Settings.dart';
-import 'Records.dart';
+import 'package:intl/intl.dart';
 
 class Singles extends StatefulWidget {
   @override
@@ -9,6 +7,8 @@ class Singles extends StatefulWidget {
 }
 
 class _SinglesState extends State<Singles> {
+  DateTime now = DateTime.now();
+  
   Widget _back(){
     return GestureDetector(
       onTap: (){
@@ -37,7 +37,7 @@ class _SinglesState extends State<Singles> {
         ),
         Container(
           alignment: Alignment.centerLeft,
-          child: Text("Tuesday, February 25",
+          child: Text(DateFormat("EEEE, MMMM d").format(now),
               style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w500,

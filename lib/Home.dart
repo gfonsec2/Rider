@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Records.dart';
+import 'Profile.dart';
 import 'Settings.dart';
 import 'QuickStart.dart';
 import 'Trials.dart';
@@ -8,6 +8,7 @@ import 'Multiplayer.dart';
 import 'Singles.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:intl/intl.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
@@ -20,8 +21,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  DateTime now = DateTime.now();
   int selectedIndex;
   _HomeState({Key key, @required this.selectedIndex});
+  
   Widget _title(){
     return Column(
       children: <Widget>[
@@ -36,7 +39,7 @@ class _HomeState extends State<Home> {
         ),
         Container(
           alignment: Alignment.centerLeft,
-          child: Text("Tuesday, February 25",
+          child: Text(DateFormat("EEEE, MMMM d").format(now),
               style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w500,
@@ -507,7 +510,7 @@ class _HomeState extends State<Home> {
   void _onItemTapped(int index) {
     setState(() {
       if(index == 1){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => Records(selectedIndex: 1)));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => Profile(selectedIndex: 1)));
       }
       if(index == 2){
         Navigator.push(context,MaterialPageRoute(builder: (context) => Settings(selectedIndex: 2)));

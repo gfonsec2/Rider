@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'timer_page.dart';
-import 'Home.dart';
+import 'Trials.dart';
 import 'package:intl/intl.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
 
-class QuickStart extends StatefulWidget {
-  final double mph;
-  final double distance;
-  final int calories;
+class TrialStart extends StatefulWidget {
+  final String title;
 
-  QuickStart({Key key, @required this.mph, this.distance,this.calories}): super(key: key);
+  TrialStart({Key key, @required this.title}): super(key: key);
   @override
-  _QuickStartState createState() => _QuickStartState(mph: mph, distance: distance,calories: calories);
+  _TrialStartState createState() => _TrialStartState(title: title);
 }
 
-class _QuickStartState extends State<QuickStart> {
-  double mph=0;
+class _TrialStartState extends State<TrialStart> {
+  String title;
+  double mph =0;
   double distance=0;
   int calories=0;
   DateTime now = DateTime.now();
-  _QuickStartState({Key key, @required this.mph, this.distance, this.calories});
+  _TrialStartState({Key key, @required this.title, this.distance, this.calories});
 
   showAlertDialog(BuildContext context) {
     // set up the buttons
@@ -45,7 +44,7 @@ class _QuickStartState extends State<QuickStart> {
               fontSize: 25,
             )
           ),
-          onPressed:  () {Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));},
+          onPressed:  () {Navigator.push(context,MaterialPageRoute(builder: (context) => Trials()));},
         )
       ]
     );
@@ -55,17 +54,17 @@ class _QuickStartState extends State<QuickStart> {
         borderRadius: BorderRadius.circular(20),
       ),
       title: Center(
-        child: Text("Navigate Home",
+        child: Text("Back to Trial Select",
           style: TextStyle(
             fontSize: 25,
           )
         ),
       ),
       content: Container(
-        height:130,
+        height:110,
         child: Column(
           children: <Widget>[
-            Text("You're about to exit Quick Start, press ok to go back.",
+            Text("Would you like to stop your session?",
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w200
@@ -108,9 +107,18 @@ class _QuickStartState extends State<QuickStart> {
       children: <Widget>[
         Container(
           alignment: Alignment.centerLeft,
-          child: Text("Quick Start",
+          child: Text("Trial:",
             style: TextStyle(
               fontSize: 64,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+            )),
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Text(title,
+            style: TextStyle(
+              fontSize: 25,
               fontWeight: FontWeight.w500,
               color: Colors.black,
             )),
