@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rider/newHome.dart';
 import 'TrialStart.dart';
 import 'Home.dart';
 import 'package:intl/intl.dart';
@@ -21,7 +22,7 @@ class _TrialsState extends State<Trials> {
   Widget _back(){
     return GestureDetector(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));
+        Navigator.pop(context);
       },
       child: Row(
         children: <Widget>[

@@ -3,13 +3,13 @@ import 'Connection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'auth.dart';
+
 class SignUpPage extends StatelessWidget {
      final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
       String _email, _password;
       String name ="", username="";
       final databaseReference = Firestore.instance;
-
-  BuildContext get context => null;
 
   @override
   Widget _userIDEditContainer() {
@@ -234,7 +234,24 @@ class SignUpPage extends StatelessWidget {
   {
     Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ConnectionPage()));
   }
-     void signUp(context) async {
+  void signUp(context) async {
+    if(_formKey.currentState.validate()){
+      _formKey.currentState.save();
+      try{
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password);
+       AuthService auth1 = AuthService();
+      var u =  await auth1.anonLogin(_email, _password);
+        auth1.createUserData(u,name, username);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ConnectionPage()));
+
+      }catch(e){
+        print(e.message);
+      }
+    }
+  }
+
+
+     /*void signUp(context) async {
     if(_formKey.currentState.validate()){
       _formKey.currentState.save();
       
@@ -248,7 +265,7 @@ class SignUpPage extends StatelessWidget {
         print(e.message);
       }
     }
-  }
+  }*/
 
   void createRecord(String user, String name,String username) async {
 

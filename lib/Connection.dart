@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rider/newHome.dart';
 import 'Home.dart';
+import 'newHome.dart';
 
 class ConnectionPage extends StatelessWidget {
-  ConnectionPage({Key key, this.user}) : super(key: key);
-  final FirebaseUser user;
+  ConnectionPage({Key key}) : super(key: key);
+ 
 
   final text = RichText(
       textAlign: TextAlign.center,
@@ -46,7 +48,7 @@ class ConnectionPage extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.center,
                   child: FloatingActionButton(onPressed:(){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyTabbedPage()));
                   })
                 ),
               ),

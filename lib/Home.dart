@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rider/auth.dart';
 import 'Profile.dart';
 import 'Settings.dart';
 import 'QuickStart.dart';
@@ -9,22 +13,29 @@ import 'Singles.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
+import 'auth.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
-
+double miles;
 class Home extends StatefulWidget {
-  final int selectedIndex;
-  Home({Key key, @required this.selectedIndex}): super(key: key);
+  
+  Home({Key key,}): super(key: key);
   @override
-  _HomeState createState() => _HomeState(selectedIndex: selectedIndex);
+  _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+
   DateTime now = DateTime.now();
-  int selectedIndex;
-  _HomeState({Key key, @required this.selectedIndex});
+  //int selectedIndex;
+  _HomeState({Key key, });
   
+void foo(FirebaseUser userid) async {
+   double miles = await getMiles(userid);
+   print(miles);
+}
+
   Widget _title(){
     return Column(
       children: <Widget>[
@@ -51,8 +62,10 @@ class _HomeState extends State<Home> {
   }
 
   Widget _prevWorkout(){
+     FirebaseUser user = Provider.of<FirebaseUser>(context);
+     foo(user);
     double avg;
-    double miles;
+   // double miles;
     int calories;
     return Column(
       children: <Widget>[
@@ -84,29 +97,14 @@ class _HomeState extends State<Home> {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                      StreamBuilder(
-                        stream: databaseReference.onValue,
-                        builder: (context, snap) {
-                          if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
-                            DataSnapshot snapshot = snap.data.snapshot;
-                            var value = snapshot.value;
-                            avg = double.parse(value.toString());
-                            avg = (avg * 50 * 3.14159 *60/63360); //Diameter of Assault bike fan is 50 in.
-                            return Text( avg.toInt().toString(),
-                              style: TextStyle(
-                                fontSize: 60,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black,
-                              )
-                            );
-                          }
-                          else{
-                            return Text("0.0",
-                              style: TextStyle(fontSize: 60)
-                            );
-                          }
-                        }
+                      FutureBuilder(
+                        future: Firestore.instance.collection('users').document(user.uid).get(),
+                        builder: (BuildContext context, AsyncSnapshot snapshot) {
+                          return Text(snapshot.data["totalMiles"].toString())??Text("nothing");
+                        },
                       ),
+                    //  Text(miles.toString()),
+
                       SizedBox(width:10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,27 +132,11 @@ class _HomeState extends State<Home> {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                      StreamBuilder(
-                        stream: databaseReferencePulses.onValue,
-                        builder: (context, snap) {
-                          if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
-                            DataSnapshot snapshot = snap.data.snapshot;
-                            var value = snapshot.value;
-                            miles = value.toInt()*50*3.14159/63360;
-                            return Text(
-                              miles.toStringAsFixed(1),
-                              style: TextStyle(
-                                fontSize: 60,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black,
-                              )
-                            );
-                          }
-                          else{
-                            return Text("0.0",
-                            style: TextStyle(fontSize: 60));
-                          }
-                        }
+                      FutureBuilder(
+                        future: Firestore.instance.collection('users').document(user.uid).get(),
+                        builder: (BuildContext context, AsyncSnapshot snapshot) {
+                          return Text(snapshot.data["avgMph"].toString())??Text("nothing");
+                        },
                       ),
                       SizedBox(width:10),
                       Column(
@@ -183,28 +165,12 @@ class _HomeState extends State<Home> {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                      StreamBuilder(
-                        stream: databaseReferencePulses.onValue,
-                        builder: (context, snap) {
-                          if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
-                            DataSnapshot snapshot = snap.data.snapshot;
-                            var value = snapshot.value;
-                            miles = value.toInt()*50*3.14159/63360;
-                            calories = (miles*50).toInt();
-                            return Text(calories.toString(),
-                              style: TextStyle(
-                                fontSize: 60,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black,
-                              )
-                            );
-                          }
-                          else{
-                            return Text("0.0",
-                              style: TextStyle(fontSize: 60)
-                            );
-                          }
-                        }
+                    //  Text(getMiles(user).toString()),
+                      FutureBuilder(
+                        future: Firestore.instance.collection('users').document(user.uid).get(),
+                        builder: (BuildContext context, AsyncSnapshot snapshot) {
+                          return Text(snapshot.data["totalCalories"].toString())??Text("nothing");
+                        },
                       ),
                       SizedBox(width:10),
                       Column(
@@ -507,19 +473,28 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      if(index == 1){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => Profile(selectedIndex: 1)));
-      }
-      if(index == 2){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => Settings(selectedIndex: 2)));
-      }
-    });
+  @override
+   @override
+  Widget build(BuildContext context) {
+  
+    FirebaseUser user = Provider.of<FirebaseUser>(context);
+    return Container(
+        margin: EdgeInsets.fromLTRB(15, 40, 15, 0),
+        child: Column(
+          children: <Widget>[
+            _title(),
+            _prevWorkout(),
+            _menuHeader(),
+            _menu()
+          ],
+        )
+      );
   }
 
-  @override
-  Widget build(BuildContext context) {
+
+  
+  /*Widget build(BuildContext context) {
+    FirebaseUser user = Provider.of<FirebaseUser>(context);
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
@@ -554,5 +529,5 @@ class _HomeState extends State<Home> {
         )
       ),
     );
-  }
+  }*/
 }

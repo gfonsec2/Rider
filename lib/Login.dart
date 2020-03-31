@@ -6,11 +6,12 @@ import 'Connection.dart';
 class LoginPage extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _email, _password;
-  @override
+
   Widget _userIDEditContainer() {
     return new Container(
       child: new TextFormField(
-         validator: (input) {
+         validator: (input)
+         {
           if(input.isEmpty){
             return 'Provide an email';
           }
@@ -198,7 +199,7 @@ class LoginPage extends StatelessWidget {
         AuthResult result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
         FirebaseUser user = result.user;
         print("i am here");
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ConnectionPage(user: user)));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ConnectionPage()));
       }catch(e){
         print(e.message);
       }
