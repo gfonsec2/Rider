@@ -97,12 +97,12 @@ void foo(FirebaseUser userid) async {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                      FutureBuilder(
+                     /* FutureBuilder(
                         future: Firestore.instance.collection('users').document(user.uid).get(),
                         builder: (BuildContext context, AsyncSnapshot snapshot) {
                           return Text(snapshot.data["totalMiles"].toString())??Text("nothing");
                         },
-                      ),
+                      ),*/
                     //  Text(miles.toString()),
 
                       SizedBox(width:10),
@@ -132,12 +132,12 @@ void foo(FirebaseUser userid) async {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                      FutureBuilder(
+                     /* FutureBuilder(
                         future: Firestore.instance.collection('users').document(user.uid).get(),
                         builder: (BuildContext context, AsyncSnapshot snapshot) {
                           return Text(snapshot.data["avgMph"].toString())??Text("nothing");
                         },
-                      ),
+                      ),*/
                       SizedBox(width:10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,12 +166,12 @@ void foo(FirebaseUser userid) async {
                   child: Row(
                     children: <Widget>[
                     //  Text(getMiles(user).toString()),
-                      FutureBuilder(
+                     /* FutureBuilder(
                         future: Firestore.instance.collection('users').document(user.uid).get(),
                         builder: (BuildContext context, AsyncSnapshot snapshot) {
                           return Text(snapshot.data["totalCalories"].toString())??Text("nothing");
                         },
-                      ),
+                      ),*/
                       SizedBox(width:10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

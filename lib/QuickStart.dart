@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:provider/provider.dart';
+import 'package:rider/auth.dart';
 import 'timer_page.dart';
 import 'Home.dart';
 import 'package:intl/intl.dart';
@@ -23,9 +26,19 @@ class _QuickStartState extends State<QuickStart> {
   int calories=0;
   DateTime now = DateTime.now();
   _QuickStartState({Key key, @required this.mph, this.distance, this.calories});
+  
+  void quit(FirebaseUser user, double timeDone, int caloriesDone, double milesDone)
+  {
+    print(timeDone);
+    print(caloriesDone);
+    print(milesDone);
+    updateUserData(user, timeDone, caloriesDone, milesDone);
+    Navigator.of(context).popUntil((route) => route.isFirst);
+  }
 
-  showAlertDialog(BuildContext context) {
+  showAlertDialog(BuildContext context, FirebaseUser user) {
     // set up the buttons
+    //FirebaseUser user = Provider.of<FirebaseUser>(context);
     Widget buttons = Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
@@ -45,7 +58,8 @@ class _QuickStartState extends State<QuickStart> {
               fontSize: 25,
             )
           ),
-          onPressed:  () {Navigator.of(context).popUntil((route) => route.isFirst);},
+          onPressed:  () {quit(user, mph, calories, distance);},
+
         )
       ]
     );
@@ -89,10 +103,10 @@ class _QuickStartState extends State<QuickStart> {
     );
   }
 
-  Widget _back(){
+  Widget _back(FirebaseUser user){
     return GestureDetector(
       onTap: (){
-        showAlertDialog(context);
+        showAlertDialog(context, user);
       },
       child: Row(
         children: <Widget>[
@@ -329,12 +343,13 @@ class _QuickStartState extends State<QuickStart> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseUser user = Provider.of<FirebaseUser>(context);
     return Scaffold(
       body: Container(
         margin: EdgeInsets.fromLTRB(15, 40, 15, 0),
         child: Column(
           children: <Widget>[
-            _back(),
+            _back(user),
             _title(),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

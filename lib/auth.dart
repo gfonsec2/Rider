@@ -44,10 +44,10 @@ class AuthService {
 
 }
 
- Future<void> updateUserData(FirebaseUser user, double timeDone, double totalTime, double caloriesDone, 
-  double doneMiles, double milesDone) async {
+ Future<void> updateUserData(FirebaseUser user, double timeDone, int caloriesDone,  double milesDone) async {
     DocumentReference reportRef = Firestore.instance.collection('users').document(user.uid);
-    double miles,time,calories;
+    double miles,time;
+    int calories;
     var snapshot = await reportRef.get();
 
     miles = snapshot['totalMiles'];
@@ -55,11 +55,11 @@ class AuthService {
     calories = snapshot['totalCalories'];
 
     print(miles);
-     print(calories);
-      print(time);
-    return reportRef.setData({
-      'uid': user.uid,
-      'email': user.email,
+    print(calories);
+    print(time);
+
+
+    return reportRef.setData({  
       'totalMiles': (miles + milesDone),
       'avgMph': (miles + milesDone) / (time + timeDone),
       'totalCalories': (calories + caloriesDone),
