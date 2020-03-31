@@ -25,6 +25,8 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
     _tabController = TabController(vsync: this, length: myTabs.length);
   }
 
+
+
  @override
  void dispose() {
    _tabController.dispose();
@@ -36,22 +38,32 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
     return DefaultTabController(
         length: 3,
           child: Scaffold(
-            body: TabBarView(children: [
-              Home(),
-              Profile(),
-              Settings()
-
-            ]),
-            bottomNavigationBar: TabBar(tabs: 
-            [
-              Tab(icon: Icon(Icons.home,size:35,),
-            child: Text('Home'),),
-              Tab(icon: Icon(Icons.account_circle,size:35,),
-            child: Text('Records')),
-              Tab(icon: Icon(Icons.settings,size:35,),
-            child: Text('Settings'))
-            ],
-            labelColor: Colors.black 
+            body:  TabBarView(
+                children: [
+                Home(),
+                Profile(),
+                Settings()
+              ]
+              ),
+            bottomNavigationBar: 
+            Container(
+              height: 95.0,
+              child: TabBar(
+                // controller: _tabController,
+                indicatorColor: Colors.white,
+                labelColor: Colors.yellow,
+                unselectedLabelColor: Colors.grey,
+                tabs: 
+              [
+                Tab(icon: Icon(Icons.home,size:40, ),
+              ),
+                Tab(icon: Icon(Icons.account_circle,size:40,),
+              ),
+                Tab(icon: Icon(Icons.settings,size:40,),
+              )
+              ],
+              // labelColor: Colors.grey 
+              ),
             ),
        
         
