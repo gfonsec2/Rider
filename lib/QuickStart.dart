@@ -45,7 +45,7 @@ class _QuickStartState extends State<QuickStart> {
               fontSize: 25,
             )
           ),
-          onPressed:  () {Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));},
+          onPressed:  () {Navigator.of(context).popUntil((route) => route.isFirst);},
         )
       ]
     );

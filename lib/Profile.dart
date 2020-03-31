@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:rider/newHome.dart';
 import 'Home.dart';
 import 'Settings.dart';
 import 'package:intl/intl.dart';
 
 class Profile extends StatefulWidget {
-  final int selectedIndex;
-  Profile({Key key, @required this.selectedIndex}): super(key: key);
-  _ProfileState createState() => _ProfileState(selectedIndex: selectedIndex);
+  Profile({Key key}): super(key: key);
+  _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
   DateTime now = DateTime.now();
-  final int selectedIndex;
-  _ProfileState({Key key, @required this.selectedIndex});
+
+  _ProfileState({Key key});
   
   Widget _title(){
     return Column(
@@ -38,11 +38,24 @@ class _ProfileState extends State<Profile> {
       ]
     );
   }
-
+   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        margin: EdgeInsets.fromLTRB(30, 40, 30, 30),
+        child: Column(
+          children: <Widget>[
+            _title(),
+          ],
+        )
+      ),
+    );
+  }
+/*
   void _onItemTapped(int index) {
     setState(() {
       if(index == 0){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => MyTabbedPage()));
       }
       if(index == 2){
         Navigator.push(context,MaterialPageRoute(builder: (context) => Settings(selectedIndex: 2)));
@@ -83,5 +96,5 @@ class _ProfileState extends State<Profile> {
         )
       ),
     );
-  }
+  }*/
 }

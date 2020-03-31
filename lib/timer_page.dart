@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rider/newHome.dart';
 import 'dart:async';
 import 'Home.dart';
 
@@ -52,7 +53,7 @@ class TimerPageState extends State<TimerPage> {
               fontSize: 25,
             )
           ),
-          onPressed:  () {Navigator.push(context,MaterialPageRoute(builder: (context) => Home(selectedIndex: 0)));},
+          onPressed:  () {Navigator.push(context,MaterialPageRoute(builder: (context) => MyTabbedPage()));},
         )
       ]
     );
