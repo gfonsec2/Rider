@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rider/AboutUs.dart';
+import 'package:rider/ChangePassword.dart';
 import 'package:rider/newHome.dart';
 import 'Home.dart';
 import 'Profile.dart';
@@ -57,6 +59,7 @@ class _SettingsState extends State<Settings> {
                 children: <Widget>[
                   Divider(thickness: 2),
                   ListTile(
+                    onTap: (){Navigator.push(context,MaterialPageRoute(builder: (context) => ChangePassword()));},
                     leading: Icon(IconData(59543, fontFamily: 'MaterialIcons'),size: 35, color: Color(0xffffcc00)),
                     title: Text(
                       "Change Password",
@@ -65,6 +68,7 @@ class _SettingsState extends State<Settings> {
                   ),
                   Divider(thickness: 2),
                   ListTile(
+                    onTap: (){Navigator.push(context,MaterialPageRoute(builder: (context) => AboutUs()));},
                     leading: Icon(IconData(59534, fontFamily: 'MaterialIcons'), size: 35, color: Color(0xffffcc00)),
                     title: Text(
                       "About Us",

@@ -1,105 +1,145 @@
 import 'package:flutter/material.dart';
+import 'package:rider/Login.dart';
 import 'Connection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'auth.dart';
 
-class SignUpPage extends StatelessWidget {
-     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-      String _email, _password;
-      String name ="", username="";
-      final databaseReference = Firestore.instance;
+class SignUpPage extends StatefulWidget {
+  @override
+  _SignUpPageState createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String _email, _password;
+  String name ="", username="";
+  bool _obscurePassword = true;
+  bool _obscure = true;
+  bool _obscureEmailError = true;
+  final databaseReference = Firestore.instance;
 
   @override
-  Widget _userIDEditContainer() {
-    return new Container(
-      child: new TextFormField(
-          // controller: _userId,
-           validator: (input) {
+  String _invalidEmail(){
+    return _obscureEmailError ? 'Invalid Email Format' : 'Email in use by another account';
+  }
+
+  Widget _emailEditContainer() {
+    return  Container(
+      child:  TextFormField(
+        // controller: _userId,
+        validator: (input) {
           if(input.isEmpty){
-            return 'Provide an username';
+            setState(() {
+              _obscure = true;
+            });
+            return 'Provide an Email';
           }
-          },
-          onSaved: (input) => username = input,
-          decoration: new InputDecoration(
-      hintText: 'Username',
-      border: new OutlineInputBorder(
-        borderSide: new BorderSide(color: Colors.black),
-      ),
-      isDense: true),
-          // style: _textStyleBlack,
+          else{
+            return null;
+          }
+        },
+        keyboardType: TextInputType.emailAddress,
+        onSaved: (input) => _email = input,
+        decoration:  InputDecoration(
+          labelText: 'Email',
+          border:  OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide:  BorderSide(color: Colors.black),
+          ),
+          isDense: true
         ),
+      ),
+    );
+  }
+
+  Widget _nameEditContainer() {
+    return  Container(
+      child:  TextFormField(
+        textCapitalization: TextCapitalization.words,
+        // controller: _userId,
+        validator: (input) {
+          if(input.isEmpty){
+            return 'Provide a Name';
+          }
+          else{
+            return null;
+          }
+        },
+        onSaved: (input) => name = input,
+        decoration:  InputDecoration(
+          labelText: 'Full Name',
+          border:  OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide:  BorderSide(color: Colors.black),
+          ),
+          isDense: true
+        ),
+      ),
+    );
+  }
+
+  Widget _userIDEditContainer() {
+    return  Container(
+      child:  TextFormField(
+        validator: (input) {
+          if(input.isEmpty){
+            return 'Provide a Username';
+          }
+          else{
+            return null;
+          }
+        },
+        onSaved: (input) => username = input,
+        decoration:  InputDecoration(
+          labelText: 'Username',
+          border:  OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide:  BorderSide(color: Colors.black),
+          ),
+          isDense: true
+        ),
+      ),
     );
   }
 
   Widget _passwordEditContainer() {
-    return new Container(
-      padding: const EdgeInsets.only(top: 5.0),
-      child: new TextFormField(
-          validator: (input) {
-          if(input.length < 6){
-            return 'Longer password please';
-          }
-          },
-          onSaved: (input) => _password = input,
-          // controller: _password,
-          obscureText: true,
-          decoration: new InputDecoration(
-      hintText: 'Password',
-      border: new OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5.0),
-        borderSide: new BorderSide(color: Colors.black),
-      ),
-      isDense: true),
-          // style: _textStyleBlack,
-        ),
-    );
-  }
-
-  Widget _NameEditContainer() {
-    return new Container(
-      padding: const EdgeInsets.only(top: 5.0),
-      child: new TextFormField(
-          validator: (input) {
+    return  Container(
+      child:  TextFormField(
+        validator: (input) {
           if(input.isEmpty){
-            return 'Provide a name';
+            return 'Provide a Password';
           }
-          },
-          onSaved: (input) => name = input,
-          // controller: _password,
-          decoration: new InputDecoration(
-      hintText: 'Full Name',
-      border: new OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5.0),
-        borderSide: new BorderSide(color: Colors.black),
-      ),
-      isDense: true),
-          // style: _textStyleBlack,
-        ),
-    );
-  }
-
-  Widget _EmailEditContainer() {
-    return new Container(
-      padding: const EdgeInsets.only(top: 5.0),
-      child: new TextFormField(
-          validator: (input) {
-          if(input.isEmpty){
-            return 'Provide an email';
+          else if(input.length < 8){
+            return 'Password must be over 8 characters';
           }
+          else{
+            return null;
+          }
+        },
+        onSaved: (input) => _password = input,
+        obscureText: _obscurePassword,
+        decoration:  InputDecoration(
+          labelText: 'Password',
+          border:  OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide:  BorderSide(color: Colors.black),
+          ),
+          isDense: true,
+          suffixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                _obscurePassword = !_obscurePassword;
+              });
             },
-            onSaved: (input) => _email = input,
-          // controller: _password,
-          decoration: new InputDecoration(
-      hintText: 'Email',
-      border: new OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5.0),
-        borderSide: new BorderSide(color: Colors.black),
-      ),
-      isDense: true),
-          // style: _textStyleBlack,
+            child: Icon(
+              _obscurePassword ? Icons.visibility : Icons.visibility_off,
+              semanticLabel: _obscurePassword ? 'show password' : 'hide password',
+            ),
+          ),
         ),
+      ),
     );
   }
 
@@ -131,7 +171,6 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
         body: Container(
       alignment: Alignment.topCenter,
@@ -174,50 +213,37 @@ class SignUpPage extends StatelessWidget {
             )
             ),
           ),
-            _EmailEditContainer(),
-            SizedBox(
-              height: 12,
-            ), 
-            _NameEditContainer(),
-            SizedBox(
-              height: 12,
-            ),
-            _userIDEditContainer(),
-            SizedBox(
-              height: 12,
-            ),
-            _passwordEditContainer(),
-            SizedBox(
-              height: 12,
-            ),
-            _loginContainer(context),
-            SizedBox(
-              height: 12,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              // children: <Widget>[],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  height: 1.0,
-                  width: MediaQuery.of(context).size.width / 2.7,
-                  color: Colors.grey,
-                ),
-                Text(
-                  ' OR ',
-                  style: new TextStyle(color: Colors.grey),
-                ),
-                Container(
-                  height: 1.0,
-                  width: MediaQuery.of(context).size.width / 2.7,
-                  color: Colors.grey,
-                ),
-              ],
-            ),
-            Container(
+              SizedBox(height: 5),
+              _emailEditContainer(),
+              SizedBox(height: 12), 
+              _nameEditContainer(),
+              SizedBox(height: 12),
+              _userIDEditContainer(),
+              SizedBox(height: 12),
+              _passwordEditContainer(),
+              SizedBox(height: 12),
+              _loginContainer(context),
+              SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    height: 1.0,
+                    width: MediaQuery.of(context).size.width / 2.7,
+                    color: Colors.grey,
+                  ),
+                  Text(
+                    ' OR ',
+                    style:  TextStyle(color: Colors.grey),
+                  ),
+                  Container(
+                    height: 1.0,
+                    width: MediaQuery.of(context).size.width / 2.7,
+                    color: Colors.grey,
+                  ),
+                ],
+              ),
+              Container(
                 alignment: Alignment.center,
                 // height: 50.0,
                 child: Column(
@@ -239,7 +265,8 @@ class SignUpPage extends StatelessWidget {
                               ),
                               FlatButton(
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                                  //Navigator.push(context,MaterialPageRoute(builder: (context) => LoginPage()));
                                 },
                                 child: Text(
                                   'Sign in',
@@ -255,56 +282,51 @@ class SignUpPage extends StatelessWidget {
                       ],
                     )
                   ],
-                )),
-          ],
+                )
+              ),
+            ],
+          ),
         ),
-      ),
-    ));
+      )
+    );
   }
-  void change(context)
-  {
+
+  void change(context){
     Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ConnectionPage()));
   }
+
   void signUp(context) async {
     if(_formKey.currentState.validate()){
       _formKey.currentState.save();
       try{
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password);
-       AuthService auth1 = AuthService();
-      var u =  await auth1.anonLogin(_email, _password);
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password);
+        AuthService auth1 = AuthService();
+        var u =  await auth1.anonLogin(_email, _password);
         auth1.createUserData(u,name, username);
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ConnectionPage()));
-
       }catch(e){
         print(e.message);
+        setState(() {
+          if(e.message == 'The email address is badly formatted.'){
+            _obscureEmailError = true;
+            _obscure = false;
+          }
+          else if(e.message == 'The email address is already in use by another account.'){
+            _obscureEmailError = false;
+            _obscure = false;
+          }
+        });
       }
     }
   }
 
-
-     /*void signUp(context) async {
-    if(_formKey.currentState.validate()){
-      _formKey.currentState.save();
-      
-      try{
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password);
-        AuthResult result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
-        FirebaseUser user = result.user;
-        createRecord(user.uid, name, username);
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ConnectionPage()));
-      }catch(e){
-        print(e.message);
-      }
-    }
-  }*/
-
   void createRecord(String user, String name,String username) async {
-
-  await databaseReference.collection("users")
+    await databaseReference.collection("users")
       .document(user.toString())
       .setData({
         'name': name,
         'username': username
-      });
-}
+      }
+    );
+  }
 }
