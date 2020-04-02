@@ -107,18 +107,23 @@ class SignUpPage extends StatelessWidget {
     return FlatButton(
       onPressed: () => 
         signUp(context),
-      child: new Container(
+      child: Container(
         decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                colors: [Color(0xffFFCC00), Color(0xffFF6666)], 
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
           borderRadius: BorderRadius.circular(5.0),
-          color: Colors.blue[300],
+          // color: Colors.blue[300],
         ),
         alignment: Alignment.center,
         margin: const EdgeInsets.only(top: 10.0),
         width: 500.0,
         height: 40.0,
         child: new Text(
-          "Sign up",
-          style: new TextStyle(color: Colors.white, fontSize: 15),
+          "Log In",
+          style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
         ),
       ),
     );
@@ -137,12 +142,38 @@ class SignUpPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-                padding: const EdgeInsets.only(top: 25.0, bottom: 15.0),
-                child: Image.asset(
-                  "assets/OriRider.png",
+            padding: const EdgeInsets.all(16.0),
+            child: Hero(
+              
+              tag: "Isai",
+            child: Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                Container(
+                // decoration: BoxDecoration(
+                //   // color:Color(0xffFFCC00) ,
+                //   color:Color(0xffFFCC00) ,
+                //   borderRadius: BorderRadius.all( Radius.circular(150.0)),
+                // ),
+                // color: Colors.red,
+                // child: Image.asset(
+                //   "assets/OriRider.png",
                   width: 225,
-                  height: 225,
-                )),
+                  height: 180,
+                // ),
+              ),
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    Text("Rider", style: TextStyle(fontSize: 95, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)  ),)
+                  ],
+                ),
+              )
+              ],
+              
+            )
+            ),
+          ),
             _EmailEditContainer(),
             SizedBox(
               height: 12,

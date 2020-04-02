@@ -49,9 +49,8 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
             Container(
               height: 95.0,
               child: TabBar(
-                // controller: _tabController,
                 indicatorColor: Colors.white,
-                labelColor: Colors.yellow,
+                labelColor: Color(0xffffcc00),
                 unselectedLabelColor: Colors.grey,
                 tabs: 
               [
