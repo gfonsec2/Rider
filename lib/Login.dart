@@ -1,75 +1,122 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rider/ForgotPassword.dart';
 import 'Signup.dart';
 import 'Connection.dart';
 
-class LoginPage extends StatelessWidget {
+//Test user
+//email: test@test.com
+//password: 12345678
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _email, _password;
+  bool _obscureText = true;
+  bool _obscureError = true;
+
+  Widget _wrongEmailOrPassword(){
+    return Container(
+      alignment: Alignment.bottomLeft,
+      child: Text(
+        _obscureError ? '': 'Invalid Email or Password',
+        style: TextStyle(
+          color: Colors.red
+        ),
+      ),
+    );
+  }
 
   Widget _userIDEditContainer() {
-    return new Container(
-      child: new TextFormField(
-         validator: (input)
-         {
+    return  Container(
+      child:  TextFormField(
+         validator: (input){
           if(input.isEmpty){
-            return 'Provide an email';
+            setState(() {
+              _obscureError = true;
+            });
+            return 'Email is required';
           }
-            },
-            onSaved: (input) => _email = input,
+          else{
+            return null;
+          }
+        },
+        keyboardType: TextInputType.emailAddress,
+        onSaved: (input) => _email = input,
         // controller: _userId,
-        decoration: new InputDecoration(
-            hintText: 'Email',
-            border: new OutlineInputBorder(
-              borderSide: new BorderSide(color: Colors.black),
-            ),
-            isDense: true),
+        decoration:  InputDecoration(
+          labelText: "Email",
+          //hintText: 'Email',
+          border:  OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide:  BorderSide(color: Colors.black),
+          ),
+          isDense: true),
         // style: _textStyleBlack,
       ),
     );
   }
 
   Widget _passwordEditContainer() {
-    return new Container(
+    return  Container(
       padding: const EdgeInsets.only(top: 5.0),
-      child: new TextFormField(
-         validator: (input) {
+      child:  TextFormField(
+        validator: (input) {
           if(input.isEmpty){
-            return 'Provide a password';
+            setState(() {
+              _obscureError = true;
+            });
+            return "Password is required";
           }
-            },
-            onSaved: (input) => _password = input,
+          else{
+            return null;
+          }
+        },
+        onSaved: (input) => _password = input,
         // controller: _password,
-        obscureText: true,
-        decoration: new InputDecoration(
-            hintText: 'Password',
-            border: new OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5.0),
-              borderSide: new BorderSide(color: Colors.black),
+        obscureText: _obscureText,
+        decoration:  InputDecoration(
+          labelText: "Password",
+          //hintText: 'Password',
+          border:  OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide:  BorderSide(color: Colors.black),
+          ),
+          isDense: true,
+          suffixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                _obscureText = !_obscureText;
+              });
+            },
+            child: Icon(
+              _obscureText ? Icons.visibility : Icons.visibility_off,
+              semanticLabel: _obscureText ? 'show password' : 'hide password',
             ),
-            isDense: true),
+          ),
+        ),
         // style: _textStyleBlack,
       ),
     );
   }
 
   Widget _loginContainer(context) {
-    return FlatButton(
-      onPressed:(){
-       signIn(context);
-      },
-      child: new Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          color: Colors.blue[300],
+    return SizedBox(
+      width: double.infinity,
+      child: RaisedButton(
+        onPressed:(){
+         signIn(context);
+        },
+        color: Colors.blue[300],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0)
         ),
-        alignment: Alignment.center,
-        margin: const EdgeInsets.only(top: 10.0),
-        width: 500.0,
-        height: 40.0,
-        child: new Text(
+        child: Text(
           "Log In",
-          style: new TextStyle(color: Colors.white, fontSize: 15),
+          style:  TextStyle(color: Colors.white, fontSize: 15),
         ),
       ),
     );
@@ -77,131 +124,132 @@ class LoginPage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Form(
-          key: _formKey,
-      child: Container(
-      alignment: Alignment.topCenter,
-      padding: const EdgeInsets.all(30.0),
-      child: Column(
+      body: Form(
+        key: _formKey,
+        child: Container(
+          alignment: Alignment.topCenter,
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(
-          padding: const EdgeInsets.only(top: 25.0, bottom: 15.0),
-          child: Image.asset(
-            "assets/OriRider.png",
-            width: 225,
-            height: 225,
-          )),
+                padding: const EdgeInsets.only(top: 25.0, bottom: 15.0),
+                child: Image.asset(
+                  "assets/OriRider.png",
+                  width: 225,
+                  height: 225,
+                )
+              ),
+              _wrongEmailOrPassword(),
+              SizedBox(height: 5),
               _userIDEditContainer(),
-              SizedBox(
-      height: 12,
-              ),
+              SizedBox(height: 12),
               _passwordEditContainer(),
-              SizedBox(
-      height: 12,
-              ),
+              SizedBox(height: 12),
               _loginContainer(context),
-              SizedBox(
-      height: 12,
+              SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Forgot your login details?',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => ForgotPasswordPage()));
+                    },
+                    child: Text(
+                      'Get help signing in.',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  )
+                ],
               ),
               Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-          Text(
-            'Forgot your login details?',
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.grey,
-            ),
-          ),
-          FlatButton(
-            onPressed: () {},
-            child: Text(
-              'Get help signing in.',
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.grey,
-              ),
-            ),
-          )
-      ],
-              ),
-              Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-          Container(
-            height: 1.0,
-            width: MediaQuery.of(context).size.width / 2.7,
-            color: Colors.grey,
-          ),
-          Text(
-            ' OR ',
-            style: new TextStyle(color: Colors.grey),
-          ),
-          Container(
-            height: 1.0,
-            width: MediaQuery.of(context).size.width / 2.7,
-            color: Colors.grey,
-          ),
-      ],
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    height: 1.0,
+                    width: MediaQuery.of(context).size.width / 2.7,
+                    color: Colors.grey,
+                  ),
+                  Text(
+                    ' OR ',
+                    style:  TextStyle(color: Colors.grey),
+                  ),
+                  Container(
+                    height: 1.0,
+                    width: MediaQuery.of(context).size.width / 2.7,
+                    color: Colors.grey,
+                  ),
+                ],
               ),
               Container(
-          alignment: Alignment.center,
-          // height: 50.0,
-          child: Column(
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 17.5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Dont have an account?',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignUpPage()));
-                        },
-                        child: Text(
-                          'Sign up',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.grey,
+                alignment: Alignment.center,
+                // height: 50.0,
+                child: Column(
+                  children: <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(top: 17.5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Dont have an account?',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              FlatButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => SignUpPage()));
+                                },
+                                child: Text(
+                                  'Sign up',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        ),
-                      )
-                    ],
-                  ),
+                        )
+                      ],
+                    )
+                  ],
                 )
-              ],
-            )
-          ],
-            ),),
+              ),
             ],
           ),
-    ),
-        ));
+        ),
+      )
+    );
   }
+
   void signIn(context) async {
     if(_formKey.currentState.validate()){
       _formKey.currentState.save();
       try{
         AuthResult result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
         FirebaseUser user = result.user;
-        print("i am here");
+        //print("i am here");
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ConnectionPage()));
       }catch(e){
-        print(e.message);
+        //print(e.message);
+        setState(() {
+          _obscureError = false;
+        });
       }
     }
   }
