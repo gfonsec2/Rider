@@ -140,19 +140,33 @@ Future<void> send() async {
                     ),
                   ),
                   SizedBox(height: 5),
-                  SizedBox(
-                    width: double.infinity,
-                    child: RaisedButton(
-                      onPressed:(){
-                        send();
-                      },
-                      color: Colors.blue[300],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0)
+                  RaisedButton(
+                    onPressed: () {
+                      send();
+                    },
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                    padding: EdgeInsets.all(0.0),
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Color(0xffFFCC00), Color(0xffFF6666)], 
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(5.0),
                       ),
-                      child: Text(
-                        "Send Code",
-                        style:  TextStyle(color: Colors.white, fontSize: 15),
+                      child: Container(
+                        constraints: BoxConstraints(maxWidth: double.infinity, minHeight: 40.0),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Send Code",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -229,19 +243,33 @@ Future<void> send() async {
                     ),
                   ),
                   SizedBox(height: 5),
-                  SizedBox(
-                    width: double.infinity,
-                    child: RaisedButton(
-                      onPressed:(){
+                  RaisedButton(
+                    onPressed: () {
                       signIn(context);
-                      },
-                      color: Colors.blue[300],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0)
+                    },
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                    padding: EdgeInsets.all(0.0),
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Color(0xffFFCC00), Color(0xffFF6666)], 
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(5.0),
                       ),
-                      child: Text(
-                        "Enter",
-                        style:  TextStyle(color: Colors.white, fontSize: 15),
+                      child: Container(
+                        constraints: BoxConstraints(maxWidth: double.infinity, minHeight: 40.0),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Enter",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -266,11 +294,18 @@ Future<void> send() async {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-                child: Image.asset(
-                  "assets/OriRider.png",
-                  width: 225,
-                  height: 125,
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Text("Rider", style: TextStyle(fontSize: 95, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)  ),)
+                    ],
+                  ),
                 )
+                // Image.asset(
+                //   "assets/OriRider.png",
+                //   width: 225,
+                //   height: 125,
+                // )
               ),
               _emailPromptText(),
               _enterCodeCard(),

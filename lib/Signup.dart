@@ -143,27 +143,36 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _loginContainer(context) {
-    return FlatButton(
-      onPressed: () => 
-        signUp(context),
-      child: Container(
-        decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                colors: [Color(0xffFFCC00), Color(0xffFF6666)], 
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+ Widget _loginContainer(context) {
+    return Container(
+      child: RaisedButton(
+        onPressed: () {
+          signUp(context);
+        },
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+        padding: EdgeInsets.all(0.0),
+        child: Ink(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xffFFCC00), Color(0xffFF6666)], 
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          child: Container(
+            constraints: BoxConstraints(maxWidth: double.infinity, minHeight: 40.0),
+            alignment: Alignment.center,
+            child: Text(
+              "Sign Up",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
               ),
-          borderRadius: BorderRadius.circular(5.0),
-          // color: Colors.blue[300],
-        ),
-        alignment: Alignment.center,
-        margin: const EdgeInsets.only(top: 10.0),
-        width: 500.0,
-        height: 40.0,
-        child: new Text(
-          "Log In",
-          style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
+            ),
+          ),
         ),
       ),
     );

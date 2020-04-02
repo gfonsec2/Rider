@@ -44,7 +44,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         borderRadius: BorderRadius.circular(20),
       ),
       title: Center(
-        child: Text("Success",
+        child: Text("Success!",
           style: TextStyle(
             fontSize: 25,
           )
@@ -142,11 +142,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                   )
                 ),
                 SizedBox(height: 15),
-                Text("This function is a major change and may require that you have logged in recently.",
+                Text("Password might not be changeable since this operation is sensitive and requires recent authentication. Log in again before retrying this request.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'ProximaNova',
-                    fontSize: 10,
+                    fontSize: 15,
                     fontWeight: FontWeight.w300,
                     color: Colors.black,
                   )
@@ -268,19 +268,33 @@ class _ChangePasswordState extends State<ChangePassword> {
   }
 
   Widget _changePasswordButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: RaisedButton(
-        onPressed:(){
-         _change(_password);
-        },
-        color: Colors.blue[300],
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0)
+    return RaisedButton(
+      onPressed: () {
+        _changePassword(_password);
+      },
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+      padding: EdgeInsets.all(0.0),
+      child: Ink(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xffFFCC00), Color(0xffFF6666)], 
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(5.0),
         ),
-        child: Text(
-          "Change Password",
-          style:  TextStyle(color: Colors.white, fontSize: 15),
+        child: Container(
+          constraints: BoxConstraints(maxWidth: double.infinity, minHeight: 40.0),
+          alignment: Alignment.center,
+          child: Text(
+            "Change Password",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
       ),
     );
@@ -299,6 +313,7 @@ class _ChangePasswordState extends State<ChangePassword> {
               _title(),
               SizedBox(height: 5),
               _disclosure(),
+              SizedBox(height: 15),
               _passwordsDontMatch(),
               SizedBox(height: 15),
               _newPassword(),

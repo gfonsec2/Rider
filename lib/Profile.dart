@@ -1,10 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:rider/newHome.dart';
-import 'Home.dart';
-import 'Settings.dart';
 import 'package:intl/intl.dart';
 
 
@@ -68,9 +62,14 @@ class _ProfileState extends State<Profile> {
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset("assets/OriRider.png"),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("Rider", style: TextStyle(fontSize: 35, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)  ),)
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(width:20),
@@ -139,13 +138,11 @@ class _ProfileState extends State<Profile> {
           mainAxisSpacing:4.0,
             children: <Widget>[
               Card(
-                color: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25.0),
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
                     border: Border.all(
                       color: Colors.black,
                       width: 1,
@@ -207,13 +204,11 @@ class _ProfileState extends State<Profile> {
                 )
               ),
               Card(
-                color: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25.0),
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
                     border: Border.all(
                       color: Colors.black,
                       width: 1,
@@ -275,13 +270,11 @@ class _ProfileState extends State<Profile> {
                 )
               ),
               Card(
-                color: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25.0),
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
                     border: Border.all(
                       color: Colors.black,
                       width: 1,
@@ -343,13 +336,11 @@ class _ProfileState extends State<Profile> {
                 )
               ),
               Card(
-                color: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25.0),
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
                     border: Border.all(
                       color: Colors.black,
                       width: 1,
