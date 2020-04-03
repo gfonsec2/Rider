@@ -1,5 +1,8 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
 
 class Multiplayer extends StatefulWidget {
   @override
@@ -8,7 +11,8 @@ class Multiplayer extends StatefulWidget {
 
 class _MultiplayerState extends State<Multiplayer> {
   DateTime now = DateTime.now();
-
+  double distance=0.0;
+  final totalDistance=100;
   Widget _back(){
     return GestureDetector(
       onTap: (){
@@ -57,6 +61,7 @@ class _MultiplayerState extends State<Multiplayer> {
           children: <Widget>[
             _back(),
             _title(),
+            SizedBox(height:15),
           ],
         )
       ),

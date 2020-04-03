@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rider/ForgotPassword.dart';
@@ -287,8 +288,9 @@ class _LoginPageState extends State<LoginPage> {
       try{
         AuthResult result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
         FirebaseUser user = result.user;
+        var doc = Firestore.instance.collection('users').document(user.uid);
         //print("i am here");
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ConnectionPage()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ConnectionPage(user: doc)));
       }catch(e){
         //print(e.message);
         setState(() {

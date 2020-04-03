@@ -3,13 +3,15 @@ import 'package:intl/intl.dart';
 
 
 class Profile extends StatefulWidget {
-  Profile({Key key}): super(key: key);
-  _ProfileState createState() => _ProfileState();
+  var user;
+  Profile({Key key, this.user}): super(key: key);
+  _ProfileState createState() => _ProfileState(user: user);
 }
 
 class _ProfileState extends State<Profile> {
+  var user;
   DateTime now = DateTime.now();
-  _ProfileState({Key key});
+  _ProfileState({Key key, @required this.user});
   
   Widget _title(){
     return Column(

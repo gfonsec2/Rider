@@ -19,17 +19,17 @@ final databaseReference = FirebaseDatabase.instance.reference().child("user").ch
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
 double miles;
 class Home extends StatefulWidget {
-  
-  Home({Key key,}): super(key: key);
+  var user;
+  Home({Key key, this.user}): super(key: key);
   @override
-  _HomeState createState() => _HomeState();
+  _HomeState createState() => _HomeState(user: user);
 }
 
 class _HomeState extends State<Home> {
-
+  var user;
+  _HomeState({Key key, @required this.user});
   DateTime now = DateTime.now();
   //int selectedIndex;
-  _HomeState({Key key, });
   
 void foo(FirebaseUser userid) async {
    double miles = await getMiles(userid);
@@ -412,7 +412,7 @@ void foo(FirebaseUser userid) async {
           ),
           GestureDetector(
             onTap: (){
-              Navigator.push(context,MaterialPageRoute(builder: (context) => Singles()));
+              Navigator.push(context,MaterialPageRoute(builder: (context) => Singles(user: user)));
             },
             child: Card(
               shape: RoundedRectangleBorder(

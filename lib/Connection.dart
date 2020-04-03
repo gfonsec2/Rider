@@ -4,9 +4,17 @@ import 'package:rider/newHome.dart';
 import 'Home.dart';
 import 'newHome.dart';
 
-class ConnectionPage extends StatelessWidget {
-  ConnectionPage({Key key}) : super(key: key);
- 
+class ConnectionPage extends StatefulWidget {
+  var user;
+  ConnectionPage({Key key, this.user}) : super(key: key);
+
+  @override
+  _ConnectionPageState createState() => _ConnectionPageState(user: user);
+}
+
+class _ConnectionPageState extends State<ConnectionPage> {
+  var user;
+  _ConnectionPageState({Key key, @required this.user});
 
   final text = RichText(
       textAlign: TextAlign.center,
@@ -48,7 +56,7 @@ class ConnectionPage extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.center,
                   child: FloatingActionButton(onPressed:(){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyTabbedPage()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyTabbedPage(user: user)));
                   })
                 ),
               ),

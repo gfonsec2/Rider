@@ -270,7 +270,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   Widget _changePasswordButton() {
     return RaisedButton(
       onPressed: () {
-        _changePassword(_password);
+        _change(_password);
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       padding: EdgeInsets.all(0.0),
