@@ -1,17 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 
 class Profile extends StatefulWidget {
-  var user;
-  Profile({Key key, this.user}): super(key: key);
-  _ProfileState createState() => _ProfileState(user: user);
+ 
+  Profile({Key key}): super(key: key);
+  _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-  var user;
+
   DateTime now = DateTime.now();
-  _ProfileState({Key key, @required this.user});
+  _ProfileState({Key key});
   
   Widget _title(){
     return Column(
@@ -39,6 +42,7 @@ class _ProfileState extends State<Profile> {
   }
   
   Widget _profile(){
+    FirebaseUser user = Provider.of<FirebaseUser>(context);
     return Container(
       child: Card(
         shape: RoundedRectangleBorder(
@@ -78,20 +82,66 @@ class _ProfileState extends State<Profile> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("Users Name",
-                        style: TextStyle(
-                          fontFamily: 'ProximaNova',
-                          fontSize: 34,
-                          fontWeight: FontWeight.w200,
-                          color: Colors.black,
-                        )
-                      ),
-                      Text("_userName",
+                      StreamBuilder(
+                        stream: Firestore.instance.collection('users').document(user.uid).snapshots() ,
+                        builder: (BuildContext context, AsyncSnapshot snapshot){
+                        switch(snapshot.connectionState)
+                          {
+                            case ConnectionState.none:
+                              return Text("?");
+                            case ConnectionState.waiting:
+                            return Text("?");
+
+                            case ConnectionState.active:
+                            return Text(snapshot.data["name"].toString(),
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w200,
                           color: Color(0xff838383),
                         )
+                      );
+
+                            case ConnectionState.done:
+                            return Text(snapshot.data["name"].toString(),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w200,
+                          color: Color(0xff838383),
+                        )
+                      );
+                          }
+                        },
+                      ),
+                      StreamBuilder(
+                        stream: Firestore.instance.collection('users').document(user.uid).snapshots() ,
+                        builder: (BuildContext context, AsyncSnapshot snapshot){
+                          switch(snapshot.connectionState)
+                          {
+                            case ConnectionState.none:
+                              return Text("?");
+                            case ConnectionState.waiting:
+                            return Text("?");
+
+                            case ConnectionState.active:
+                            return Text(snapshot.data["username"].toString(),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w200,
+                          color: Color(0xff838383),
+                        )
+                      );
+
+                            case ConnectionState.done:
+                            return Text(snapshot.data["username"].toString(),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w200,
+                          color: Color(0xff838383),
+                        )
+                      );
+                          }
+                          
+                        },
                       ),
                     ]
                   ),

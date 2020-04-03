@@ -19,15 +19,14 @@ final databaseReference = FirebaseDatabase.instance.reference().child("user").ch
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
 double miles;
 class Home extends StatefulWidget {
-  var user;
-  Home({Key key, this.user}): super(key: key);
+ 
+  Home({Key key,}): super(key: key);
   @override
-  _HomeState createState() => _HomeState(user: user);
+  _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  var user;
-  _HomeState({Key key, @required this.user});
+  _HomeState({Key key,});
   DateTime now = DateTime.now();
   //int selectedIndex;
   
@@ -97,12 +96,25 @@ void foo(FirebaseUser userid) async {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                     /* FutureBuilder(
-                        future: Firestore.instance.collection('users').document(user.uid).get(),
+                      StreamBuilder(
+                        stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
                         builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          return Text(snapshot.data["totalMiles"].toString())??Text("nothing");
+                          switch(snapshot.connectionState)
+                          {
+                            case ConnectionState.none:
+                              return Text("?");
+                            case ConnectionState.waiting:
+                            return Text("?");
+
+                            case ConnectionState.active:
+                            return Text(snapshot.data["totalMiles"].toString());
+
+                            case ConnectionState.done:
+                            return Text(snapshot.data["totalMiles"].toString());
+                          }
+                          
                         },
-                      ),*/
+                      ),
                     //  Text(miles.toString()),
 
                       SizedBox(width:10),
@@ -132,12 +144,25 @@ void foo(FirebaseUser userid) async {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                     /* FutureBuilder(
-                        future: Firestore.instance.collection('users').document(user.uid).get(),
+                     StreamBuilder(
+                        stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
                         builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          return Text(snapshot.data["avgMph"].toString())??Text("nothing");
+                          switch(snapshot.connectionState)
+                          {
+                            case ConnectionState.none:
+                              return Text("?");
+                            case ConnectionState.waiting:
+                            return Text("?");
+
+                            case ConnectionState.active:
+                            return Text(snapshot.data["avgMph"].toString());
+
+                            case ConnectionState.done:
+                            return Text(snapshot.data["avgMph"].toString());
+                          }
+
                         },
-                      ),*/
+                      ),
                       SizedBox(width:10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,12 +191,24 @@ void foo(FirebaseUser userid) async {
                   child: Row(
                     children: <Widget>[
                     //  Text(getMiles(user).toString()),
-                     /* FutureBuilder(
-                        future: Firestore.instance.collection('users').document(user.uid).get(),
+                     StreamBuilder(
+                        stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
                         builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          return Text(snapshot.data["totalCalories"].toString())??Text("nothing");
+                          switch(snapshot.connectionState)
+                          {
+                            case ConnectionState.none:
+                              return Text("?");
+                            case ConnectionState.waiting:
+                            return Text("?");
+
+                            case ConnectionState.active:
+                            return Text(snapshot.data["totalCalories"].toString());
+
+                            case ConnectionState.done:
+                            return Text(snapshot.data["totalCalories"].toString());
+                          }
                         },
-                      ),*/
+                      ),
                       SizedBox(width:10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -412,7 +449,7 @@ void foo(FirebaseUser userid) async {
           ),
           GestureDetector(
             onTap: (){
-              Navigator.push(context,MaterialPageRoute(builder: (context) => Singles(user: user)));
+              Navigator.push(context,MaterialPageRoute(builder: (context) => Singles()));
             },
             child: Card(
               shape: RoundedRectangleBorder(

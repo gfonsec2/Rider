@@ -44,8 +44,8 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
           child: Scaffold(
             body:  TabBarView(
                 children: [
-                Home(user: user),
-                Profile(user: user),
+                Home(),
+                Profile(),
                 Settings()
               ]
               ),
