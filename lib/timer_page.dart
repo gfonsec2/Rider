@@ -53,7 +53,7 @@ class TimerPageState extends State<TimerPage> {
               fontSize: 25,
             )
           ),
-          onPressed:  () {Navigator.push(context,MaterialPageRoute(builder: (context) => MyTabbedPage()));},
+          onPressed:  () {Navigator.pop(context);Navigator.pop(context);},
         )
       ]
     );

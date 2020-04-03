@@ -3,37 +3,29 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
 
 class SinglesGameStart extends StatefulWidget {
   final double totalDistance;
   final String numMiles;
-  var user;
 
-  SinglesGameStart({Key key, @required this.totalDistance, this.numMiles, this.user}): super(key: key);
+  SinglesGameStart({Key key, @required this.totalDistance, this.numMiles}): super(key: key);
   @override
-  _SinglesGameStartState createState() => _SinglesGameStartState(totalDistance: totalDistance, numMiles: numMiles, user: user);
+  _SinglesGameStartState createState() => _SinglesGameStartState(totalDistance: totalDistance, numMiles: numMiles);
 }
 
 class _SinglesGameStartState extends State<SinglesGameStart> {
   DateTime now = DateTime.now();
-  var user;
   double percentDistProgBar=0;
   double distance=0;
   double totalDistance=0;
   String numMiles;
 
-  var document;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getUserId();
-  }
   final double mile = 63360.0;
   
-  _SinglesGameStartState({Key key, @required this.totalDistance, this.numMiles, this.user});
+  _SinglesGameStartState({Key key, @required this.totalDistance, this.numMiles});
   
   Widget _back(){
     return GestureDetector(
@@ -75,6 +67,7 @@ class _SinglesGameStartState extends State<SinglesGameStart> {
   }
 
   Widget _singlePlayerProgress(){
+    FirebaseUser user = Provider.of<FirebaseUser>(context);
     return Column(
       children: <Widget>[
         Container(
@@ -83,14 +76,14 @@ class _SinglesGameStartState extends State<SinglesGameStart> {
             children: <Widget>[
               Icon(IconData(59406, fontFamily: 'MaterialIcons'), size: 22, color: Color(0xffffcc00)),
               StreamBuilder(
-                stream: document.snapshots(),
-                //stream: Firestore.instance.collection('users').document(user).snapshots(),
+                //stream: document.snapshots(),
+                stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return new Text("Loading");
                   }
                   var userDocument = snapshot.data;
-                  return new Text(userDocument["username"],
+                  return Text(userDocument["username"],
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
@@ -219,17 +212,4 @@ class _SinglesGameStartState extends State<SinglesGameStart> {
       ),
     );
   }
-
-  void getUserId() async {
-    try{
-      FirebaseUser user = await FirebaseAuth.instance.currentUser();
-      var doc = Firestore.instance.collection('users').document(user.uid);
-      setState(() {
-        document = doc;
-      });
-    }catch(e){
-      print(e.message);
-    }
-  }
-
 }

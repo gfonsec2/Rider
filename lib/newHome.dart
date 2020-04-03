@@ -5,15 +5,13 @@ import 'Home.dart';
 import 'Settings.dart';
 
 class MyTabbedPage extends StatefulWidget {
-  var user;
-  MyTabbedPage({ Key key, this.user }) : super(key: key);
+  MyTabbedPage({ Key key}) : super(key: key);
   @override
-  _MyTabbedPageState createState() => _MyTabbedPageState(user: user);
+  _MyTabbedPageState createState() => _MyTabbedPageState();
 }
 
 class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderStateMixin {
-  var user;
-  _MyTabbedPageState({Key key, @required this.user});
+  _MyTabbedPageState({Key key});
 
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'Home'),
@@ -44,8 +42,8 @@ class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderSt
           child: Scaffold(
             body:  TabBarView(
                 children: [
-                Home(user: user),
-                Profile(user: user),
+                Home(),
+                Profile(),
                 Settings()
               ]
               ),

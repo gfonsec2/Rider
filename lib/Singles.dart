@@ -3,16 +3,13 @@ import 'package:intl/intl.dart';
 import 'package:rider/SinglesGameStart.dart';
 
 class Singles extends StatefulWidget {
-  var user;
-  Singles({Key key, this.user}): super(key: key);
+  Singles({Key key}): super(key: key);
 
   @override
-  _SinglesState createState() => _SinglesState(user: user);
+  _SinglesState createState() => _SinglesState();
 }
 
 class _SinglesState extends State<Singles> {
-  var user;
-  _SinglesState({Key key, @required this.user});
   DateTime now = DateTime.now();
   
   Widget _back(){

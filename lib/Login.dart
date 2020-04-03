@@ -286,11 +286,9 @@ class _LoginPageState extends State<LoginPage> {
     if(_formKey.currentState.validate()){
       _formKey.currentState.save();
       try{
-        AuthResult result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
-        FirebaseUser user = result.user;
-        var doc = Firestore.instance.collection('users').document(user.uid);
+        await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
         //print("i am here");
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ConnectionPage(user: doc)));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ConnectionPage()));
       }catch(e){
         //print(e.message);
         setState(() {

@@ -412,7 +412,7 @@ void foo(FirebaseUser userid) async {
           ),
           GestureDetector(
             onTap: (){
-              Navigator.push(context,MaterialPageRoute(builder: (context) => Singles(user: user)));
+              Navigator.push(context,MaterialPageRoute(builder: (context) => Singles()));
             },
             child: Card(
               shape: RoundedRectangleBorder(

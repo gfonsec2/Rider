@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'timer_page.dart';
-import 'Trials.dart';
 import 'package:intl/intl.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
@@ -44,7 +43,7 @@ class _TrialStartState extends State<TrialStart> {
               fontSize: 25,
             )
           ),
-          onPressed:  () {Navigator.push(context,MaterialPageRoute(builder: (context) => Trials()));},
+          onPressed:  () {Navigator.pop(context);Navigator.pop(context);},
         )
       ]
     );

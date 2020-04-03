@@ -1,20 +1,17 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rider/newHome.dart';
 import 'Home.dart';
 import 'newHome.dart';
 
 class ConnectionPage extends StatefulWidget {
-  var user;
-  ConnectionPage({Key key, this.user}) : super(key: key);
+  ConnectionPage({Key key}) : super(key: key);
 
   @override
-  _ConnectionPageState createState() => _ConnectionPageState(user: user);
+  _ConnectionPageState createState() => _ConnectionPageState();
 }
 
 class _ConnectionPageState extends State<ConnectionPage> {
-  var user;
-  _ConnectionPageState({Key key, @required this.user});
+  _ConnectionPageState({Key key});
 
   final text = RichText(
       textAlign: TextAlign.center,
@@ -56,7 +53,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
                 child: Container(
                   alignment: Alignment.center,
                   child: FloatingActionButton(onPressed:(){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyTabbedPage(user: user)));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyTabbedPage()));
                   })
                 ),
               ),
