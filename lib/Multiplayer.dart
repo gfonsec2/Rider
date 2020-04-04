@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:rider/MultiplayerAwaitOpponent.dart';
 import 'package:rider/MultiplayerJoinLobby.dart';
 
 class Multiplayer extends StatefulWidget {
@@ -11,7 +12,9 @@ class Multiplayer extends StatefulWidget {
 }
 
 class _MultiplayerState extends State<Multiplayer> {
+  final databaseReference = Firestore.instance;
   DateTime now = DateTime.now();
+
   Widget _back(){
     return GestureDetector(
       onTap: (){
@@ -99,6 +102,8 @@ class _MultiplayerState extends State<Multiplayer> {
           ),
           GestureDetector(
             onTap: (){
+              createLobby();
+              Navigator.push(context,MaterialPageRoute(builder: (context) => MultiplayerAwaitOpponent()));
             },
             child: Card(
               shape: RoundedRectangleBorder(
@@ -400,5 +405,20 @@ class _MultiplayerState extends State<Multiplayer> {
         ),
       ),
     );
+  }
+
+  createLobby() async {
+    FirebaseUser user = Provider.of<FirebaseUser>(context, listen: false);
+    var _db = Firestore.instance.collection('lobbys').document(user.uid);
+    var _user = Firestore.instance.collection('users').document(user.uid);
+    DocumentSnapshot _userDoc = await _user.get();
+    var player1Username = _userDoc["username"];
+    _db.setData({
+      'Player1': player1Username,
+      'Player1id': user.uid,
+      'Player2': "",
+      'Player2id': "",
+      'joinable': true,
+    });
   }
 }

@@ -33,7 +33,6 @@ class _QuickStartState extends State<QuickStart> {
     print(caloriesDone);
     print(milesDone);
     updateUserData(user, timeDone, caloriesDone, milesDone);
-    Navigator.of(context).popUntil((route) => route.isFirst);
   }
 
   showAlertDialog(BuildContext context, FirebaseUser user) {
@@ -58,8 +57,11 @@ class _QuickStartState extends State<QuickStart> {
               fontSize: 25,
             )
           ),
-          onPressed:  () {quit(user, mph, calories, distance);},
-
+          onPressed: () {
+            quit(user, mph, calories, distance);
+            Navigator.pop(context);
+            Navigator.pop(context);
+          },
         )
       ]
     );
@@ -76,7 +78,7 @@ class _QuickStartState extends State<QuickStart> {
         ),
       ),
       content: Container(
-        height:130,
+        height:140,
         child: Column(
           children: <Widget>[
             Text("You're about to exit Quick Start, press ok to go back.",
@@ -329,7 +331,7 @@ class _QuickStartState extends State<QuickStart> {
   Widget _stopwatch(context){
     return Container(
       height: 225,
-      width: 400,
+      width: double.infinity,
       child: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

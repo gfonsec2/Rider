@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import 'GameStart.dart';
+
 class MultiplayerJoinLobby extends StatefulWidget {
   @override
   _MultiplayerJoinLobbyState createState() => _MultiplayerJoinLobbyState();
@@ -81,7 +83,6 @@ class _MultiplayerJoinLobbyState extends State<MultiplayerJoinLobby> {
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
           child: Row(
             children: <Widget>[
               Icon(IconData(59406, fontFamily: 'MaterialIcons'), size: 22, color: Color(0xffffcc00)),
@@ -99,53 +100,76 @@ class _MultiplayerJoinLobbyState extends State<MultiplayerJoinLobby> {
     );
   }
 
-  Widget _lobby(String username, int points){
-    return Container(
-      child: GestureDetector(
-        onTap: (){
-        },
-        child: Card(
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: Colors.white70, width: 1),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          elevation: 10,
-          child: Container(
-            margin: EdgeInsets.fromLTRB(15, 15, 0, 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Icon(IconData(59475, fontFamily: 'MaterialIcons'), size: 50, color: Color(0xffffcc00)),
-                    SizedBox(width:20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(username,
-                          style: TextStyle(
-                            fontFamily: 'ProximaNova',
-                            fontSize: 34,
-                            fontWeight: FontWeight.w200,
-                            color: Colors.black,
-                          )
-                        ),
-                        Text("Points: $points",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w200,
-                            color: Color(0xff838383),
-                          )
-                        ),
-                      ]
-                    ),
-                  ],
-                ),
-                Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
-              ],
-            ),
+  Widget _lobby(String p1Username, String p1uid){
+    return GestureDetector(
+      onTap: (){
+        joinGame(p1uid, p1Username, context);
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: Colors.white70, width: 1),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        elevation: 10,
+        child: Container(
+          margin: EdgeInsets.fromLTRB(15, 15, 0, 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Icon(IconData(59475, fontFamily: 'MaterialIcons'), size: 50, color: Color(0xff838383)),
+                  SizedBox(width:20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(p1Username,
+                        style: TextStyle(
+                          fontFamily: 'ProximaNova',
+                          fontSize: 34,
+                          fontWeight: FontWeight.w200,
+                          color: Colors.black,
+                        )
+                      ),
+                      Text("Points: 0",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w200,
+                          color: Color(0xff838383),
+                        )
+                      ),
+                    ]
+                  ),
+                ],
+              ),
+              Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+            ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _streamBuilderLobbys(){
+    return Container(
+      child: Expanded(
+        child: StreamBuilder(
+          stream: Firestore.instance.collection('lobbys').snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) return Text('Connecting...');
+            final int cardLength = snapshot.data.documents.length;
+            return ListView.builder(
+              padding: EdgeInsets.only(bottom:25),
+              shrinkWrap: true,
+              itemCount: cardLength,
+              itemBuilder: (context, index) {
+                final DocumentSnapshot _card= snapshot.data.documents[index];
+                if(_card["joinable"])
+                  return _lobby(_card["Player1"], _card["Player1id"]);
+              },
+            );
+          }
+        )
       ),
     );
   }
@@ -162,25 +186,27 @@ class _MultiplayerJoinLobbyState extends State<MultiplayerJoinLobby> {
               _title(),
               _user(),
               _availableLobbys(),
-              Expanded(
-                child: ListView(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(bottom: 25),
-                  children: <Widget>[
-                    _lobby("Maufg98", 1247),
-                    _lobby("ElCuuuuh", 321),
-                    _lobby("ConejitoMalo", 10324),
-                    _lobby("Pikacuh", 586),
-                    _lobby("elDude", 98),
-                    _lobby("ericMars", 7512),
-                    _lobby("gfonsec2", 99999),
-                  ]
-                ),
-              ),
+              _streamBuilderLobbys(),
             ],
           )
         ),
       ),
     );
+  }
+
+  joinGame(String p1uid, String p1Username, BuildContext context) async {
+    FirebaseUser user = Provider.of<FirebaseUser>(context, listen: false);
+    var _db = Firestore.instance.collection('lobbys').document(p1uid);
+    var _user = Firestore.instance.collection('users').document(user.uid);
+    DocumentSnapshot _userDoc = await _user.get();
+    var player2Username = _userDoc["username"];
+    _db.setData({
+      'Player1': p1Username,
+      'Player1id': p1uid,
+      'Player2': player2Username,
+      'Player2id': user.uid,
+      'joinable': false,
+    });
+    Navigator.push(context,MaterialPageRoute(builder: (context) => GameStart(p1Username: p1Username, p1uid:p1uid)));
   }
 }

@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rider/auth.dart';
 import 'QuickStart.dart';
 import 'Trials.dart';
 import 'Multiplayer.dart';
@@ -11,7 +10,6 @@ import 'Singles.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
-import 'auth.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
@@ -55,9 +53,6 @@ class _HomeState extends State<Home> {
 
   Widget _prevWorkout(){
     FirebaseUser user = Provider.of<FirebaseUser>(context);
-    double avg;
-   // double miles;
-    int calories;
     return Column(
       children: <Widget>[
         Container(
@@ -89,39 +84,23 @@ class _HomeState extends State<Home> {
                     children: <Widget>[
                       StreamBuilder(
                         stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          switch(snapshot.connectionState)
-                          {
-                            case ConnectionState.none:
-                              return Text("0.0",
-                                style: TextStyle(
-                                  fontSize: 60,
-                                  fontWeight: FontWeight.w200,
-                                ),
-                              );
-                            case ConnectionState.waiting:
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
                             return Text("0.0",
                               style: TextStyle(
                                 fontSize: 60,
                                 fontWeight: FontWeight.w200,
                               ),
                             );
-                            case ConnectionState.active:
-                            return Text(snapshot.data["totalMiles"].toString(),
-                              style: TextStyle(
-                                fontSize: 60,
-                                fontWeight: FontWeight.w200,
-                              ),
-                            );
-                            case ConnectionState.done:
-                            return Text(snapshot.data["totalMiles"].toString(),
-                              style: TextStyle(
-                                fontSize: 60,
-                                fontWeight: FontWeight.w200,
-                              ),
-                            );
                           }
-                        },
+                          var userDocument = snapshot.data;
+                          return Text(userDocument["avgMph"].toString(),
+                            style: TextStyle(
+                              fontSize: 60,
+                              fontWeight: FontWeight.w200,
+                            ),
+                          );
+                        }
                       ),
                       SizedBox(width:10),
                       Column(
@@ -152,39 +131,23 @@ class _HomeState extends State<Home> {
                     children: <Widget>[
                      StreamBuilder(
                         stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          switch(snapshot.connectionState)
-                          {
-                            case ConnectionState.none:
-                              return Text("0.0",
-                                style: TextStyle(
-                                  fontSize: 60,
-                                  fontWeight: FontWeight.w200,
-                                ),
-                              );
-                            case ConnectionState.waiting:
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
                             return Text("0.0",
-                                style: TextStyle(
-                                  fontSize: 60,
-                                  fontWeight: FontWeight.w200,
-                                ),
-                              );
-                            case ConnectionState.active:
-                            return Text(snapshot.data["avgMph"].toString(),
-                              style: TextStyle(
-                                fontSize: 60,
-                                fontWeight: FontWeight.w200,
-                              ),
-                            );
-                            case ConnectionState.done:
-                            return Text(snapshot.data["avgMph"].toString(),
                               style: TextStyle(
                                 fontSize: 60,
                                 fontWeight: FontWeight.w200,
                               ),
                             );
                           }
-                        },
+                          var userDocument = snapshot.data;
+                          return Text(userDocument["totalMiles"].toString(),
+                            style: TextStyle(
+                              fontSize: 60,
+                              fontWeight: FontWeight.w200,
+                            ),
+                          );
+                        }
                       ),
                       SizedBox(width:10),
                       Column(
@@ -213,42 +176,25 @@ class _HomeState extends State<Home> {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                    //  Text(getMiles(user).toString()),
-                     StreamBuilder(
+                      StreamBuilder(
                         stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          switch(snapshot.connectionState)
-                          {
-                            case ConnectionState.none:
-                              return Text("0.0",
-                                style: TextStyle(
-                                  fontSize: 60,
-                                  fontWeight: FontWeight.w200,
-                                ),
-                              );
-                            case ConnectionState.waiting:
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
                             return Text("0.0",
                               style: TextStyle(
                                 fontSize: 60,
                                 fontWeight: FontWeight.w200,
                               ),
                             );
-                            case ConnectionState.active:
-                            return Text(snapshot.data["totalCalories"].toString(),
-                              style: TextStyle(
-                                fontSize: 60,
-                                fontWeight: FontWeight.w200,
-                              ),
-                            );
-                            case ConnectionState.done:
-                            return Text(snapshot.data["totalCalories"].toString(),
-                              style: TextStyle(
-                                fontSize: 60,
-                                fontWeight: FontWeight.w200,
-                              ),
-                            );
                           }
-                        },
+                          var userDocument = snapshot.data;
+                          return Text(userDocument["totalCalories"].toString(),
+                            style: TextStyle(
+                              fontSize: 60,
+                              fontWeight: FontWeight.w200,
+                            ),
+                          );
+                        }
                       ),
                       SizedBox(width:10),
                       Column(
