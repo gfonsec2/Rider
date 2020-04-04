@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rider/newHome.dart';
-import 'Home.dart';
 import 'Settings.dart';
 import 'package:intl/intl.dart';
-
 
 class ChangePassword extends StatefulWidget {
   ChangePassword({Key key}): super(key: key);
@@ -303,26 +299,27 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Container(
-          margin: EdgeInsets.fromLTRB(30, 40, 30, 30),
-          child: Column(
-            children: <Widget>[
-              _back(),
-              _title(),
-              SizedBox(height: 5),
-              _disclosure(),
-              SizedBox(height: 15),
-              _passwordsDontMatch(),
-              SizedBox(height: 15),
-              _newPassword(),
-              SizedBox(height: 15),
-              _confirmNewPassword(),
-              SizedBox(height: 15),
-              _changePasswordButton(),
-            ],
-          )
+      body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: Container(
+            margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
+            child: Column(
+              children: <Widget>[
+                _back(),
+                _title(),
+                SizedBox(height: 5),
+                _disclosure(),
+                _passwordsDontMatch(),
+                SizedBox(height: 15),
+                _newPassword(),
+                SizedBox(height: 15),
+                _confirmNewPassword(),
+                SizedBox(height: 15),
+                _changePasswordButton(),
+              ],
+            )
+          ),
         ),
       ),
     );

@@ -25,10 +25,10 @@ class _QuickStartState extends State<QuickStart> {
   double distance=0;
   int calories=0;
   DateTime now = DateTime.now();
+
   _QuickStartState({Key key, @required this.mph, this.distance, this.calories});
   
-  void quit(FirebaseUser user, double timeDone, int caloriesDone, double milesDone)
-  {
+  void quit(FirebaseUser user, double timeDone, int caloriesDone, double milesDone){
     print(timeDone);
     print(caloriesDone);
     print(milesDone);
@@ -345,27 +345,29 @@ class _QuickStartState extends State<QuickStart> {
   Widget build(BuildContext context) {
     FirebaseUser user = Provider.of<FirebaseUser>(context);
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.fromLTRB(15, 40, 15, 0),
-        child: Column(
-          children: <Widget>[
-            _back(user),
-            _title(),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _mph(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    _dist(),
-                    _cal(),
-                  ],
-                ),
-                _stopwatch(context)
-              ],
-            ),
-          ],
+      body: SafeArea(
+        child: Container(
+          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          child: Column(
+            children: <Widget>[
+              _back(user),
+              _title(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  _mph(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      _dist(),
+                      _cal(),
+                    ],
+                  ),
+                  _stopwatch(context)
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

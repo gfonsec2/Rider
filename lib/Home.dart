@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rider/auth.dart';
-import 'Profile.dart';
-import 'Settings.dart';
 import 'QuickStart.dart';
 import 'Trials.dart';
 import 'Multiplayer.dart';
@@ -18,8 +16,8 @@ import 'auth.dart';
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
 double miles;
-class Home extends StatefulWidget {
- 
+
+class Home extends StatefulWidget { 
   Home({Key key,}): super(key: key);
   @override
   _HomeState createState() => _HomeState();
@@ -29,11 +27,6 @@ class _HomeState extends State<Home> {
   _HomeState({Key key,});
   DateTime now = DateTime.now();
   //int selectedIndex;
-  
-void foo(FirebaseUser userid) async {
-   double miles = await getMiles(userid);
-   print(miles);
-}
 
   Widget _title(){
     return Column(
@@ -61,15 +54,13 @@ void foo(FirebaseUser userid) async {
   }
 
   Widget _prevWorkout(){
-     FirebaseUser user = Provider.of<FirebaseUser>(context);
-     foo(user);
+    FirebaseUser user = Provider.of<FirebaseUser>(context);
     double avg;
    // double miles;
     int calories;
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
           child: Row(
             children: <Widget>[
               Icon(IconData(59406, fontFamily: 'MaterialIcons'), size: 22, color: Color(0xffffcc00)),
@@ -102,21 +93,36 @@ void foo(FirebaseUser userid) async {
                           switch(snapshot.connectionState)
                           {
                             case ConnectionState.none:
-                              return Text("?");
+                              return Text("0.0",
+                                style: TextStyle(
+                                  fontSize: 60,
+                                  fontWeight: FontWeight.w200,
+                                ),
+                              );
                             case ConnectionState.waiting:
-                            return Text("?");
-
+                            return Text("0.0",
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.w200,
+                              ),
+                            );
                             case ConnectionState.active:
-                            return Text(snapshot.data["totalMiles"].toString());
-
+                            return Text(snapshot.data["totalMiles"].toString(),
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.w200,
+                              ),
+                            );
                             case ConnectionState.done:
-                            return Text(snapshot.data["totalMiles"].toString());
+                            return Text(snapshot.data["totalMiles"].toString(),
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.w200,
+                              ),
+                            );
                           }
-                          
                         },
                       ),
-                    //  Text(miles.toString()),
-
                       SizedBox(width:10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,17 +156,34 @@ void foo(FirebaseUser userid) async {
                           switch(snapshot.connectionState)
                           {
                             case ConnectionState.none:
-                              return Text("?");
+                              return Text("0.0",
+                                style: TextStyle(
+                                  fontSize: 60,
+                                  fontWeight: FontWeight.w200,
+                                ),
+                              );
                             case ConnectionState.waiting:
-                            return Text("?");
-
+                            return Text("0.0",
+                                style: TextStyle(
+                                  fontSize: 60,
+                                  fontWeight: FontWeight.w200,
+                                ),
+                              );
                             case ConnectionState.active:
-                            return Text(snapshot.data["avgMph"].toString());
-
+                            return Text(snapshot.data["avgMph"].toString(),
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.w200,
+                              ),
+                            );
                             case ConnectionState.done:
-                            return Text(snapshot.data["avgMph"].toString());
+                            return Text(snapshot.data["avgMph"].toString(),
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.w200,
+                              ),
+                            );
                           }
-
                         },
                       ),
                       SizedBox(width:10),
@@ -197,15 +220,33 @@ void foo(FirebaseUser userid) async {
                           switch(snapshot.connectionState)
                           {
                             case ConnectionState.none:
-                              return Text("?");
+                              return Text("0.0",
+                                style: TextStyle(
+                                  fontSize: 60,
+                                  fontWeight: FontWeight.w200,
+                                ),
+                              );
                             case ConnectionState.waiting:
-                            return Text("?");
-
+                            return Text("0.0",
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.w200,
+                              ),
+                            );
                             case ConnectionState.active:
-                            return Text(snapshot.data["totalCalories"].toString());
-
+                            return Text(snapshot.data["totalCalories"].toString(),
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.w200,
+                              ),
+                            );
                             case ConnectionState.done:
-                            return Text(snapshot.data["totalCalories"].toString());
+                            return Text(snapshot.data["totalCalories"].toString(),
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.w200,
+                              ),
+                            );
                           }
                         },
                       ),
@@ -242,7 +283,7 @@ void foo(FirebaseUser userid) async {
 
   Widget _menuHeader(){
     return Container(
-      margin: EdgeInsets.fromLTRB(10, 10, 0, 0),
+      margin: EdgeInsets.only(top:10),
       child: Row(
         children: <Widget>[
           Icon(IconData(59406, fontFamily: 'MaterialIcons'), size: 22, color: Color(0xffffcc00)),
@@ -262,7 +303,7 @@ void foo(FirebaseUser userid) async {
     return Expanded(
       child: ListView(
         shrinkWrap: true,
-        padding: EdgeInsets.fromLTRB(8, 8, 8, 25),
+        padding: EdgeInsets.only(bottom:25),
         children: <Widget>[
           GestureDetector(
             onTap: (){
@@ -511,25 +552,23 @@ void foo(FirebaseUser userid) async {
   }
 
   @override
-   @override
   Widget build(BuildContext context) {
-  
-    FirebaseUser user = Provider.of<FirebaseUser>(context);
-    return Container(
-        margin: EdgeInsets.fromLTRB(15, 40, 15, 0),
-        child: Column(
-          children: <Widget>[
-            _title(),
-            _prevWorkout(),
-            _menuHeader(),
-            _menu()
-          ],
-        )
-      );
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+            margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+            child: Column(
+              children: <Widget>[
+                _title(),
+                _prevWorkout(),
+                _menuHeader(),
+                _menu()
+              ],
+            )
+          ),
+      )
+    );
   }
-
-
-  
   /*Widget build(BuildContext context) {
     FirebaseUser user = Provider.of<FirebaseUser>(context);
     return Scaffold(
