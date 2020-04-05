@@ -3,8 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-import 'GameStart.dart';
+import 'package:rider/GameStart.dart';
 
 class MultiplayerJoinLobby extends StatefulWidget {
   @override
@@ -208,6 +207,6 @@ class _MultiplayerJoinLobbyState extends State<MultiplayerJoinLobby> {
       'joinable': false,
       'playing': false,
     });
-    Navigator.push(context,MaterialPageRoute(builder: (context) => GameStart(p1Username: p1Username, p1uid:p1uid)));
+    Navigator.push(context,MaterialPageRoute(builder: (context) => GameStart(p1Username: p1Username, p1uid:p1uid, p2Username: player2Username,p2uid: user.uid)));
   }
 }

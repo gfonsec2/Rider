@@ -74,6 +74,62 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
+  showFailDialog(BuildContext context) {
+    Widget buttons = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        FlatButton(
+          child: Text("OK",
+            style: TextStyle(
+              color: Colors.blue[300],
+              fontSize: 25,
+            )
+          ),
+          onPressed:  () {Navigator.pop(context);},
+        )
+      ]
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      title: Center(
+        child: Text("Oops!",
+          style: TextStyle(
+            fontSize: 25,
+          )
+        ),
+      ),
+      content: Container(
+        height:120,
+        child: Column(
+          children: <Widget>[
+            Text("Password can't be changed right now. Password change requires recent authentication. Please relogin and try again.",
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w200
+              )
+            ),
+            Container(
+              child: buttons
+            )
+          ],
+        ),
+      )
+      //Text("You're about to exit the Quick Start session. Would you like to save session?"),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+
   Widget _back(){
     return GestureDetector(
       onTap: (){
@@ -348,6 +404,9 @@ class _ChangePasswordState extends State<ChangePassword> {
           //This might happen, when the wrong password is in, the user isn't found, or if the user hasn't logged in recently.
         });
       }catch(e){
+        if(e.message == 'null'){
+          showFailDialog(context);
+        }
         print(e.message);
       }
     }

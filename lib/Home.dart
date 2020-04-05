@@ -82,6 +82,26 @@ class _HomeState extends State<Home> {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("AVG",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black,
+                            )
+                          ),
+                          Text("MPH",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black,
+                            )
+                          ),
+                        ]
+                      ),
+                      SizedBox(width:10),
                       StreamBuilder(
                         stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
                         builder: (context, snapshot) {
@@ -102,26 +122,6 @@ class _HomeState extends State<Home> {
                           );
                         }
                       ),
-                      SizedBox(width:10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("AVG",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black,
-                            )
-                          ),
-                          Text("MPH",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black,
-                            )
-                          ),
-                        ]
-                      )
                     ],
                   ),
                 ),
@@ -129,6 +129,26 @@ class _HomeState extends State<Home> {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("TOTAL",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black,
+                            )
+                          ),
+                          Text("MILES",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black,
+                            )
+                          ),
+                        ]
+                      ),
+                      SizedBox(width:10),
                      StreamBuilder(
                         stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
                         builder: (context, snapshot) {
@@ -149,7 +169,13 @@ class _HomeState extends State<Home> {
                           );
                         }
                       ),
-                      SizedBox(width:10),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: Row(
+                    children: <Widget>[
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -160,7 +186,7 @@ class _HomeState extends State<Home> {
                               color: Colors.black,
                             )
                           ),
-                          Text("MILES",
+                          Text("CAL",
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w300,
@@ -168,14 +194,8 @@ class _HomeState extends State<Home> {
                             )
                           ),
                         ]
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  child: Row(
-                    children: <Widget>[
+                      ),
+                      SizedBox(width:10),
                       StreamBuilder(
                         stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
                         builder: (context, snapshot) {
@@ -196,26 +216,6 @@ class _HomeState extends State<Home> {
                           );
                         }
                       ),
-                      SizedBox(width:10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("TOTAL",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black,
-                            )
-                          ),
-                          Text("CAL",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.black,
-                            )
-                          ),
-                        ]
-                      )
                     ],
                   ),
                 ),
@@ -515,41 +515,4 @@ class _HomeState extends State<Home> {
       )
     );
   }
-  /*Widget build(BuildContext context) {
-    FirebaseUser user = Provider.of<FirebaseUser>(context);
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        onTap: _onItemTapped,
-        currentIndex: selectedIndex, // this will be set when a new tab is tapped
-        selectedItemColor: Color(0xffffcc00),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home,size:35,),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle,size:35,),
-            title: Text('Records'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings,size:35,),
-            title: Text('Settings')
-          ),
-        ],
-      ),
-      body: Container(
-        margin: EdgeInsets.fromLTRB(15, 40, 15, 0),
-        child: Column(
-          children: <Widget>[
-            _title(),
-            _prevWorkout(),
-            _menuHeader(),
-            _menu()
-          ],
-        )
-      ),
-    );
-  }*/
 }

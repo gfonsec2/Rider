@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:quiver/async.dart';
+import 'package:rider/MultiplayerJoinLobby.dart';
 
 
 class GamePlay extends StatefulWidget {
@@ -34,10 +35,79 @@ class _GamePlayState extends State<GamePlay> {
     WidgetsBinding.instance.addPostFrameCallback((_) => startTimer());
   }
 
+  quitGameAlertDialog(BuildContext context) {
+    Widget buttons = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        FlatButton(
+          child: Text("Cancel",
+            style: TextStyle(
+              color: Colors.redAccent,
+              fontSize: 25,
+            )
+          ),
+          onPressed:  () => Navigator.pop(context)
+        ),
+        FlatButton(
+          child: Text("Quit",
+            style: TextStyle(
+              color: Color(0xff66CCCC),
+              fontSize: 25,
+            )
+          ),
+          onPressed:  () {
+            leaveGame();
+            Navigator.pop(context);
+            Navigator.pop(context);
+            Navigator.pop(context);
+          },
+        )
+      ]
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      title: Center(
+        child: Text("Quit This Game?",
+          style: TextStyle(
+            fontSize: 25,
+          )
+        ),
+      ),
+      content: Container(
+        height:140,
+        child: Column(
+          children: <Widget>[
+            Text("Leaving the game will take you back to Multiplayer Home.",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w200
+              )
+            ),
+            Container(
+              child: buttons
+            )
+          ],
+        ),
+      )
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+
   Widget _back(){
     return GestureDetector(
       onTap: (){
-        Navigator.pop(context);
+        quitGameAlertDialog(context);
       },
       child: Row(
         children: <Widget>[
@@ -127,5 +197,17 @@ class _GamePlayState extends State<GamePlay> {
         ],
       ),
     );
+  }
+
+  leaveGame(){
+    var _db = Firestore.instance.collection('lobbys').document(p1uid);
+    _db.setData({
+      'Player1': p1Username,
+      'Player1id': p1uid,
+      'Player2': "",
+      'Player2id': "",
+      'joinable': true,
+      'playing': false,
+    });
   }
 }

@@ -161,11 +161,19 @@ class _MultiplayerAwaitOpponentState extends State<MultiplayerAwaitOpponent> {
                       )
                     );
                   }
-                  return Text("Waiting for player to join your lobby...",
-                    style: TextStyle(fontSize: 20,
-                      color: Color(0xff838383),
-                      fontWeight: FontWeight.w200,
-                    )
+                  return Column(
+                    children: <Widget>[
+                      Text("Waiting for player to join your lobby...",
+                        style: TextStyle(fontSize: 20,
+                          color: Color(0xff838383),
+                          fontWeight: FontWeight.w200,
+                        )
+                      ),
+                      SizedBox(height: 20),
+                      CircularProgressIndicator(
+                        backgroundColor: Color(0xffFFCC00),
+                      ),
+                    ],
                   );
                 }
               ),

@@ -1,9 +1,10 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 import 'GamePlay.dart';
 
 class GameStart extends StatefulWidget {
@@ -17,6 +18,25 @@ class GameStart extends StatefulWidget {
 }
 
 class _GameStartState extends State<GameStart> {
+  @override
+  void initState() {
+    super.initState();
+    startGame();
+    Timer(Duration(seconds: 10), () {
+       Navigator.push(context, 
+          MaterialPageRoute(
+          builder: (context) => 
+            GamePlay(
+              p1uid: p1uid,
+              p1Username: p1Username,
+              p2uid: p2uid,
+              p2Username: p2Username
+            )
+          )
+        );
+      }
+    );
+  }
   
   final String p1Username;
   final String p1uid;
@@ -24,7 +44,73 @@ class _GameStartState extends State<GameStart> {
   final String p2uid;
   _GameStartState({Key key, @required this.p1Username, this.p1uid, this.p2uid, this.p2Username});
   DateTime now = DateTime.now();
-  
+
+  alertDialogPlayer1Leaving(BuildContext context) {
+    Widget buttons = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        FlatButton(
+          child: Text("Cancel",
+            style: TextStyle(
+              color: Colors.redAccent,
+              fontSize: 25,
+            )
+          ),
+          onPressed:  () => Navigator.pop(context)
+        ),
+        FlatButton(
+          child: Text("Quit",
+            style: TextStyle(
+              color: Color(0xff66CCCC),
+              fontSize: 25,
+            )
+          ),
+          onPressed:  () {
+            leaveLobby(p1uid, p1Username);
+            Navigator.pop(context);
+          },
+        )
+      ]
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      title: Center(
+        child: Text("Quit This Game?",
+          style: TextStyle(
+            fontSize: 25,
+          )
+        ),
+      ),
+      content: Container(
+        height:140,
+        child: Column(
+          children: <Widget>[
+            Text("Leave Lobby and navigate back to search for new player?",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w200
+              )
+            ),
+            Container(
+              child: buttons
+            )
+          ],
+        ),
+      )
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   alertDialogPlayer2Leaving(BuildContext context) {
     Widget buttons = Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -47,7 +133,6 @@ class _GameStartState extends State<GameStart> {
           ),
           onPressed:  () {
             leaveLobby(p1uid, p1Username);
-            Navigator.pop(context);
             Navigator.pop(context);
           },
 
@@ -93,83 +178,29 @@ class _GameStartState extends State<GameStart> {
     );
   }
 
-  alertDialogPlayer1Leaving(BuildContext context) {
-    Widget buttons = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        FlatButton(
-          child: Text("Cancel",
-            style: TextStyle(
-              color: Colors.redAccent,
-              fontSize: 25,
-            )
-          ),
-          onPressed:  () => Navigator.pop(context)
-        ),
-        FlatButton(
-          child: Text("Quit",
-            style: TextStyle(
-              color: Color(0xff66CCCC),
-              fontSize: 25,
-            )
-          ),
-          onPressed:  () {
-            leaveLobby(p1uid, p1Username);
-            Navigator.pop(context);
-            Navigator.pop(context);
-          },
-        )
-      ]
-    );
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      title: Center(
-        child: Text("Quit This Game?",
-          style: TextStyle(
-            fontSize: 25,
-          )
-        ),
-      ),
-      content: Container(
-        height:140,
-        child: Column(
-          children: <Widget>[
-            Text("Leave Lobby and navigate back to search for new player?",
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.w200
-              )
-            ),
-            Container(
-              child: buttons
-            )
-          ],
-        ),
-      )
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
   Widget _back(){
     FirebaseUser user = Provider.of<FirebaseUser>(context);
     return StreamBuilder(
       stream: Firestore.instance.collection('lobbys').document(p1uid).snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return new Text("Loading...");
+          return new GestureDetector();
         }
         var userDocument = snapshot.data;
-        if (userDocument["Player2id"] == user.uid){
+        if(user.uid == userDocument["Player1id"]){
+          return GestureDetector(
+            onTap: (){
+              alertDialogPlayer1Leaving(context);
+            },
+            child: Row(
+              children: <Widget>[
+                Icon(IconData(58848, fontFamily: 'MaterialIcons', matchTextDirection: true), size: 13),
+                Text("Back"),
+              ],
+            )
+          );
+        }
+        else{
           return GestureDetector(
             onTap: (){
               alertDialogPlayer2Leaving(context);
@@ -182,19 +213,8 @@ class _GameStartState extends State<GameStart> {
             )
           );
         }
-        return GestureDetector(
-          onTap: (){
-            alertDialogPlayer1Leaving(context);
-          },
-          child: Row(
-            children: <Widget>[
-              Icon(IconData(58848, fontFamily: 'MaterialIcons', matchTextDirection: true), size: 13),
-              Text("Back"),
-            ],
-          )
-        );
       }
-    );       
+    );
   }
 
   Widget _title(){
@@ -233,19 +253,8 @@ class _GameStartState extends State<GameStart> {
                 return new Text("Loading...");
               }
               var userDocument = snapshot.data;
-              if(snapshot.hasData && userDocument["playing"]) {
-                Future<void>.microtask(() => Navigator.push(context, 
-                  MaterialPageRoute(
-                    builder: (context) => 
-                      GamePlay(
-                        p1uid: p1uid,
-                        p1Username: p2Username,
-                        p2uid: p2uid,
-                        p2Username: p2Username
-                      )
-                    )
-                  )
-                );
+              if(snapshot.hasData && userDocument["joinable"]) {
+                Future<void>.microtask(() => Navigator.pop(context));
               }
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -290,35 +299,19 @@ class _GameStartState extends State<GameStart> {
   }
   
   Widget _startButton(){
-    return RaisedButton(
-      onPressed: () {
-        startGame(context);
-      },
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-      padding: EdgeInsets.all(0.0),
-      child: Ink(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xffFFCC00), Color(0xffFF6666)], 
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(15.0),
+    return Center(
+      child: Column(children: <Widget>[
+        Text("Creating Game... Get Ready!!!",
+          style: TextStyle(fontSize: 20,
+            color: Color(0xff838383),
+            fontWeight: FontWeight.w200,
+          )
         ),
-        child: Container(
-          constraints: BoxConstraints(maxWidth: double.infinity, minHeight: 40.0),
-          alignment: Alignment.center,
-          child: Text(
-            "Start",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+        SizedBox(height: 20),
+        CircularProgressIndicator(
+          backgroundColor: Color(0xffFFCC00),
         ),
-      ),
+      ],)
     );
   }
 
@@ -562,7 +555,6 @@ class _GameStartState extends State<GameStart> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -587,7 +579,7 @@ class _GameStartState extends State<GameStart> {
     );
   }
 
-  void startGame(context) async{
+  startGame(){
     var _db = Firestore.instance.collection('lobbys').document(p1uid);
     _db.setData({
       'Player1': p1Username,
@@ -597,7 +589,6 @@ class _GameStartState extends State<GameStart> {
       'joinable': false,
       'playing': true,
     });
-    Navigator.push(context,MaterialPageRoute(builder: (context) => GamePlay(p1Username: p1Username, p1uid:p1uid, p2Username: p2Username, p2uid: p2uid)));
   }
 
   void leaveLobby(String p1uid, String p1Username) async {

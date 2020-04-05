@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:rider/splashscreen.dart';
 import 'Login.dart';
 import 'package:provider/provider.dart';
-
 import 'auth.dart';
 
 

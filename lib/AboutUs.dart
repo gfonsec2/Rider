@@ -8,7 +8,7 @@ class AboutUs extends StatelessWidget {
   Widget _back(context){
     return GestureDetector(
       onTap: (){
-        Navigator.pop(context,MaterialPageRoute(builder: (context) => Settings()));
+        Navigator.pop(context);
       },
       child: Row(
         children: <Widget>[
