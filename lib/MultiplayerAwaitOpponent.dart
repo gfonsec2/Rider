@@ -126,7 +126,7 @@ class _MultiplayerAwaitOpponentState extends State<MultiplayerAwaitOpponent> {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              StreamBuilder(
+             StreamBuilder(
                 stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
@@ -140,7 +140,7 @@ class _MultiplayerAwaitOpponentState extends State<MultiplayerAwaitOpponent> {
                     )
                   );
                 }
-              ),
+              ), 
               StreamBuilder(
                 stream: Firestore.instance.collection('lobbys').document(user.uid).snapshots(),
                 builder: (context, snapshot) {
@@ -148,8 +148,8 @@ class _MultiplayerAwaitOpponentState extends State<MultiplayerAwaitOpponent> {
                     return new Text("... Lobby");
                   }
                   var userDocument = snapshot.data;
-                  if(snapshot.hasData && !userDocument["joinable"]) {
-                    Future<void>.microtask(() => Navigator.push(context, 
+                 /* if(snapshot.hasData && !userDocument["joinable"]) {
+                     Navigator.push(context, 
                       MaterialPageRoute(
                         builder: (context) => 
                           GameStart(p1uid: user.uid,
@@ -158,9 +158,9 @@ class _MultiplayerAwaitOpponentState extends State<MultiplayerAwaitOpponent> {
                             p2Username: userDocument["Player2"]
                           )
                         )
-                      )
+                      
                     );
-                  }
+                  }*/
                   return Column(
                     children: <Widget>[
                       Text("Waiting for player to join your lobby...",

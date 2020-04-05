@@ -175,26 +175,6 @@ class _HomeState extends State<Home> {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                    //  Text(getMiles(user).toString()),
-                     StreamBuilder(
-                        stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          switch(snapshot.connectionState)
-                          {
-                            case ConnectionState.none:
-                            return Text("?");
-
-                            case ConnectionState.waiting:
-                            return Text("?");
-
-                            case ConnectionState.active:
-                            return Text(snapshot.data["totalCalories"].toString());
-
-                            case ConnectionState.done:
-                            return Text(snapshot.data["totalCalories"].toString());
-                          }
-                        },
-                      ),
                       SizedBox(width:10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

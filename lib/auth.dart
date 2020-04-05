@@ -55,14 +55,13 @@ class AuthService {
     time = snapshot['totalTime'].toDouble();
     calories = snapshot['totalCalories'].toInt();
 
-
-    return reportRef.setData({  
+    Firestore.instance.collection('users').document(user.uid).updateData({
       'totalMiles': (miles + milesDone),
-      'avgMph': (miles + milesDone) / (time + timeDone),
+      'avgMph': (miles + milesDone) / ((time + timeDone)/60),
       'totalCalories': (calories + caloriesDone),
       'totalTime': (time + timeDone),
       'lastActivity': DateTime.now()
-    }); 
+    });
   }
 
 Future<double> getMiles(FirebaseUser user) 
