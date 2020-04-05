@@ -138,7 +138,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   )
                 ),
                 SizedBox(height: 15),
-                Text("Password might not be changeable since this operation is sensitive and requires recent authentication. Log in again before retrying this request.",
+                Text("Password might not be changeable since this operation is sensitive and requires recent authentication. If password reset fails, sign out, log in, and try again.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'ProximaNova',
@@ -310,8 +310,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                 _title(),
                 SizedBox(height: 5),
                 _disclosure(),
-                _passwordsDontMatch(),
                 SizedBox(height: 15),
+                _passwordsDontMatch(),
+                SizedBox(height: 5),
                 _newPassword(),
                 SizedBox(height: 15),
                 _confirmNewPassword(),

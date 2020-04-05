@@ -9,19 +9,91 @@ import 'GamePlay.dart';
 class GameStart extends StatefulWidget {
   final String p1Username;
   final String p1uid;
-  GameStart({Key key, this.p1uid, this.p1Username}): super(key: key);
+  final String p2uid;
+  final String p2Username;
+  GameStart({Key key, this.p1uid, this.p1Username,this.p2Username,this.p2uid}): super(key: key);
   @override
-  _GameStartState createState() => _GameStartState(p1Username: p1Username, p1uid: p1uid);
+  _GameStartState createState() => _GameStartState(p1Username: p1Username, p1uid: p1uid, p2Username: p2Username, p2uid: p2uid);
 }
 
 class _GameStartState extends State<GameStart> {
   
   final String p1Username;
   final String p1uid;
-  _GameStartState({Key key, @required this.p1Username, this.p1uid});
+  final String p2Username;
+  final String p2uid;
+  _GameStartState({Key key, @required this.p1Username, this.p1uid, this.p2uid, this.p2Username});
   DateTime now = DateTime.now();
   
-  showAlertDialog(BuildContext context) {
+  alertDialogPlayer2Leaving(BuildContext context) {
+    Widget buttons = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        FlatButton(
+          child: Text("Cancel",
+            style: TextStyle(
+              color: Colors.redAccent,
+              fontSize: 25,
+            )
+          ),
+          onPressed:  () => Navigator.pop(context)
+        ),
+        FlatButton(
+          child: Text("Leave",
+            style: TextStyle(
+              color: Color(0xff66CCCC),
+              fontSize: 25,
+            )
+          ),
+          onPressed:  () {
+            leaveLobby(p1uid, p1Username);
+            Navigator.pop(context);
+            Navigator.pop(context);
+          },
+
+        )
+      ]
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      title: Center(
+        child: Text("Leave this Lobby?",
+          style: TextStyle(
+            fontSize: 25,
+          )
+        ),
+      ),
+      content: Container(
+        height:140,
+        child: Column(
+          children: <Widget>[
+            Text("Leave lobby and navigate back to Join Lobby Screen?",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w200
+              )
+            ),
+            Container(
+              child: buttons
+            )
+          ],
+        ),
+      )
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  alertDialogPlayer1Leaving(BuildContext context) {
     Widget buttons = Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
@@ -46,7 +118,6 @@ class _GameStartState extends State<GameStart> {
             Navigator.pop(context);
             Navigator.pop(context);
           },
-
         )
       ]
     );
@@ -66,7 +137,7 @@ class _GameStartState extends State<GameStart> {
         height:140,
         child: Column(
           children: <Widget>[
-            Text("Leave lobby and navigate back to Join Lobby Screen?",
+            Text("Leave Lobby and navigate back to search for new player?",
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w200
@@ -78,7 +149,6 @@ class _GameStartState extends State<GameStart> {
           ],
         ),
       )
-      //Text("You're about to exit the Quick Start session. Would you like to save session?"),
     );
 
     // show the dialog
@@ -91,17 +161,40 @@ class _GameStartState extends State<GameStart> {
   }
 
   Widget _back(){
-    return GestureDetector(
-      onTap: (){
-        showAlertDialog(context);
-      },
-      child: Row(
-        children: <Widget>[
-          Icon(IconData(58848, fontFamily: 'MaterialIcons', matchTextDirection: true), size: 13),
-          Text("Back"),
-        ],
-      )
-    );        
+    FirebaseUser user = Provider.of<FirebaseUser>(context);
+    return StreamBuilder(
+      stream: Firestore.instance.collection('lobbys').document(p1uid).snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return new Text("Loading...");
+        }
+        var userDocument = snapshot.data;
+        if (userDocument["Player2id"] == user.uid){
+          return GestureDetector(
+            onTap: (){
+              alertDialogPlayer2Leaving(context);
+            },
+            child: Row(
+              children: <Widget>[
+                Icon(IconData(58848, fontFamily: 'MaterialIcons', matchTextDirection: true), size: 13),
+                Text("Back"),
+              ],
+            )
+          );
+        }
+        return GestureDetector(
+          onTap: (){
+            alertDialogPlayer1Leaving(context);
+          },
+          child: Row(
+            children: <Widget>[
+              Icon(IconData(58848, fontFamily: 'MaterialIcons', matchTextDirection: true), size: 13),
+              Text("Back"),
+            ],
+          )
+        );
+      }
+    );       
   }
 
   Widget _title(){
@@ -140,6 +233,20 @@ class _GameStartState extends State<GameStart> {
                 return new Text("Loading...");
               }
               var userDocument = snapshot.data;
+              if(snapshot.hasData && userDocument["playing"]) {
+                Future<void>.microtask(() => Navigator.push(context, 
+                  MaterialPageRoute(
+                    builder: (context) => 
+                      GamePlay(
+                        p1uid: p1uid,
+                        p1Username: p2Username,
+                        p2uid: p2uid,
+                        p2Username: p2Username
+                      )
+                    )
+                  )
+                );
+              }
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -455,6 +562,7 @@ class _GameStartState extends State<GameStart> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -480,11 +588,16 @@ class _GameStartState extends State<GameStart> {
   }
 
   void startGame(context) async{
-    FirebaseUser user = Provider.of<FirebaseUser>(context, listen: false);
-    var _user = Firestore.instance.collection('users').document(user.uid);
-    DocumentSnapshot _userDoc = await _user.get();
-    var player2Username = _userDoc["username"];
-    Navigator.push(context,MaterialPageRoute(builder: (context) => GamePlay(p1Username: p1Username, p1uid:p1uid, p2Username: player2Username, p2uid: user.uid)));
+    var _db = Firestore.instance.collection('lobbys').document(p1uid);
+    _db.setData({
+      'Player1': p1Username,
+      'Player1id': p1uid,
+      'Player2': p2Username,
+      'Player2id': p2uid,
+      'joinable': false,
+      'playing': true,
+    });
+    Navigator.push(context,MaterialPageRoute(builder: (context) => GamePlay(p1Username: p1Username, p1uid:p1uid, p2Username: p2Username, p2uid: p2uid)));
   }
 
   void leaveLobby(String p1uid, String p1Username) async {
@@ -495,6 +608,7 @@ class _GameStartState extends State<GameStart> {
       'Player2': '',
       'Player2id': '',
       'joinable': true,
+      'playing': false,
     });
   }
 }

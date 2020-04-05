@@ -419,6 +419,7 @@ class _MultiplayerState extends State<Multiplayer> {
       'Player2': "",
       'Player2id': "",
       'joinable': true,
+      'playing': false,
     });
   }
 }

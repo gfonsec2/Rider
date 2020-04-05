@@ -206,6 +206,7 @@ class _MultiplayerJoinLobbyState extends State<MultiplayerJoinLobby> {
       'Player2': player2Username,
       'Player2id': user.uid,
       'joinable': false,
+      'playing': false,
     });
     Navigator.push(context,MaterialPageRoute(builder: (context) => GameStart(p1Username: p1Username, p1uid:p1uid)));
   }
