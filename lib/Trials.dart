@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rider/newHome.dart';
 import 'TrialStart.dart';
-import 'Home.dart';
 import 'package:intl/intl.dart';
 
 class Trials extends StatefulWidget {
@@ -141,15 +139,17 @@ class _TrialsState extends State<Trials> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.fromLTRB(15, 40, 15, 0),
-        child: Column(
-          children: <Widget>[
-            _back(),
-            _title(),
-            _trials()
-          ],
-        )
+      body: SafeArea(
+        child: Container(
+          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          child: Column(
+            children: <Widget>[
+              _back(),
+              _title(),
+              _trials()
+            ],
+          )
+        ),
       ),
     );
   }

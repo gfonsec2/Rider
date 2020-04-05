@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rider/newHome.dart';
-import 'Home.dart';
 import 'Settings.dart';
 import 'package:intl/intl.dart';
-
 
 class ChangePassword extends StatefulWidget {
   ChangePassword({Key key}): super(key: key);
@@ -78,6 +74,62 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
+  showFailDialog(BuildContext context) {
+    Widget buttons = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        FlatButton(
+          child: Text("OK",
+            style: TextStyle(
+              color: Colors.blue[300],
+              fontSize: 25,
+            )
+          ),
+          onPressed:  () {Navigator.pop(context);},
+        )
+      ]
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      title: Center(
+        child: Text("Oops!",
+          style: TextStyle(
+            fontSize: 25,
+          )
+        ),
+      ),
+      content: Container(
+        height:120,
+        child: Column(
+          children: <Widget>[
+            Text("Password can't be changed right now. Password change requires recent authentication. Please relogin and try again.",
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w200
+              )
+            ),
+            Container(
+              child: buttons
+            )
+          ],
+        ),
+      )
+      //Text("You're about to exit the Quick Start session. Would you like to save session?"),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+
   Widget _back(){
     return GestureDetector(
       onTap: (){
@@ -142,7 +194,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   )
                 ),
                 SizedBox(height: 15),
-                Text("Password might not be changeable since this operation is sensitive and requires recent authentication. Log in again before retrying this request.",
+                Text("Password might not be changeable since this operation is sensitive and requires recent authentication. If password reset fails, sign out, log in, and try again.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'ProximaNova',
@@ -303,26 +355,28 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Container(
-          margin: EdgeInsets.fromLTRB(30, 40, 30, 30),
-          child: Column(
-            children: <Widget>[
-              _back(),
-              _title(),
-              SizedBox(height: 5),
-              _disclosure(),
-              SizedBox(height: 15),
-              _passwordsDontMatch(),
-              SizedBox(height: 15),
-              _newPassword(),
-              SizedBox(height: 15),
-              _confirmNewPassword(),
-              SizedBox(height: 15),
-              _changePasswordButton(),
-            ],
-          )
+      body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: Container(
+            margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
+            child: Column(
+              children: <Widget>[
+                _back(),
+                _title(),
+                SizedBox(height: 5),
+                _disclosure(),
+                SizedBox(height: 15),
+                _passwordsDontMatch(),
+                SizedBox(height: 5),
+                _newPassword(),
+                SizedBox(height: 15),
+                _confirmNewPassword(),
+                SizedBox(height: 15),
+                _changePasswordButton(),
+              ],
+            )
+          ),
         ),
       ),
     );
@@ -350,6 +404,9 @@ class _ChangePasswordState extends State<ChangePassword> {
           //This might happen, when the wrong password is in, the user isn't found, or if the user hasn't logged in recently.
         });
       }catch(e){
+        if(e.message == 'null'){
+          showFailDialog(context);
+        }
         print(e.message);
       }
     }

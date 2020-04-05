@@ -71,12 +71,10 @@ class _SinglesGameStartState extends State<SinglesGameStart> {
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
           child: Row(
             children: <Widget>[
               Icon(IconData(59406, fontFamily: 'MaterialIcons'), size: 22, color: Color(0xffffcc00)),
               StreamBuilder(
-                //stream: document.snapshots(),
                 stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
@@ -199,16 +197,18 @@ class _SinglesGameStartState extends State<SinglesGameStart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.fromLTRB(30, 40, 30, 30),
-        child: Column(
-          children: <Widget>[
-            _back(),
-            _title(),
-            SizedBox(height:15),
-            _singlePlayerProgress(),
-          ],
-        )
+      body: SafeArea(
+        child: Container(
+          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          child: Column(
+            children: <Widget>[
+              _back(),
+              _title(),
+              SizedBox(height:15),
+              _singlePlayerProgress(),
+            ],
+          )
+        ),
       ),
     );
   }

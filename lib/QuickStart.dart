@@ -25,12 +25,12 @@ class _QuickStartState extends State<QuickStart> {
   double distance=0;
   int calories=0;
   DateTime now = DateTime.now();
+
   _QuickStartState({Key key, @required this.mph, this.distance, this.calories});
   
   void quit(FirebaseUser user, double timeDone, int caloriesDone, double milesDone)
   {
     updateUserData(user, timeDone, caloriesDone, milesDone);
-    Navigator.of(context).popUntil((route) => route.isFirst);
   }
 
   showAlertDialog(BuildContext context, FirebaseUser user) {
@@ -55,8 +55,11 @@ class _QuickStartState extends State<QuickStart> {
               fontSize: 25,
             )
           ),
-          onPressed:  () {quit(user, mph, calories, distance);},
-
+          onPressed: () {
+            quit(user, mph, calories, distance);
+            Navigator.pop(context);
+            Navigator.pop(context);
+          },
         )
       ]
     );
@@ -73,7 +76,7 @@ class _QuickStartState extends State<QuickStart> {
         ),
       ),
       content: Container(
-        height:130,
+        height:140,
         child: Column(
           children: <Widget>[
             Text("You're about to exit Quick Start, press ok to go back.",
@@ -326,7 +329,7 @@ class _QuickStartState extends State<QuickStart> {
   Widget _stopwatch(context){
     return Container(
       height: 225,
-      width: 400,
+      width: double.infinity,
       child: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -342,27 +345,29 @@ class _QuickStartState extends State<QuickStart> {
   Widget build(BuildContext context) {
     FirebaseUser user = Provider.of<FirebaseUser>(context);
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.fromLTRB(15, 40, 15, 0),
-        child: Column(
-          children: <Widget>[
-            _back(user),
-            _title(),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _mph(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    _dist(),
-                    _cal(),
-                  ],
-                ),
-                _stopwatch(context)
-              ],
-            ),
-          ],
+      body: SafeArea(
+        child: Container(
+          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          child: Column(
+            children: <Widget>[
+              _back(user),
+              _title(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  _mph(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      _dist(),
+                      _cal(),
+                    ],
+                  ),
+                  _stopwatch(context)
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

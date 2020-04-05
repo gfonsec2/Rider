@@ -271,7 +271,7 @@ class MinutesAndSecondsState extends State<MinutesAndSeconds> {
   Widget build(BuildContext context) {
     String minutesStr = (minutes % 60).toString().padLeft(2, '0');
     String secondsStr = (seconds % 60).toString().padLeft(2, '0');
-    return new Text('$minutesStr:$secondsStr.', style: TextStyle(fontSize: 90.0),);
+    return new Text('$minutesStr:$secondsStr.', style: TextStyle(fontSize:85.0),);
   }
 }
 
@@ -305,6 +305,6 @@ class HundredsState extends State<Hundreds> {
   @override
   Widget build(BuildContext context) {
     String hundredsStr = (hundreds % 100).toString().padLeft(2, '0');
-    return new Text(hundredsStr, style: TextStyle(fontSize: 90.0),);
+    return new Text(hundredsStr, style: TextStyle(fontSize: 85.0),);
   }
 }

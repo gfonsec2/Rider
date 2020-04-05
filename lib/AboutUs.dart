@@ -1,26 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rider/newHome.dart';
-import 'Home.dart';
 import 'Settings.dart';
 import 'package:intl/intl.dart';
 
+class AboutUs extends StatelessWidget {
+  final DateTime now = DateTime.now();
 
-class AboutUs extends StatefulWidget {
-  AboutUs({Key key}): super(key: key);
-  _AboutUsState createState() => _AboutUsState();
-}
-
-class _AboutUsState extends State<AboutUs> {
-    DateTime now = DateTime.now();
-
-  _AboutUsState({Key key});
-
-  Widget _back(){
+  Widget _back(context){
     return GestureDetector(
       onTap: (){
-        Navigator.pop(context,MaterialPageRoute(builder: (context) => Settings()));
+        Navigator.pop(context);
       },
       child: Row(
         children: <Widget>[
@@ -66,7 +54,7 @@ class _AboutUsState extends State<AboutUs> {
         elevation: 10,
         margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
         child: Padding(
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.all(25),
           child: Column(
             children: <Widget>[
               Text("Rider",
@@ -92,16 +80,18 @@ class _AboutUsState extends State<AboutUs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.fromLTRB(30, 40, 30, 30),
-        child: Column(
-          children: <Widget>[
-            _back(),
-            _title(),
-            SizedBox(height: 5),
-            _aboutUs(),
-          ],
-        )
+      body: SafeArea(
+        child: Container(
+          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          child: Column(
+            children: <Widget>[
+              _back(context),
+              _title(),
+              SizedBox(height: 5),
+              _aboutUs(),
+            ],
+          )
+        ),
       ),
     );
   }

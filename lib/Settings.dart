@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:rider/AboutUs.dart';
 import 'package:rider/ChangePassword.dart';
-import 'package:rider/newHome.dart';
-import 'Home.dart';
-import 'Profile.dart';
 import 'package:intl/intl.dart';
-
 import 'splashscreen.dart';
 
 class Settings extends StatefulWidget {
-
   Settings({Key key}): super(key: key);
   _SettingsState createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
   DateTime now = DateTime.now();
- 
   _SettingsState({Key key});
   final List<String> entries = <String>['Change Password', 'Sign Out', 'About Us'];
 
@@ -44,52 +38,55 @@ class _SettingsState extends State<Settings> {
       ]
     );
   }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.fromLTRB(30, 40, 30, 30),
-        child: Column(
-          children: <Widget>[
-            _title(),
-            Expanded(
-              child: ListView(
-                shrinkWrap: true,
-                padding: EdgeInsets.fromLTRB(8, 10, 8, 25),
-                children: <Widget>[
-                  Divider(thickness: 2),
-                  ListTile(
-                    onTap: (){Navigator.push(context,MaterialPageRoute(builder: (context) => ChangePassword()));},
-                    leading: Icon(IconData(59543, fontFamily: 'MaterialIcons'),size: 35, color: Color(0xffffcc00)),
-                    title: Text(
-                      "Change Password",
-                      style: TextStyle(color: Colors.grey, fontSize: 20),
+      body: SafeArea(
+        child: Container(
+          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          child: Column(
+            children: <Widget>[
+              _title(),
+              Expanded(
+                child: ListView(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.only(top: 10),
+                  children: <Widget>[
+                    Divider(thickness: 2),
+                    ListTile(
+                      onTap: (){Navigator.push(context,MaterialPageRoute(builder: (context) => ChangePassword()));},
+                      leading: Icon(IconData(59543, fontFamily: 'MaterialIcons'),size: 35, color: Color(0xffffcc00)),
+                      title: Text(
+                        "Change Password",
+                        style: TextStyle(color: Colors.grey, fontSize: 20),
+                      ),
                     ),
-                  ),
-                  Divider(thickness: 2),
-                  ListTile(
-                    onTap: (){Navigator.push(context,MaterialPageRoute(builder: (context) => AboutUs()));},
-                    leading: Icon(IconData(59534, fontFamily: 'MaterialIcons'), size: 35, color: Color(0xffffcc00)),
-                    title: Text(
-                      "About Us",
-                      style: TextStyle(color: Colors.grey, fontSize: 20),
+                    Divider(thickness: 2),
+                    ListTile(
+                      onTap: (){Navigator.push(context,MaterialPageRoute(builder: (context) => AboutUs()));},
+                      leading: Icon(IconData(59534, fontFamily: 'MaterialIcons'), size: 35, color: Color(0xffffcc00)),
+                      title: Text(
+                        "About Us",
+                        style: TextStyle(color: Colors.grey, fontSize: 20),
+                      ),
                     ),
-                  ),
-                  Divider(thickness: 2),
-                  ListTile(
-                    onTap: (){Navigator.push(context,MaterialPageRoute(builder: (context) => SplashScreen()));},
-                    leading: Icon(IconData(59513, fontFamily: 'MaterialIcons'), size: 35, color: Color(0xffffcc00)),
-                    title: Text(
-                      "Sign Out",
-                      style: TextStyle(color: Colors.grey, fontSize: 20),
+                    Divider(thickness: 2),
+                    ListTile(
+                      onTap: (){Navigator.push(context,MaterialPageRoute(builder: (context) => SplashScreen()));},
+                      leading: Icon(IconData(59513, fontFamily: 'MaterialIcons'), size: 35, color: Color(0xffffcc00)),
+                      title: Text(
+                        "Sign Out",
+                        style: TextStyle(color: Colors.grey, fontSize: 20),
+                      ),
                     ),
-                  ),
-                  Divider(thickness: 2),
-                ]
-              )
-            ),
-          ],
-        )
+                    Divider(thickness: 2),
+                  ]
+                )
+              ),
+            ],
+          )
+        ),
       ),
     );
   }

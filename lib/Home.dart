@@ -3,9 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rider/auth.dart';
-import 'Profile.dart';
-import 'Settings.dart';
 import 'QuickStart.dart';
 import 'Trials.dart';
 import 'Multiplayer.dart';
@@ -13,13 +10,12 @@ import 'Singles.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
-import 'auth.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
 double miles;
-class Home extends StatefulWidget {
- 
+
+class Home extends StatefulWidget { 
   Home({Key key,}): super(key: key);
   @override
   _HomeState createState() => _HomeState();
@@ -29,11 +25,6 @@ class _HomeState extends State<Home> {
   _HomeState({Key key,});
   DateTime now = DateTime.now();
   //int selectedIndex;
-  
-void foo(FirebaseUser userid) async {
-   double miles = await getMiles(userid);
-}
-
   Widget _title(){
     return Column(
       children: <Widget>[
@@ -60,15 +51,10 @@ void foo(FirebaseUser userid) async {
   }
 
   Widget _prevWorkout(){
-     FirebaseUser user = Provider.of<FirebaseUser>(context);
-     foo(user);
-    double avg;
-   // double miles;
-    int calories;
+    FirebaseUser user = Provider.of<FirebaseUser>(context);
     return Column(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
           child: Row(
             children: <Widget>[
               Icon(IconData(59406, fontFamily: 'MaterialIcons'), size: 22, color: Color(0xffffcc00)),
@@ -95,28 +81,6 @@ void foo(FirebaseUser userid) async {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                      StreamBuilder(
-                        stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          switch(snapshot.connectionState)
-                          {
-                            case ConnectionState.none:
-                              return Text("?");
-                            case ConnectionState.waiting:
-                            return Text("?");
-
-                            case ConnectionState.active:
-                            return Text(snapshot.data["totalMiles"].toString());
-
-                            case ConnectionState.done:
-                            return Text(snapshot.data["totalMiles"].toString());
-                          }
-                          
-                        },
-                      ),
-                    //  Text(miles.toString()),
-
-                      SizedBox(width:10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -135,7 +99,28 @@ void foo(FirebaseUser userid) async {
                             )
                           ),
                         ]
-                      )
+                      ),
+                      SizedBox(width:10),
+                      StreamBuilder(
+                        stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Text("0.0",
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.w200,
+                              ),
+                            );
+                          }
+                          var userDocument = snapshot.data;
+                          return Text(userDocument["avgMph"].toString(),
+                            style: TextStyle(
+                              fontSize: 60,
+                              fontWeight: FontWeight.w200,
+                            ),
+                          );
+                        }
+                      ),
                     ],
                   ),
                 ),
@@ -143,26 +128,6 @@ void foo(FirebaseUser userid) async {
                   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                   child: Row(
                     children: <Widget>[
-                     StreamBuilder(
-                        stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
-                        builder: (BuildContext context, AsyncSnapshot snapshot) {
-                          switch(snapshot.connectionState)
-                          {
-                            case ConnectionState.none:
-                              return Text("?");
-                            case ConnectionState.waiting:
-                            return Text("?");
-
-                            case ConnectionState.active:
-                            return Text(snapshot.data["avgMph"].toString());
-
-                            case ConnectionState.done:
-                            return Text(snapshot.data["avgMph"].toString());
-                          }
-
-                        },
-                      ),
-                      SizedBox(width:10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -181,7 +146,28 @@ void foo(FirebaseUser userid) async {
                             )
                           ),
                         ]
-                      )
+                      ),
+                      SizedBox(width:10),
+                     StreamBuilder(
+                        stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Text("0.0",
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.w200,
+                              ),
+                            );
+                          }
+                          var userDocument = snapshot.data;
+                          return Text(userDocument["totalMiles"].toString(),
+                            style: TextStyle(
+                              fontSize: 60,
+                              fontWeight: FontWeight.w200,
+                            ),
+                          );
+                        }
+                      ),
                     ],
                   ),
                 ),
@@ -228,7 +214,28 @@ void foo(FirebaseUser userid) async {
                             )
                           ),
                         ]
-                      )
+                      ),
+                      SizedBox(width:10),
+                      StreamBuilder(
+                        stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Text("0.0",
+                              style: TextStyle(
+                                fontSize: 60,
+                                fontWeight: FontWeight.w200,
+                              ),
+                            );
+                          }
+                          var userDocument = snapshot.data;
+                          return Text(userDocument["totalCalories"].toString(),
+                            style: TextStyle(
+                              fontSize: 60,
+                              fontWeight: FontWeight.w200,
+                            ),
+                          );
+                        }
+                      ),
                     ],
                   ),
                 ),
@@ -242,7 +249,7 @@ void foo(FirebaseUser userid) async {
 
   Widget _menuHeader(){
     return Container(
-      margin: EdgeInsets.fromLTRB(10, 10, 0, 0),
+      margin: EdgeInsets.only(top:10),
       child: Row(
         children: <Widget>[
           Icon(IconData(59406, fontFamily: 'MaterialIcons'), size: 22, color: Color(0xffffcc00)),
@@ -262,7 +269,7 @@ void foo(FirebaseUser userid) async {
     return Expanded(
       child: ListView(
         shrinkWrap: true,
-        padding: EdgeInsets.fromLTRB(8, 8, 8, 25),
+        padding: EdgeInsets.only(bottom:25),
         children: <Widget>[
           GestureDetector(
             onTap: (){
@@ -511,60 +518,21 @@ void foo(FirebaseUser userid) async {
   }
 
   @override
-   @override
   Widget build(BuildContext context) {
-  
-    FirebaseUser user = Provider.of<FirebaseUser>(context);
-    return Container(
-        margin: EdgeInsets.fromLTRB(15, 40, 15, 0),
-        child: Column(
-          children: <Widget>[
-            _title(),
-            _prevWorkout(),
-            _menuHeader(),
-            _menu()
-          ],
-        )
-      );
-  }
-
-
-  
-  /*Widget build(BuildContext context) {
-    FirebaseUser user = Provider.of<FirebaseUser>(context);
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        onTap: _onItemTapped,
-        currentIndex: selectedIndex, // this will be set when a new tab is tapped
-        selectedItemColor: Color(0xffffcc00),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home,size:35,),
-            title: Text('Home'),
+      body: SafeArea(
+        child: Container(
+            margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+            child: Column(
+              children: <Widget>[
+                _title(),
+                _prevWorkout(),
+                _menuHeader(),
+                _menu()
+              ],
+            )
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle,size:35,),
-            title: Text('Records'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings,size:35,),
-            title: Text('Settings')
-          ),
-        ],
-      ),
-      body: Container(
-        margin: EdgeInsets.fromLTRB(15, 40, 15, 0),
-        child: Column(
-          children: <Widget>[
-            _title(),
-            _prevWorkout(),
-            _menuHeader(),
-            _menu()
-          ],
-        )
-      ),
+      )
     );
-  }*/
+  }
 }

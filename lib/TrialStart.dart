@@ -117,7 +117,7 @@ class _TrialStartState extends State<TrialStart> {
           alignment: Alignment.centerLeft,
           child: Text(title,
             style: TextStyle(
-              fontSize: 25,
+              fontSize: 15,
               fontWeight: FontWeight.w500,
               color: Colors.black,
             )),
@@ -322,7 +322,7 @@ class _TrialStartState extends State<TrialStart> {
   Widget _stopwatch(context){
     return Container(
       height: 225,
-      width: 400,
+      width: double.infinity,
       child: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -337,27 +337,29 @@ class _TrialStartState extends State<TrialStart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.fromLTRB(15, 40, 15, 0),
-        child: Column(
-          children: <Widget>[
-            _back(),
-            _title(),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _mph(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    _dist(),
-                    _cal(),
-                  ],
-                ),
-                _stopwatch(context)
-              ],
-            ),
-          ],
+      body: SafeArea(
+        child: Container(
+          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+          child: Column(
+            children: <Widget>[
+              _back(),
+              _title(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  _mph(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      _dist(),
+                      _cal(),
+                    ],
+                  ),
+                  _stopwatch(context)
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
