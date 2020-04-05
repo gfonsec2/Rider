@@ -1,7 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rider/auth.dart';
 import 'package:rider/newHome.dart';
 import 'dart:async';
 import 'Home.dart';
+
+FirebaseUser user;
 
 class ElapsedTime {
   final int hundreds;
@@ -30,9 +35,30 @@ class TimerPage extends StatefulWidget {
 }
 
 class TimerPageState extends State<TimerPage> {
+  
   final Dependencies dependencies = new Dependencies();
 
   showAlertDialog(BuildContext context) {
+    
+         
+  Future<void> saveData()
+  async {
+    AuthService authService;
+   // FirebaseUser user;
+
+    double miles;
+    int calories;
+    var milliseconds = dependencies.stopwatch.elapsedMilliseconds;
+    double minutes = milliseconds/60000;
+    var va = await databaseReferencePulses.once().then((value) => 
+    miles = (value.value.toInt()*50*3.14159/63360).toDouble());
+
+      calories = await  (miles*50).toInt();
+      updateUserData(user, minutes, calories, miles);
+      Navigator.pop(context);
+      Navigator.pop(context);
+
+    }
     // set up the buttons
     Widget buttons = Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -53,7 +79,7 @@ class TimerPageState extends State<TimerPage> {
               fontSize: 25,
             )
           ),
-          onPressed:  () {Navigator.pop(context);Navigator.pop(context);},
+          onPressed:  () {saveData();},
         )
       ]
     );
@@ -97,7 +123,7 @@ class TimerPageState extends State<TimerPage> {
   }
 
   void rightButtonPressed() {
-    setState(() {
+    setState(() {  
       if (dependencies.stopwatch.isRunning) {
         dependencies.stopwatch.stop();
         showAlertDialog(context);
@@ -108,6 +134,7 @@ class TimerPageState extends State<TimerPage> {
   }
 
   Widget buttons(String text, VoidCallback callback){
+    user = Provider.of<FirebaseUser>(context);  
     return OutlineButton(
       highlightElevation: 20,
       borderSide: BorderSide(
@@ -170,10 +197,11 @@ class TimerTextState extends State<TimerText> {
 
   void callback(Timer timer) {
     if (milliseconds != dependencies.stopwatch.elapsedMilliseconds) {
-      milliseconds = dependencies.stopwatch.elapsedMilliseconds;
+     milliseconds = dependencies.stopwatch.elapsedMilliseconds;
       final int hundreds = (milliseconds / 10).truncate();
       final int seconds = (hundreds / 100).truncate();
       final int minutes = (seconds / 60).truncate();
+
       final ElapsedTime elapsedTime = new ElapsedTime(
         hundreds: hundreds,
         seconds: seconds,

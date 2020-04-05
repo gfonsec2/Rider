@@ -29,9 +29,6 @@ class _QuickStartState extends State<QuickStart> {
   
   void quit(FirebaseUser user, double timeDone, int caloriesDone, double milesDone)
   {
-    print(timeDone);
-    print(caloriesDone);
-    print(milesDone);
     updateUserData(user, timeDone, caloriesDone, milesDone);
     Navigator.of(context).popUntil((route) => route.isFirst);
   }

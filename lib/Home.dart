@@ -32,7 +32,6 @@ class _HomeState extends State<Home> {
   
 void foo(FirebaseUser userid) async {
    double miles = await getMiles(userid);
-   print(miles);
 }
 
   Widget _title(){
@@ -197,7 +196,8 @@ void foo(FirebaseUser userid) async {
                           switch(snapshot.connectionState)
                           {
                             case ConnectionState.none:
-                              return Text("?");
+                            return Text("?");
+
                             case ConnectionState.waiting:
                             return Text("?");
 
