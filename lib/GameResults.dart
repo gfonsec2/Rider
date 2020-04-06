@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:rider/newHome.dart';
 
 class GameResults extends StatefulWidget {
   final String p1uid;
@@ -91,7 +92,6 @@ class _GameResultsState extends State<GameResults> {
     );
   }
 
-
   Widget _back(){
     return GestureDetector(
       onTap: (){
@@ -100,7 +100,7 @@ class _GameResultsState extends State<GameResults> {
       child: Row(
         children: <Widget>[
           Icon(IconData(58848, fontFamily: 'MaterialIcons', matchTextDirection: true), size: 13),
-          Text("Back"),
+          Text("Home"),
         ],
       )
     );        
@@ -498,6 +498,6 @@ class _GameResultsState extends State<GameResults> {
   quit(context){
     var _db = Firestore.instance.collection('lobbys').document(p1uid);
     _db.delete();
-    Navigator.of(context).popUntil((route) => route.isFirst);
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyTabbedPage()), (route) => false);
   }
 }
