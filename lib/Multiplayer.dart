@@ -59,7 +59,7 @@ class _MultiplayerState extends State<Multiplayer> {
       padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: Row(
         children: <Widget>[
-          Icon(IconData(59475, fontFamily: 'MaterialIcons'), size: 50, color: Color(0xffffcc00)),
+          Icon(IconData(59475, fontFamily: 'MaterialIcons'), size: 50, color: Colors.grey),
           StreamBuilder(
             stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
             builder: (context, snapshot) {
@@ -69,8 +69,8 @@ class _MultiplayerState extends State<Multiplayer> {
               var userDocument = snapshot.data;
               return Text(userDocument["username"],
                 style: TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 40,
+                  fontWeight: FontWeight.w200,
                   color: Color(0xffC4C4C4),
                 )
               );
@@ -128,7 +128,7 @@ class _MultiplayerState extends State<Multiplayer> {
                               end: Alignment.bottomRight,
                               colors: [Color(0xffFFCC00), Color(0xffFF6666)])),
                           child: Center(
-                            child: Icon(IconData(58298, fontFamily: 'MaterialIcons'), size: 75, color: Colors.white,),
+                            child: Icon(IconData(57671, fontFamily: 'MaterialIcons'), size: 85, color: Colors.white,),
                           ),
                         ),
                         SizedBox(width:10),
@@ -143,7 +143,7 @@ class _MultiplayerState extends State<Multiplayer> {
                                 color: Colors.black,
                               )
                             ),
-                            Text("Create a lobby, invite\nfriends and go head\nto head to gain points.",
+                            Text("Create a lobby, have\nfriends join and go head\nto head to gain points.",
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w200,
@@ -194,7 +194,7 @@ class _MultiplayerState extends State<Multiplayer> {
                           end: Alignment.bottomRight,
                           colors: [Color(0xff60CECE), Color(0xff916DD5)])),
                       child: Center(
-                        child: Icon(IconData(59513, fontFamily: 'MaterialIcons'), size: 75, color: Colors.white,),
+                        child: Icon(IconData(59375, fontFamily: 'MaterialIcons'), size: 85, color: Colors.white,),
                       ),
                     ),
                     SizedBox(width:10),
