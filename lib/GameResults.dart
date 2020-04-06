@@ -92,7 +92,6 @@ class _GameResultsState extends State<GameResults> {
     );
   }
 
-
   Widget _back(){
     return GestureDetector(
       onTap: (){
