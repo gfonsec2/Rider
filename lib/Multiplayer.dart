@@ -71,7 +71,7 @@ class _MultiplayerState extends State<Multiplayer> {
                 style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.w200,
-                  color: Color(0xffC4C4C4),
+                  color: Colors.grey,
                 )
               );
             }

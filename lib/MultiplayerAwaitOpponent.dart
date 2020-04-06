@@ -171,7 +171,7 @@ class _MultiplayerAwaitOpponentState extends State<MultiplayerAwaitOpponent> {
                       ),
                       SizedBox(height: 20),
                       CircularProgressIndicator(
-                        backgroundColor: Color(0xffFFCC00),
+                        // backgroundColor: Color(0xffFFCC00),
                       ),
                     ],
                   );
