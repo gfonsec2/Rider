@@ -4,7 +4,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:provider/provider.dart';
 import 'package:rider/auth.dart';
 import 'timer_page.dart';
-import 'Home.dart';
 import 'package:intl/intl.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
@@ -30,7 +29,7 @@ class _QuickStartState extends State<QuickStart> {
   
   void quit(FirebaseUser user, double timeDone, int caloriesDone, double milesDone)
   {
-    updateUserData(user, timeDone, caloriesDone, milesDone);
+    //updateUserData(user, timeDone, caloriesDone, milesDone);
   }
 
   showAlertDialog(BuildContext context, FirebaseUser user) {

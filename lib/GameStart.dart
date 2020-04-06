@@ -183,14 +183,9 @@ class _GameStartState extends State<GameStart> {
     return StreamBuilder(
       stream: Firestore.instance.collection('lobbys').document(p1uid).snapshots(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return new GestureDetector();
-        }
-        var userDocument = snapshot.data;
-        if(user.uid == userDocument["Player1id"]){
+        if(!snapshot.hasData){
           return GestureDetector(
             onTap: (){
-              alertDialogPlayer1Leaving(context);
             },
             child: Row(
               children: <Widget>[
@@ -200,11 +195,38 @@ class _GameStartState extends State<GameStart> {
             )
           );
         }
+        if (snapshot.hasData && snapshot.data != null) {
+          var userDocument = snapshot.data;
+          if(user.uid == userDocument["Player1id"]){
+            return GestureDetector(
+              onTap: (){
+                alertDialogPlayer1Leaving(context);
+              },
+              child: Row(
+                children: <Widget>[
+                  Icon(IconData(58848, fontFamily: 'MaterialIcons', matchTextDirection: true), size: 13),
+                  Text("Back"),
+                ],
+              )
+            );
+          }
+          else{
+            return GestureDetector(
+              onTap: (){
+                alertDialogPlayer2Leaving(context);
+              },
+              child: Row(
+                children: <Widget>[
+                  Icon(IconData(58848, fontFamily: 'MaterialIcons', matchTextDirection: true), size: 13),
+                  Text("Back"),
+                ],
+              )
+            );
+          }
+        }
         else{
           return GestureDetector(
-            onTap: (){
-              alertDialogPlayer2Leaving(context);
-            },
+            onTap: (){},
             child: Row(
               children: <Widget>[
                 Icon(IconData(58848, fontFamily: 'MaterialIcons', matchTextDirection: true), size: 13),

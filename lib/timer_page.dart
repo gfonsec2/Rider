@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rider/auth.dart';
 import 'package:rider/newHome.dart';
+import 'package:quiver/async.dart';
 import 'dart:async';
 import 'Home.dart';
 
@@ -175,6 +176,57 @@ FirebaseDatabase.instance.reference()
     );
   }
 }
+
+class TimerPage2 extends StatefulWidget {
+  TimerPage2({Key key,}) : super(key: key);
+  TimerPage2State createState() => new TimerPage2State();
+}
+
+class TimerPage2State extends State<TimerPage2> {
+  
+  final Dependencies dependencies = new Dependencies();
+
+  int _start = 3;
+  int _current = 3;
+  bool _visible = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => startTimer());
+  }
+
+  void startTimer() {
+    CountdownTimer countDownTimer = new CountdownTimer(
+      new Duration(seconds: _start),
+      new Duration(seconds: 1),
+    );
+
+    var sub = countDownTimer.listen(null);
+    sub.onData((duration) {
+      setState(() { _current = _start - duration.elapsed.inSeconds; });
+    });
+
+    sub.onDone(() {
+      _visible = false;
+      sub.cancel();
+      dependencies.stopwatch.start();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          TimerText(dependencies: dependencies)
+        ],
+      ),
+    );
+  }
+}
+
 
 class TimerText extends StatefulWidget {
   TimerText({this.dependencies});

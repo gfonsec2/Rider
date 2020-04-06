@@ -31,6 +31,7 @@ class AuthService {
       'totalMiles': 0,
       'totalCalories': 0,
       'totalTime':0,
+      'totalWins':0,
       'lastActivity': DateTime.now()
     });
   }

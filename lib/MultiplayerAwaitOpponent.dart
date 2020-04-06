@@ -148,7 +148,8 @@ class _MultiplayerAwaitOpponentState extends State<MultiplayerAwaitOpponent> {
                     return new Text("... Lobby");
                   }
                   var userDocument = snapshot.data;
-                 /* if(snapshot.hasData && !userDocument["joinable"]) {
+                  if(snapshot.hasData && !userDocument["joinable"]) {
+                    Future<void>.microtask(() =>
                      Navigator.push(context, 
                       MaterialPageRoute(
                         builder: (context) => 
@@ -158,9 +159,8 @@ class _MultiplayerAwaitOpponentState extends State<MultiplayerAwaitOpponent> {
                             p2Username: userDocument["Player2"]
                           )
                         )
-                      
-                    );
-                  }*/
+                    ));
+                  }
                   return Column(
                     children: <Widget>[
                       Text("Waiting for player to join your lobby...",
