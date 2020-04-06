@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quiver/async.dart';
 import 'package:rider/GameResults.dart';
 import 'package:rider/timer_page.dart';
@@ -42,7 +44,7 @@ class _GamePlayState extends State<GamePlay> {
     WidgetsBinding.instance.addPostFrameCallback((_) => startTimer());
   }
 
-  quitGameAlertDialog(BuildContext context) {
+  quitGameAlertDialog(BuildContext context, String winner) {
     Widget buttons = Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
@@ -63,10 +65,7 @@ class _GamePlayState extends State<GamePlay> {
             )
           ),
           onPressed:  () {
-            leaveGame();
-            Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.pop(context);
+            gameFinish(p1uid, p1Username, p2Username, winner);
           },
         )
       ]
@@ -84,10 +83,10 @@ class _GamePlayState extends State<GamePlay> {
         ),
       ),
       content: Container(
-        height:140,
+        height:110,
         child: Column(
           children: <Widget>[
-            Text("Leaving the game will take you back to Multiplayer Home.",
+            Text("Opponent will win the match.",
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w200
@@ -110,17 +109,23 @@ class _GamePlayState extends State<GamePlay> {
     );
   }
 
-  Widget _back(){
+  Widget _giveUp(){
+    FirebaseUser user = Provider.of<FirebaseUser>(context);
     return GestureDetector(
       onTap: (){
-        quitGameAlertDialog(context);
+        if(user.uid == p1uid){
+          quitGameAlertDialog(context, p2uid);
+        }
+        else{
+          quitGameAlertDialog(context, p1uid);
+        }
       },
       child: Row(
         children: <Widget>[
           Icon(IconData(58848, fontFamily: 'MaterialIcons', matchTextDirection: true), size: 13),
           Text("Quit"),
         ],
-      )
+      ),
     );        
   }
 
@@ -758,7 +763,7 @@ class _GamePlayState extends State<GamePlay> {
                 SafeArea(child: 
                   Container(
                     padding: EdgeInsets.only(left: 15),
-                    child: _back()
+                    child: _giveUp()
                   ),
                 )
               ],
@@ -782,17 +787,7 @@ class _GamePlayState extends State<GamePlay> {
     );
   }
 
-  leaveGame(){
-    var _db = Firestore.instance.collection('lobbys').document(p1uid);
-    _db.setData({
-      'Player1': p1Username,
-      'Player1id': p1uid,
-      'Player2': "",
-      'Player2id': "",
-      'joinable': true,
-      'playing': false,
-    });
-  }
+
 
   gameFinish(String p1uid, String p1Username, String p2Username, String winner) async{
     var _db;

@@ -208,7 +208,17 @@ class _MultiplayerAwaitOpponentState extends State<MultiplayerAwaitOpponent> {
     _db.delete();
   }
 
-  void joinGame(BuildContext context, String username, String id){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => GameStart(p1Username: username, p1uid: id)));
+  void joinGame(BuildContext context, String p1uid, String p1Username, String p2uid, String p2Username){
+    Future<void>.microtask(() =>
+      Navigator.push(context, 
+      MaterialPageRoute(
+        builder: (context) => 
+          GameStart(p1uid: p1uid,
+            p1Username: p1Username,
+            p2uid: p2uid,
+            p2Username: p2Username
+          )
+        )
+    ));
   }
 }
