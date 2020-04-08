@@ -566,10 +566,6 @@ class _TrialStartState extends State<TrialStart> {
 
   gameFinish(String goalTime, String completedTime, double distance, int calories, int yourRecordTime){
     String record = formatHHMMSS(yourRecordTime);
-    print(distance);
-    print(start);
-    print(yourRecordTime);
-
     var avgMph = distance * 12 * 60;
     print(avgMph);
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TrialResults(
