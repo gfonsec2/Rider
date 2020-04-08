@@ -149,7 +149,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       children: <Widget>[
         Container(
           alignment: Alignment.centerLeft,
-          child: Text("Change Password",
+          child: Text("Privacy",
             style: TextStyle(
               fontSize: 64,
               fontWeight: FontWeight.w500,
@@ -171,12 +171,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   
   Widget _disclosure(){
     return Container(
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        elevation: 10,
-        color: Colors.orangeAccent,
+
         child: Container(
           width: double.infinity,
           margin: EdgeInsets.all(0),
@@ -188,9 +183,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'ProximaNova',
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.grey,
                   )
                 ),
                 SizedBox(height: 15),
@@ -198,16 +193,15 @@ class _ChangePasswordState extends State<ChangePassword> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'ProximaNova',
-                    fontSize: 15,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w200,
+                    color: Colors.grey,
                   )
                 ),
               ],
             ),
           ),
         ),
-      ),
     );
   }
 

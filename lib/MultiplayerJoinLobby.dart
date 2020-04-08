@@ -56,7 +56,7 @@ class _MultiplayerJoinLobbyState extends State<MultiplayerJoinLobby> {
       padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: Row(
         children: <Widget>[
-          Icon(IconData(59475, fontFamily: 'MaterialIcons'), size: 50, color: Color(0xffffcc00)),
+          Icon(IconData(59475, fontFamily: 'MaterialIcons'), size: 50, color: Colors.grey),
           StreamBuilder(
             stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
             builder: (context, snapshot) {
@@ -66,9 +66,9 @@ class _MultiplayerJoinLobbyState extends State<MultiplayerJoinLobby> {
               var userDocument = snapshot.data;
               return Text(userDocument["username"],
                 style: TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xffC4C4C4),
+                  fontSize: 40,
+                  fontWeight: FontWeight.w200,
+                  color: Colors.grey,
                 )
               );
             }
@@ -85,7 +85,7 @@ class _MultiplayerJoinLobbyState extends State<MultiplayerJoinLobby> {
           child: Row(
             children: <Widget>[
               Icon(IconData(59406, fontFamily: 'MaterialIcons'), size: 22, color: Color(0xffffcc00)),
-              Text("Available Lobby's to Join",
+              Text("Active Sessions",
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w600,
@@ -117,7 +117,7 @@ class _MultiplayerJoinLobbyState extends State<MultiplayerJoinLobby> {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(IconData(59475, fontFamily: 'MaterialIcons'), size: 50, color: Color(0xff838383)),
+                  Icon(IconData(59475, fontFamily: 'MaterialIcons'), size: 50, color: Colors.grey),
                   SizedBox(width:20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

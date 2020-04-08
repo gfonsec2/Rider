@@ -12,7 +12,7 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   DateTime now = DateTime.now();
   _SettingsState({Key key});
-  final List<String> entries = <String>['Change Password', 'Sign Out', 'About Us'];
+  final List<String> entries = <String>['Privacy', 'Sign Out', 'About Us'];
 
   Widget _title(){
     return Column(
@@ -58,7 +58,7 @@ class _SettingsState extends State<Settings> {
                       onTap: (){Navigator.push(context,MaterialPageRoute(builder: (context) => ChangePassword()));},
                       leading: Icon(IconData(59543, fontFamily: 'MaterialIcons'),size: 35, color: Color(0xffffcc00)),
                       title: Text(
-                        "Change Password",
+                        "Privacy",
                         style: TextStyle(color: Colors.grey, fontSize: 20),
                       ),
                     ),
