@@ -746,11 +746,7 @@ class _GamePlayState extends State<GamePlay> {
           SafeArea(
             child: Container(
               padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-              child: Stack(
-                children: <Widget>[
-                  _gameScreen(),
-                ],
-              ),
+              child: _gameScreen(),
             ),
           ),
           Opacity(
