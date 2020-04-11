@@ -297,7 +297,41 @@ Future<void> send() async {
                 child: Container(
                   child: Column(
                     children: <Widget>[
-                      Text("Rider", style: TextStyle(fontSize: 95, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)  ),)
+                                          Column(
+                      children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                        Stack(
+                           alignment: Alignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                        height: 105.0,
+                                        width: 105.0,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xffFFCC00),
+                                          borderRadius: BorderRadius.all( Radius.circular(150.0)),
+                                        ),
+                                  ),
+                                  Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Text("R", style: TextStyle(fontSize: 95,fontFamily: "Marker Felt"  , color: Colors.white), )
+                                      ],
+                                    ),
+                                  )
+                                      ],
+                        ),
+                       
+                        Text("i", style: TextStyle(fontSize: 95, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)),),
+                        Text("d", style: TextStyle(fontSize: 95, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)),),
+                        Text("e", style: TextStyle(fontSize: 95, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)),),
+                        Text("r", style: TextStyle(fontSize: 95, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)),),
+                        ],
+                        ),
+                        ],
+                      ),
+                      //Text("Rider", style: TextStyle(fontSize: 95, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)  ),)
                     ],
                   ),
                 )

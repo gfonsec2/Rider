@@ -153,9 +153,6 @@ class _LoginPageState extends State<LoginPage> {
           // padding: const EdgeInsets.only(top: 25.0, bottom: 15.0),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Hero(
-              
-              tag: "Isai",
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[
@@ -175,14 +172,48 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 child: Column(
                   children: <Widget>[
-                    Text("Rider", style: TextStyle(fontSize: 95, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)  ),)
+                    Column(
+                      children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                        Stack(
+                           alignment: Alignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                        height: 105.0,
+                                        width: 105.0,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xffFFCC00),
+                                          borderRadius: BorderRadius.all( Radius.circular(150.0)),
+                                        ),
+                                  ),
+                                  Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Text("R", style: TextStyle(fontSize: 95,fontFamily: "Marker Felt"  , color: Colors.white), )
+                                      ],
+                                    ),
+                                  )
+                                      ],
+                        ),
+                       
+                        Text("i", style: TextStyle(fontSize: 95, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)),),
+                        Text("d", style: TextStyle(fontSize: 95, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)),),
+                        Text("e", style: TextStyle(fontSize: 95, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)),),
+                        Text("r", style: TextStyle(fontSize: 95, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)),),
+                        ],
+                        ),
+                        ],
+                      ),
+                    
+                    // Text("Rider", style: TextStyle(fontSize: 95, fontFamily: "Marker Felt" ,color:Color(0xffFFCC00)  ),),
                   ],
                 ),
               )
               ],
               
             )
-            ),
           ),
 
               _wrongEmailOrPassword(),

@@ -33,8 +33,8 @@ class _SplashScreenState extends State<SplashScreen> {
                                       alignment: Alignment.center,
                                       children: <Widget>[
                                         Container(
-                                        height: 150.0,
-                                        width: 150.0,
+                                        height: 105.0,
+                                        width: 105.0,
                                         decoration: BoxDecoration(
                                           color: Color(0xffFFCC00),
                                           borderRadius: BorderRadius.all( Radius.circular(150.0)),
