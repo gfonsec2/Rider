@@ -1,26 +1,37 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'timer_page.dart';
 import 'package:intl/intl.dart';
+import 'package:rider/TrialResults.dart';
+
+import 'TrialFailed.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
 
 class TrialStart extends StatefulWidget {
   final String title;
-
-  TrialStart({Key key, @required this.title}): super(key: key);
+  final double goal;
+  final int start;
+  final int current;
+  TrialStart({Key key, @required this.title, this.start, this.goal, this.current}): super(key: key);
   @override
-  _TrialStartState createState() => _TrialStartState(title: title);
+  _TrialStartState createState() => _TrialStartState(title: title, start: start, goal: goal, current: current);
 }
 
 class _TrialStartState extends State<TrialStart> {
   String title;
+  double goal;
+  int start = 0;
+  int current = 0;
+
+  bool _visible = true;
+
   double mph =0;
   double distance=0;
   int calories=0;
   DateTime now = DateTime.now();
-  _TrialStartState({Key key, @required this.title, this.distance, this.calories});
+  _TrialStartState({Key key, @required this.title, this.distance, this.calories, this.goal, this.start, this.current});
 
   showAlertDialog(BuildContext context) {
     // set up the buttons
@@ -319,49 +330,251 @@ class _TrialStartState extends State<TrialStart> {
     );
   }
 
-  Widget _stopwatch(context){
-    return Container(
-      height: 225,
-      width: double.infinity,
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            TimerPage()
-          ],
-        ),
+  Timer _timer;
+  String time = "";
+
+  String formatHHMMSS(int seconds) {
+    int hours = (seconds / 3600).truncate();
+    seconds = (seconds % 3600).truncate();
+    int minutes = (seconds / 60).truncate();
+
+    String hoursStr = (hours).toString().padLeft(2, '0');
+    String minutesStr = (minutes).toString().padLeft(2, '0');
+    String secondsStr = (seconds % 60).toString().padLeft(2, '0');
+
+    if (hours == 0) {
+      return "$minutesStr:$secondsStr";
+    }
+
+    return "$hoursStr:$minutesStr:$secondsStr";
+  }
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) => setState(
+        () {
+          if (current < 0) {
+            timer.cancel();
+            trialFailed(distance);
+          } else {
+            time = formatHHMMSS(current);
+            current = current - 1;
+          }
+        },
+      ),
+    );
+  }
+
+  Timer _timer2;
+  int _start = 3;
+
+  void threeTwoOneTimer() {
+    const oneSecond = const Duration(seconds: 1);
+    _timer2 = new Timer.periodic(
+      oneSecond,
+      (Timer timer2) => setState(
+        () {
+          if (_start < 2) {
+            _visible = false;
+            //startTimer();
+            timer2.cancel();
+          } else {
+            _start = _start - 1;
+            if(_start == 1){
+              startTimer();
+            }
+          }
+        },
       ),
     );
   }
 
   @override
+  void initState() {
+    super.initState();
+    threeTwoOneTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _timer2.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-          child: Column(
-            children: <Widget>[
-              _back(),
-              _title(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Stack(
+        children: <Widget>[
+          SafeArea(
+            child: Container(
+              padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+              child: Column(
                 children: <Widget>[
-                  _mph(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  _back(),
+                  _title(),
+                  Column(
                     children: <Widget>[
-                      _dist(),
-                      _cal(),
+                      _mph(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          _dist(),
+                          _cal(),
+                        ],
+                      ),
+                      Text(time,
+                        style: TextStyle(
+                          fontSize: 85,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text("0 mi", style: TextStyle(fontSize: 15, color: Colors.black))
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              child: StreamBuilder(
+                                stream: databaseReferencePulses.onValue,
+                                builder: (context, snap) {
+                                  if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
+                                    DataSnapshot snapshot = snap.data.snapshot;
+                                    var value = snapshot.value;
+                                    var percentDistProgBar = value.toInt()*50*3.14159/(goal * 63360.0);
+                                    distance = value.toInt()*50*3.14159/(goal * 63360.0);
+                                    if(percentDistProgBar >= 1.0){
+                                      //gameFinish();
+                                      Future<void>.microtask(() => gameFinish(formatHHMMSS(start), formatHHMMSS(current), distance, (distance*50).toInt(), start - current));
+                                      //gameFinish(formatHHMMSS(start), time, distance, (distance * 50).toInt(), current);
+                                    }
+                                    return Container(
+                                      width: 200,
+                                      height: 20,
+                                      child: LinearProgressIndicator(
+                                        value: percentDistProgBar,
+                                        backgroundColor: Color(0xFFFF5A5A),
+                                        valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF66CCCC)),
+                                      ),
+                                    );
+                                  }
+                                  else{
+                                    return Container(
+                                      width: 200,
+                                      height: 20,
+                                      child: LinearProgressIndicator(
+                                        value: 0.0,
+                                        backgroundColor: Color(0xFFFF5A5A),
+                                        valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF71FF5A)),
+                                      ),
+                                    );
+                                  }
+                                }
+                              ),
+                            ),
+                            Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text("$goal mi", style: TextStyle(fontSize: 15, color: Colors.black))
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+            
                     ],
                   ),
-                  _stopwatch(context)
                 ],
               ),
-            ],
+            ),
           ),
-        ),
+          Opacity(
+            opacity: _visible ? .75 : 0.0,
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  color: Colors.black,
+                ),
+                SafeArea(child: 
+                  Container(
+                    padding: EdgeInsets.only(left: 15),
+                    child: _back(),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            child: Center(
+              child: Opacity(
+                opacity: _visible ? 1.0: 0.0,
+                child: Text("$_start",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 400,
+                  ),
+                ),
+              ),
+            )
+          ),
+        ],
       ),
     );
+  }
+
+  trialFailed(distance){
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TrialFailed(distance: distance)));
+  }
+
+  gameFinish(String goalTime, String completedTime, double distance, int calories, int yourRecordTime){
+    String record = formatHHMMSS(yourRecordTime);
+    var avgMph = distance * 12 * 60;
+    print(avgMph);
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TrialResults(
+      goalTime: goalTime,
+      completedTime: completedTime,
+      distance: distance,
+      calories: calories,
+      yourRecordTime: record,
+      avgMph: avgMph.toInt()
+    )));
   }
 }
