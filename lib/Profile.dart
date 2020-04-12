@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter/cupertino.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key key}): super(key: key);
@@ -121,51 +123,316 @@ class _ProfileState extends State<Profile> {
   }
 
  
-    Widget _Quickstart(){
-    return Card(
+    // Widget _Quickstart(){
+    // return Card(
+    //           shape: RoundedRectangleBorder(
+    //             side: BorderSide(color: Colors.white70, width: 1),
+    //             borderRadius: BorderRadius.circular(20),
+    //           ),
+    //           elevation: 10,
+    //           child: Container(
+    //             height: 75,
+    //             margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+    //             child: Row(
+    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //               children: <Widget>[
+    //                 Column(
+    //                   mainAxisAlignment: MainAxisAlignment.center,
+    //                   children: <Widget>[
+
+    //                     Text("QuickStart",
+    //                       style: TextStyle(
+    //                         color: Colors.purple,
+    //                         fontSize: 22,
+    //                         fontWeight: FontWeight.w300,
+    //                       )
+    //                     ),
+    //                     Text("Distance: ",
+    //                       style: TextStyle(
+    //                         fontSize: 12,
+    //                         fontWeight: FontWeight.w300,
+    //                         color: Colors.white,
+    //                       )
+    //                     ),
+    //                     Text("Speed: ",
+    //                       style: TextStyle(
+    //                         fontSize: 12,
+    //                         fontWeight: FontWeight.w300,
+    //                         color: Colors.white,
+    //                       )
+    //                     ),
+    //                     Row(
+    //                       children: <Widget>[
+    //                         Text(" isai",
+    //                           style: TextStyle(
+    //                             fontSize: 12,
+    //                             fontWeight: FontWeight.w300,
+    //                             color: Colors.white,
+    //                           )
+    //                         ),
+    //                       ],
+    //                     ),
+    //                   ],
+    //                 ),
+    //                 //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+    //               ],
+    //             ),
+    //           ),
+    //           );
+    //     }
+
+    //         Widget _Trials(){
+    // return Card(
+    //           shape: RoundedRectangleBorder(
+    //             side: BorderSide(color: Colors.white70, width: 1),
+    //             borderRadius: BorderRadius.circular(20),
+    //           ),
+    //           elevation: 10,
+    //           child: Container(
+    //             height: 75,
+    //             margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+    //             child: Row(
+    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //               children: <Widget>[
+    //                 Column(
+    //                   crossAxisAlignment: CrossAxisAlignment.start,
+    //                   children: <Widget>[
+    //                     Text("Trials",
+    //                       style: TextStyle(
+    //                         color: Colors.lightBlue,
+    //                         fontSize: 22,
+    //                         fontWeight: FontWeight.w300,
+    //                       )
+    //                     ),
+    //                     Text("Distance: ",
+    //                       style: TextStyle(
+    //                         fontSize: 12,
+    //                         fontWeight: FontWeight.w300,
+    //                         color: Colors.white,
+    //                       )
+    //                     ),
+    //                     Text("Speed: ",
+    //                       style: TextStyle(
+    //                         fontSize: 12,
+    //                         fontWeight: FontWeight.w300,
+    //                         color: Colors.white,
+    //                       )
+    //                     ),
+    //                     Row(
+    //                       children: <Widget>[
+    //                         Text(" isai",
+    //                           style: TextStyle(
+    //                             fontSize: 12,
+    //                             fontWeight: FontWeight.w300,
+    //                             color: Colors.white,
+    //                           )
+    //                         ),
+    //                       ],
+    //                     ),
+    //                   ],
+    //                 ),
+    //                 //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+    //               ],
+    //             ),
+    //           ),
+    //           );
+    //     }
+
+    //         Widget _Multiplayer(){
+    // return Card(
+    //           shape: RoundedRectangleBorder(
+    //             side: BorderSide(color: Colors.white70, width: 1),
+    //             borderRadius: BorderRadius.circular(20),
+    //           ),
+    //           elevation: 10,
+    //           child: Container(
+    //             height: 75,
+    //             margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+    //             child: Row(
+    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //               children: <Widget>[
+    //                 Column(
+    //                   crossAxisAlignment: CrossAxisAlignment.start,
+    //                   children: <Widget>[
+    //                     Text("Multiplayer",
+    //                       style: TextStyle(
+    //                         color: Colors.redAccent,
+    //                         fontSize: 22,
+    //                         fontWeight: FontWeight.w300,
+    //                       )
+    //                     ),
+    //                     Text("Distance: ",
+    //                       style: TextStyle(
+    //                         fontSize: 12,
+    //                         fontWeight: FontWeight.w300,
+    //                         color: Colors.white,
+    //                       )
+    //                     ),
+    //                     Text("Speed: ",
+    //                       style: TextStyle(
+    //                         fontSize: 12,
+    //                         fontWeight: FontWeight.w300,
+    //                         color: Colors.white,
+    //                       )
+    //                     ),
+    //                     Row(
+    //                       children: <Widget>[
+    //                         Text(" isai",
+    //                           style: TextStyle(
+    //                             fontSize: 12,
+    //                             fontWeight: FontWeight.w300,
+    //                             color: Colors.white,
+    //                           )
+    //                         ),
+    //                       ],
+    //                     ),
+    //                   ],
+    //                 ),
+    //                 //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+    //               ],
+    //             ),
+    //           ),
+    //           );
+    //     }
+
+    //         Widget _Singles(){
+    // return Card(
+    //           shape: RoundedRectangleBorder(
+    //             side: BorderSide(color: Colors.white70, width: 1),
+    //             borderRadius: BorderRadius.circular(20),
+    //           ),
+    //           elevation: 10,
+    //           child: Container(
+    //             height: 75,
+    //             margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+    //             child: Row(
+    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //               children: <Widget>[
+    //                 Column(
+    //                   crossAxisAlignment: CrossAxisAlignment.start,
+    //                   children: <Widget>[
+    //                     Text("Isai",
+    //                       style: TextStyle(
+    //                         color: Colors.white,
+    //                         fontSize: 22,
+    //                         fontWeight: FontWeight.w300,
+    //                       )
+    //                     ),
+    //                     Text("Distance: ",
+    //                       style: TextStyle(
+    //                         fontSize: 12,
+    //                         fontWeight: FontWeight.w300,
+    //                         color: Colors.white,
+    //                       )
+    //                     ),
+    //                     Text("Speed: ",
+    //                       style: TextStyle(
+    //                         fontSize: 12,
+    //                         fontWeight: FontWeight.w300,
+    //                         color: Colors.white,
+    //                       )
+    //                     ),
+    //                     Row(
+    //                       children: <Widget>[
+    //                         Text(" isai",
+    //                           style: TextStyle(
+    //                             fontSize: 12,
+    //                             fontWeight: FontWeight.w300,
+    //                             color: Colors.white,
+    //                           )
+    //                         ),
+    //                       ],
+    //                     ),
+    //                   ],
+    //                 ),
+    //                 //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+    //               ],
+    //             ),
+    //           ),
+    //           );
+    //     }
+
+  Widget _menu(){
+    return Expanded(
+      child: ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.only(bottom:25),
+        children: <Widget>[
+            Card(
               shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.white70, width: 1),
                 borderRadius: BorderRadius.circular(20),
               ),
               elevation: 10,
               child: Container(
-                margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+                margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: <Widget>[
-                        Text("Isai",
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w300,
-                          )
-                        ),
-                        Text("Distance: ",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.black,
-                          )
-                        ),
-                        Text("Speed: ",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.black,
-                          )
-                        ),
-                        Row(
+                        // Container(
+                        //   width: 34,
+                        //   height: 34,
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(5),
+                        //     gradient: LinearGradient(
+                        //       begin: Alignment.topLeft,
+                        //       end: Alignment.bottomRight,
+                        //       colors: [Color(0xffFFCC00), Color(0xffFF6666)])),
+                        //   // child: Center(
+                        //   //   child: Icon(IconData(0xF3E6,fontFamily: CupertinoIcons.iconFont, fontPackage: CupertinoIcons.iconFontPackage), size: 75, color: Colors.white,),
+                        //   // ),
+                        // ),
+                        // SizedBox(width:10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(" isai",
+                            Row(children: <Widget>[
+                              Text("QuickStart",
                               style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
+                                fontFamily: 'ProximaNova',
+                                fontSize: 34,
+                                fontWeight: FontWeight.w200,
                                 color: Colors.black,
                               )
                             ),
-                          ],
+                            ],),
+                            Row(children: <Widget>[
+                             Text("Time:",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ), 
+                            ],),
+                             Row(children: <Widget>[
+                             Text("Distance:",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ), 
+                            ],),
+                             Row(children: <Widget>[
+                             Text("Average Speed:",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ), 
+                            ],),
+                            // Text("Jump straight into the\nspeedometer and stop-\nwatch menu.",
+                            //   style: TextStyle(
+                            //     fontSize: 16,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Color(0xff838383),
+                            //   )
+                            // ),
+                          ]
                         ),
                       ],
                     ),
@@ -173,54 +440,285 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
               ),
-              );
-        }
-
-            Widget _Trials(){
-    return Card(
+            ),
+             Card(
               shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.white70, width: 1),
                 borderRadius: BorderRadius.circular(20),
               ),
               elevation: 10,
               child: Container(
-                margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+                margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: <Widget>[
-                        Text("Isai",
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w300,
-                          )
-                        ),
-                        Text("Distance: ",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.black,
-                          )
-                        ),
-                        Text("Speed: ",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.black,
-                          )
-                        ),
-                        Row(
+                        // Container(
+                        //   width: 34,
+                        //   height: 34,
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(5),
+                        //     gradient: LinearGradient(
+                        //       begin: Alignment.topLeft,
+                        //       end: Alignment.bottomRight,
+                        //       colors: [Color(0xffFF6666), Color(0xff60CECE)])),
+                        //   // child: Center(
+                        //   //   child: Icon(Entypo.stopwatch, size: 65,color: Colors.white,)
+                        //   // ),
+                        // ),
+                        // SizedBox(width:10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(" isai",
+                            Row(children: <Widget>[
+                        //   Container(
+                        //   width: 34,
+                        //   height: 34,
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(5),
+                        //     gradient: LinearGradient(
+                        //       begin: Alignment.topLeft,
+                        //       end: Alignment.bottomRight,
+                        //       colors: [Color(0xffFF6666), Color(0xff60CECE)])),
+                        //   // child: Center(
+                        //   //   child: Icon(Entypo.stopwatch, size: 65,color: Colors.white,)
+                        //   // ),
+                        // ),
+                        // SizedBox(width:10),
+                             Text("Trials",
                               style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
+                                fontSize: 34,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ), 
+                            ],),
+                            Row(children: <Widget>[
+                             Text("Distance:",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ), 
+                            ],),
+                            Row(children: <Widget>[
+                             Text("Best Time:",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ), 
+                            ],),
+                             Row(children: <Widget>[
+                             Text("Best Speed:",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ), 
+                            ],)
+                            // Text("Race against the clock to\ncross the finish line.\nCompare with friends.",
+                            //   style: TextStyle(
+                            //     fontSize: 16,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Color(0xff838383),
+                            //   )
+                            // ),
+                          ]
+                        ),
+                        
+                      ],
+                    ),
+                    //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+                  ],
+                ),
+              ),
+            ),
+            Card(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.white70, width: 1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              elevation: 10,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        // Container(
+                        //   width: 34,
+                        //   height: 34,
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(5),
+                        //     gradient: LinearGradient(
+                        //       begin: Alignment.topLeft,
+                        //       end: Alignment.bottomRight,
+                        //       colors: [Color(0xff60CECE), Color(0xff916DD5)])),
+                        //   // child: Center(
+                        //   //   child: Icon(Icons.people,size:65, color: Colors.white,),
+                        //   // ),
+                        // ),
+                        // SizedBox(width:10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(children: <Widget>[
+                        //        Container(
+                        //   width: 34,
+                        //   height: 34,
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(5),
+                        //     gradient: LinearGradient(
+                        //       begin: Alignment.topLeft,
+                        //       end: Alignment.bottomRight,
+                        //       colors: [Color(0xff60CECE), Color(0xff916DD5)])),
+                        //   // child: Center(
+                        //   //   child: Icon(Icons.people,size:65, color: Colors.white,),
+                        //   // ),
+                        // ),
+                        // SizedBox(width:10),
+                              Text("Multiplayer",
+                              style: TextStyle(
+                                fontSize: 34,
+                                fontWeight: FontWeight.w200,
                                 color: Colors.black,
                               )
                             ),
-                          ],
+                            ],),
+                            Row(children: <Widget>[
+                            Text("Wins:",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ),
+                            ],),
+                            Row(children: <Widget>[
+                            Text("Points:",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ),
+                            ],),
+                            Row(children: <Widget>[
+                            Text("Distance:",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ),
+                            ],),
+                            // Text("Multiplayer",
+                            //   style: TextStyle(
+                            //     fontSize: 34,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Colors.black,
+                            //   )
+                            // ),
+                            // Text("Connect with friends and\nplay games designed to\ntest your abilities.",
+                            //   style: TextStyle(
+                            //     fontSize: 16,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Color(0xff838383),
+                            //   )
+                            // ),
+                          ]
+                        ),
+                        
+                      ],
+                    ),
+                    //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+                                ],
+                ),
+              ),
+            ),
+             Card(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.white70, width: 1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              elevation: 10,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(children: <Widget>[
+                        //       Container(
+                        //   width: 34,
+                        //   height: 34,
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(5),
+                        //     gradient: LinearGradient(
+                        //       begin: Alignment.topLeft,
+                        //       end: Alignment.bottomRight,
+                        //       colors: [Color(0xff916DD5), Color(0xffFFCC00)])),
+                        //   // child: Center(
+                        //   //   child: Icon(Icons.person,size:65, color: Colors.white,),
+                        //   // ),
+                        // ),
+                        // SizedBox(width:10),
+                              Text("Singles",
+                              style: TextStyle(
+                                fontSize: 34,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ),
+                            ],),
+                            Row(children: <Widget>[
+                            Text("Time:",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ),
+                            ],),
+                            Row(children: <Widget>[
+                            Text("Points:",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ),
+                            ],),
+                            Row(children: <Widget>[
+                            Text("Distance:",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w200,
+                                color: Colors.black,
+                              )
+                            ),
+                            ],),
+
+                            
+                            // Text("Solo player minigames.\nBeat your high score in\nthese assault bike games.",
+                            //   style: TextStyle(
+                            //     fontSize: 16,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Color(0xff838383),
+                            //   )
+                            // ),
+                          ]
                         ),
                       ],
                     ),
@@ -228,119 +726,11 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
               ),
-              );
-        }
-
-            Widget _Multiplayer(){
-    return Card(
-              shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.white70, width: 1),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              elevation: 10,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Isai",
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w300,
-                          )
-                        ),
-                        Text("Distance: ",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.black,
-                          )
-                        ),
-                        Text("Speed: ",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.black,
-                          )
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Text(" isai",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black,
-                              )
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
-                  ],
-                ),
-              ),
-              );
-        }
-
-            Widget _Singles(){
-    return Card(
-              shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.white70, width: 1),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              elevation: 10,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Isai",
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w300,
-                          )
-                        ),
-                        Text("Distance: ",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.black,
-                          )
-                        ),
-                        Text("Speed: ",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.black,
-                          )
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Text(" isai",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.black,
-                              )
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
-                  ],
-                ),
-              ),
-              );
-        }
-
+            ),
+        ],
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -350,13 +740,14 @@ class _ProfileState extends State<Profile> {
           child: Column(
             children: <Widget>[
               _title(),
-              SizedBox(height:15),
+              SizedBox(height:5),
               _profile(),
               _stats(),
-              _Quickstart(),
-              _Trials(),
-              _Multiplayer(),
-              _Singles()
+              _menu(),
+              // _Quickstart(),
+              // _Trials(),
+              // _Multiplayer(),
+              // _Singles()
               // _grid(),
               // _trials()
             ],

@@ -117,7 +117,7 @@ class _TrialStartState extends State<TrialStart> {
       children: <Widget>[
         Container(
           alignment: Alignment.centerLeft,
-          child: Text("Trial:",
+          child: Text("Trials",
             style: TextStyle(
               fontSize: 64,
               fontWeight: FontWeight.w500,
@@ -128,8 +128,8 @@ class _TrialStartState extends State<TrialStart> {
           alignment: Alignment.centerLeft,
           child: Text(title,
             style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
+              fontSize: 20,
+              fontWeight: FontWeight.w300,
               color: Colors.black,
             )),
         ),
