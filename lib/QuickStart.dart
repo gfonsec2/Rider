@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
+final databaseRead = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('startReading');
 
 class QuickStart extends StatefulWidget {
   final double mph;
@@ -343,6 +344,9 @@ class _QuickStartState extends State<QuickStart> {
   @override
   Widget build(BuildContext context) {
     FirebaseUser user = Provider.of<FirebaseUser>(context);
+    FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').update({
+        'startReading': 1,
+    });
     return Scaffold(
       body: SafeArea(
         child: Container(

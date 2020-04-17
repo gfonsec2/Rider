@@ -54,11 +54,10 @@ class TimerPageState extends State<TimerPage> {
     double minutes = milliseconds/60000;
     var va = await databaseReferencePulses.once().then((value) => 
     miles = (value.value.toInt()*50*3.14159/63360).toDouble());
-FirebaseDatabase.instance.reference()
-.child("user").child('rotations_per_minute_stream')
-.update({
-'Rotations': 0  //yes I know.
-});
+    FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').update({
+        'startReading': 0,
+        'Rotations': 0  //yes I know.
+    });
 
 
       calories = await  (miles*50).toInt();
