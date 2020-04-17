@@ -331,7 +331,7 @@ class _TrialStartState extends State<TrialStart> {
   }
 
   Timer _timer;
-  String time = "";
+  String time = "00:00";
 
   String formatHHMMSS(int seconds) {
     int hours = (seconds / 3600).truncate();
