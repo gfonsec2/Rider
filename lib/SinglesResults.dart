@@ -1,5 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
+import 'package:rider/auth.dart';
+
+import 'Home.dart';
+  FirebaseUser user;
 
 class SinglesResults extends StatefulWidget {
   final String completedTime;
@@ -18,6 +25,26 @@ class _SinglesResultsState extends State<SinglesResults> {
   final int calories;
   final int avgMph;
   _SinglesResultsState({Key key, @required this.distance, this.calories, this.completedTime, this.avgMph});
+
+Future<void> saveData()
+  async {
+    AuthService authService;
+   // FirebaseUser user;
+
+    double miles;
+    int calories;
+    double minutes = int.parse(completedTime)/60;
+    var va = await databaseReferencePulses.once().then((value) => 
+    miles = (value.value.toInt()*50*3.14159/63360).toDouble());
+    resetRead();
+
+
+      calories = await  (miles*50).toInt();
+      updatePrevWorkout(user, minutes, calories, miles);
+      Navigator.pop(context);
+      Navigator.pop(context);
+
+    }
 
   alertDialog(BuildContext context) {
     Widget buttons = Row(
@@ -40,8 +67,7 @@ class _SinglesResultsState extends State<SinglesResults> {
             )
           ),
           onPressed:  () {
-            Navigator.pop(context);
-            Navigator.pop(context);
+            saveData();
           },
         )
       ]
@@ -284,6 +310,8 @@ class _SinglesResultsState extends State<SinglesResults> {
 
   @override
   Widget build(BuildContext context) {
+   user = Provider.of<FirebaseUser>(context);
+
     return Scaffold(
       backgroundColor: Color(0xffffcc00),
       body: SafeArea(

@@ -113,7 +113,7 @@ class _HomeState extends State<Home> {
                             );
                           }
                           var userDocument = snapshot.data;
-                          return Text(userDocument["avgMph"].toString(),
+                          return Text(userDocument["prevAvgMph"].toString(),
                             style: TextStyle(
                               fontSize: 60,
                               fontWeight: FontWeight.w200,
@@ -160,7 +160,7 @@ class _HomeState extends State<Home> {
                             );
                           }
                           var userDocument = snapshot.data;
-                          return Text(userDocument["totalMiles"].toString(),
+                          return Text(userDocument["prevMiles"].toString(),
                             style: TextStyle(
                               fontSize: 60,
                               fontWeight: FontWeight.w200,
@@ -207,7 +207,7 @@ class _HomeState extends State<Home> {
                             );
                           }
                           var userDocument = snapshot.data;
-                          return Text(userDocument["totalCalories"].toString(),
+                          return Text(userDocument["prevCalories"].toString(),
                             style: TextStyle(
                               fontSize: 60,
                               fontWeight: FontWeight.w200,

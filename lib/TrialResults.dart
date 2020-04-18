@@ -45,7 +45,7 @@ class _TrialResultsState extends State<TrialResults> {
 
 
       calories = await  (miles*50).toInt();
-      updateUserData(user, minutes, calories, miles);
+      updatePrevWorkout(user, minutes, calories, miles);
       Navigator.pop(context);
       Navigator.pop(context);
 
@@ -72,8 +72,7 @@ class _TrialResultsState extends State<TrialResults> {
             )
           ),
           onPressed:  () {
-            Navigator.pop(context);
-            Navigator.pop(context);
+            saveData();
           },
         )
       ]
@@ -360,7 +359,7 @@ class _TrialResultsState extends State<TrialResults> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseUser user = Provider.of<FirebaseUser>(context);
+     user = Provider.of<FirebaseUser>(context);
     return Scaffold(
       backgroundColor: Color(0xffffcc00),
       body: SafeArea(

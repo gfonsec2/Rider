@@ -5,6 +5,12 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:rider/newHome.dart';
 
+import 'Home.dart';
+import 'auth.dart';
+
+  FirebaseUser user;
+
+
 class GameResults extends StatefulWidget {
   final String p1uid;
   final String p1Username;
@@ -26,6 +32,27 @@ class _GameResultsState extends State<GameResults> {
   final String winner;
   final String loser;
   _GameResultsState({Key key, @required this.p1uid, this.winner, this.p2uid, this.p1Username, this.p2Username, this.loser});
+
+  Future<void> saveData()
+  async {
+    AuthService authService;
+   // FirebaseUser user;
+
+    double miles;
+    int calories;
+    //double minutes = int.parse(completedTime)/60;
+    var va = await databaseReferencePulses.once().then((value) => 
+    miles = (value.value.toInt()*50*3.14159/63360).toDouble());
+    resetRead();
+
+
+      calories = await  (miles*50).toInt();
+      //updatePrevWorkout(user, minutes, calories, miles);
+      
+      Navigator.pop(context);
+      Navigator.pop(context);
+
+    }
 
   alertDialog(BuildContext context) {
     Widget buttons = Row(
@@ -475,6 +502,8 @@ class _GameResultsState extends State<GameResults> {
 
   @override
   Widget build(BuildContext context) {
+   user = Provider.of<FirebaseUser>(context);
+
     return Scaffold(
       backgroundColor: Color(0xffffcc00),
       body: SafeArea(
