@@ -116,7 +116,7 @@ class _TrialResultsState extends State<TrialResults> {
           ),
           Container(
             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Text("Results",
+            child: Text("Success",
               style: TextStyle(
                 fontSize: 40,
                 color: Colors.white,
@@ -141,7 +141,7 @@ class _TrialResultsState extends State<TrialResults> {
       padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
       child: Column(
         children: <Widget>[
-          Icon(IconData(59450, fontFamily: 'MaterialIcons'), size: 120, color: Colors.white),
+          Icon(IconData(59413, fontFamily: 'MaterialIcons'), size: 120, color: Colors.white),
           _firstPlace(),
           Card(
             color: Color(0xffFF6666),

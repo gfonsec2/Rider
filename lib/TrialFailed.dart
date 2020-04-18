@@ -131,7 +131,7 @@ class _TrialFailedState extends State<TrialFailed> {
       padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
       child: Column(
         children: <Widget>[
-          Icon(IconData(58949, fontFamily: 'MaterialIcons'), size: 120, color: Colors.white),
+          Icon(IconData(59412, fontFamily: 'MaterialIcons'), size: 120, color: Colors.white),
           _firstPlace(),
           Card(
             color: Color(0xff66CCCC),

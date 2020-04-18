@@ -55,73 +55,158 @@ class _SinglesState extends State<Singles> {
     );
   }
 
-  Widget _game(double miles, String prompt, Color upper, Color lower){
-    return GestureDetector(
-      onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context) => SinglesGameStart(title: prompt, totalDistance: miles, numMiles: miles.toString())));
-      },
-      child: Card(
-        shape: RoundedRectangleBorder(
-          side: BorderSide(color: Colors.white70, width: 1),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        elevation: 10,
-        child: Container(
-          margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Container(
-                    width: 90,
-                    height: 90,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [upper, lower])),
-                    child: Center(
-                      child: Text("$miles mi.",
-                        style: TextStyle(
-                          fontFamily: 'ProximaNova',
-                          fontSize: 24,
-                          fontWeight: FontWeight.w200,
-                          color: Colors.white,
-                        )
-                      ),
-                    ),
-                  ),
-                  SizedBox(width:20),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(prompt,
-                        style: TextStyle(
-                          fontFamily: 'ProximaNova',
-                          fontSize: 34,
-                          fontWeight: FontWeight.w200,
-                          color: Colors.black,
-                        )
-                      ),
-                      Text("Complete $prompt as\nfast as you can!",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w200,
-                          color: Color(0xff838383),
-                        )
-                      ),
-                    ]
-                  ),
-                ],
+  // Widget _game(double miles, String prompt, Color upper, Color lower){
+      Widget _game(double miles, String prompt, String level, Color color){
+    return  GestureDetector(
+            onTap: (){
+              //Navigator.push(context,MaterialPageRoute(builder: (context) => TrialStart(title: "${name[index]}", goal: distance[index], start: seconds[index], current: seconds[index],)));
+               Navigator.push(context,MaterialPageRoute(builder: (context) => SinglesGameStart(title: prompt, totalDistance: miles, numMiles: miles.toString())));
+            },
+            child: Card(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.white70, width: 1),
+                borderRadius: BorderRadius.circular(10),
               ),
-              Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
-            ],
-          ),
-        ),
-      ),
-    );
+              elevation: 10,
+              child: Container(
+                margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(children: <Widget>[
+                          Container(
+                              width: 27,
+                              height: 27,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                  color: color,
+                              )
+                            ),
+                            SizedBox(width:5),
+                            Text(level,
+                          style: TextStyle(
+                            fontSize: 36,
+                            fontWeight: FontWeight.w200,
+                            color: Colors.black,
+                          )
+                        ),
+                        ],),
+                        
+                        // Row(children: <Widget>[
+                        //   Container(
+                        //       width: 27,
+                        //       height: 27,
+                        //       decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(5),
+                        //           color: color,
+                        //       )
+                        //     ),
+                        //   SizedBox(width:5),
+                         Text("Complete $prompt as\nfast as you can!",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w200,
+                            color: Color(0xff838383),
+                          )
+                        ), 
+                        // ],),
+                        
+                        // Text("Speed: ${speed[index]}",
+                        //   style: TextStyle(
+                        //     fontSize: 12,
+                        //     fontWeight: FontWeight.w300,
+                        //     color: Colors.black,
+                        //   )
+                        // ),
+                        // Row(
+                        //   children: <Widget>[
+                        //     Container(
+                        //       width: 15,
+                        //       height: 15,
+                        //       decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(5),
+                        //           color: color,
+                        //       )
+                        //     ),
+                        //   ],
+                        // ),
+                      ],
+                    ),
+                    Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+                  ],
+                ),
+              ),
+            ),
+          );
+    // return GestureDetector(
+    //   onTap: (){
+    //     Navigator.push(context,MaterialPageRoute(builder: (context) => SinglesGameStart(title: prompt, totalDistance: miles, numMiles: miles.toString())));
+    //   },
+    //   child: Card(
+    //     shape: RoundedRectangleBorder(
+    //       side: BorderSide(color: Colors.white70, width: 1),
+    //       borderRadius: BorderRadius.circular(20),
+    //     ),
+    //     elevation: 10,
+    //     child: Container(
+    //       margin: EdgeInsets.fromLTRB(17, 15, 0, 15),
+    //       child: Row(
+    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //         children: <Widget>[
+    //           Row(
+    //             children: <Widget>[
+    //               Container(
+    //                 width: 90,
+    //                 height: 90,
+    //                 decoration: BoxDecoration(
+    //                   borderRadius: BorderRadius.circular(5),
+    //                   gradient: LinearGradient(
+    //                     begin: Alignment.topLeft,
+    //                     end: Alignment.bottomRight,
+    //                     colors: [upper, lower])),
+    //                 child: Center(
+    //                   child: Text("$miles mi.",
+    //                     style: TextStyle(
+    //                       fontFamily: 'ProximaNova',
+    //                       fontSize: 24,
+    //                       fontWeight: FontWeight.w200,
+    //                       color: Colors.white,
+    //                     )
+    //                   ),
+    //                 ),
+    //               ),
+    //               SizedBox(width:20),
+    //               Column(
+    //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //                 children: <Widget>[
+    //                   Text(prompt,
+    //                     style: TextStyle(
+    //                       fontFamily: 'ProximaNova',
+    //                       fontSize: 34,
+    //                       fontWeight: FontWeight.w200,
+    //                       color: Colors.black,
+    //                     )
+    //                   ),
+    //                   Text("Complete $prompt as\nfast as you can!",
+    //                     style: TextStyle(
+    //                       fontSize: 16,
+    //                       fontWeight: FontWeight.w200,
+    //                       color: Color(0xff838383),
+    //                     )
+    //                   ),
+    //                 ]
+    //               ),
+    //             ],
+    //           ),
+    //           Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 
   Widget _inputMiles(){
@@ -183,17 +268,20 @@ class _SinglesState extends State<Singles> {
                   Container(
                     width: 90,
                     height: 90,
+                    //color: Colors.red,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [Color(0xff000000), Color(0xffFF6666)])),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey
+                      // gradient: LinearGradient(
+                      //   begin: Alignment.topLeft,
+                      //   end: Alignment.bottomRight,
+                      //   colors: [Color(0xff000000), Color(0xffFF6666)])),
+                    ),
                     child: Center(
                       child: _inputMiles(),
                     ),
                   ),
-                  SizedBox(width:20),
+                  SizedBox(width:10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -234,11 +322,15 @@ class _SinglesState extends State<Singles> {
             children: <Widget>[
               _back(),
               _title(),
-              _game(0.5, "Half Mile", Color(0xff916DD5), Color(0xffFFCC00)),
-              _game(1, "1 Mile", Color(0xffFFCC00), Color(0xffFF6666)),
-              _game(2, "2 Miles", Color(0xffFF6666), Color(0xff60CECE)),
-              _game(3, "3 Miles", Color(0xff60CECE), Color(0xff916DD5)),
+              // _game(0.5, "0.5 Mile", Color(0xff916DD5), Color(0xffFFCC00)),
+              // _game(1, "1.0 Mile", Color(0xffFFCC00), Color(0xffFF6666)),
+              // _game(2, "2.0 Miles", Color(0xffFF6666), Color(0xff60CECE)),
+              // _game(3, "3.0 Miles", Color(0xff60CECE), Color(0xff916DD5)),
               _customGame(context),
+               _game(0.5, "0.5 Mile","Begginer", Color(0xff85B684)),
+              _game(1, "1.0 Mile","Intermediate", Color(0xffFFCC00)),
+              _game(2, "2.0 Miles","Intermediate", Color(0xffFFCC00)),
+              _game(3, "3.0 Miles","Advanced", Color(0xffFF6666)),
             ],
           )
         ),
