@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 
 class AuthService {
@@ -61,9 +62,18 @@ class AuthService {
       'avgMph': (miles + milesDone) / ((time + timeDone)/60),
       'totalCalories': (calories + caloriesDone),
       'totalTime': (time + timeDone),
-      'lastActivity': DateTime.now()
+      'lastActivity': DateTime.now(),
+      'trialDistance': milesDone
     });
   }
+  
+void resetRead()
+{
+     FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').update({
+        'startReading': 0,
+        'Rotations': 0  //yes I know.
+    });
+}
 
 Future<double> getMiles(FirebaseUser user) 
 async {
