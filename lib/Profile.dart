@@ -67,7 +67,7 @@ class _ProfileState extends State<Profile> {
                         ],
                       ),
                     ),
-                  SizedBox(width:20),
+                  SizedBox(width:5),
                   StreamBuilder(
                     stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
                     builder: (context, snapshot) {
@@ -81,14 +81,14 @@ class _ProfileState extends State<Profile> {
                           Text(userDocument["name"],
                             style: TextStyle(
                               fontFamily: 'ProximaNova',
-                              fontSize: 38,
+                              fontSize: 33,
                               fontWeight: FontWeight.w200,
                               color: Colors.black,
                             )
                           ),
                           Text(userDocument["username"],
                             style: TextStyle(
-                              fontSize: 28,
+                              fontSize: 20,
                               fontWeight: FontWeight.w200,
                               color: Color(0xff838383),
                             )
@@ -359,8 +359,9 @@ class _ProfileState extends State<Profile> {
         padding: EdgeInsets.only(bottom:25),
         children: <Widget>[
             Card(
+              //color: Color(0xff60CECE),
               shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.white70, width: 1),
+                // side: BorderSide(color: Colors.white70, width: 1),
                 borderRadius: BorderRadius.circular(20),
               ),
               elevation: 10,
@@ -389,42 +390,42 @@ class _ProfileState extends State<Profile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Row(children: <Widget>[
-                              Text("QuickStart",
+                              Text("Total Wins:",
                               style: TextStyle(
                                 fontFamily: 'ProximaNova',
-                                fontSize: 34,
+                                fontSize: 28,
                                 fontWeight: FontWeight.w200,
                                 color: Colors.black,
                               )
                             ),
                             ],),
-                            Row(children: <Widget>[
-                             Text("Time:",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ), 
-                            ],),
-                             Row(children: <Widget>[
-                             Text("Distance:",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ), 
-                            ],),
-                             Row(children: <Widget>[
-                             Text("Average Speed:",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ), 
-                            ],),
+                            // Row(children: <Widget>[
+                            //  Text("Time:",
+                            //   style: TextStyle(
+                            //     fontSize: 20,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Colors.black,
+                            //   )
+                            // ), 
+                            // ],),
+                            //  Row(children: <Widget>[
+                            //  Text("Distance:",
+                            //   style: TextStyle(
+                            //     fontSize: 20,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Colors.black,
+                            //   )
+                            // ), 
+                            // ],),
+                            //  Row(children: <Widget>[
+                            //  Text("Average Speed:",
+                            //   style: TextStyle(
+                            //     fontSize: 20,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Colors.black,
+                            //   )
+                            // ), 
+                            // ],),
                             // Text("Jump straight into the\nspeedometer and stop-\nwatch menu.",
                             //   style: TextStyle(
                             //     fontSize: 16,
@@ -442,8 +443,9 @@ class _ProfileState extends State<Profile> {
               ),
             ),
              Card(
+               //color: Color(0xffFF6666),
               shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.white70, width: 1),
+                //side: BorderSide(color: Colors.white70, width: 1),
                 borderRadius: BorderRadius.circular(20),
               ),
               elevation: 10,
@@ -486,41 +488,41 @@ class _ProfileState extends State<Profile> {
                         //   // ),
                         // ),
                         // SizedBox(width:10),
-                             Text("Trials",
+                             Text("Total Miles:",
                               style: TextStyle(
-                                fontSize: 34,
+                                fontSize: 28,
                                 fontWeight: FontWeight.w200,
                                 color: Colors.black,
                               )
                             ), 
                             ],),
-                            Row(children: <Widget>[
-                             Text("Distance:",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ), 
-                            ],),
-                            Row(children: <Widget>[
-                             Text("Best Time:",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ), 
-                            ],),
-                             Row(children: <Widget>[
-                             Text("Best Speed:",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ), 
-                            ],)
+                            // Row(children: <Widget>[
+                            //  Text("Total Miles:",
+                            //   style: TextStyle(
+                            //     fontSize: 20,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Colors.black,
+                            //   )
+                            // ), 
+                            // ],),
+                            // Row(children: <Widget>[
+                            //  Text("Best Time:",
+                            //   style: TextStyle(
+                            //     fontSize: 20,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Colors.black,
+                            //   )
+                            // ), 
+                            // ],),
+                            //  Row(children: <Widget>[
+                            //  Text("Best Speed:",
+                            //   style: TextStyle(
+                            //     fontSize: 20,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Colors.black,
+                            //   )
+                            // ), 
+                            // ],)
                             // Text("Race against the clock to\ncross the finish line.\nCompare with friends.",
                             //   style: TextStyle(
                             //     fontSize: 16,
@@ -539,8 +541,9 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             Card(
+              //color: Color(0xffFFCC00),
               shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.white70, width: 1),
+                //side: BorderSide(color: Colors.white70, width: 1),
                 borderRadius: BorderRadius.circular(20),
               ),
               elevation: 10,
@@ -583,41 +586,41 @@ class _ProfileState extends State<Profile> {
                         //   // ),
                         // ),
                         // SizedBox(width:10),
-                              Text("Multiplayer",
+                              Text("Total Calories:",
                               style: TextStyle(
-                                fontSize: 34,
+                                fontSize: 28,
                                 fontWeight: FontWeight.w200,
                                 color: Colors.black,
                               )
                             ),
                             ],),
-                            Row(children: <Widget>[
-                            Text("Wins:",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ),
-                            ],),
-                            Row(children: <Widget>[
-                            Text("Points:",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ),
-                            ],),
-                            Row(children: <Widget>[
-                            Text("Distance:",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ),
-                            ],),
+                            // Row(children: <Widget>[
+                            // Text("Wins:",
+                            //   style: TextStyle(
+                            //     fontSize: 20,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Colors.black,
+                            //   )
+                            // ),
+                            // ],),
+                            // Row(children: <Widget>[
+                            // Text("Points:",
+                            //   style: TextStyle(
+                            //     fontSize: 20,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Colors.black,
+                            //   )
+                            // ),
+                            // ],),
+                            // Row(children: <Widget>[
+                            // Text("Distance:",
+                            //   style: TextStyle(
+                            //     fontSize: 20,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Colors.black,
+                            //   )
+                            // ),
+                            // ],),
                             // Text("Multiplayer",
                             //   style: TextStyle(
                             //     fontSize: 34,
@@ -643,8 +646,9 @@ class _ProfileState extends State<Profile> {
               ),
             ),
              Card(
+               //color: Color(0xff916DD5),
               shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.white70, width: 1),
+                //side: BorderSide(color: Colors.white70, width: 1),
                 borderRadius: BorderRadius.circular(20),
               ),
               elevation: 10,
@@ -674,41 +678,41 @@ class _ProfileState extends State<Profile> {
                         //   // ),
                         // ),
                         // SizedBox(width:10),
-                              Text("Singles",
+                              Text("Average Speed:",
                               style: TextStyle(
-                                fontSize: 34,
+                                fontSize: 28,
                                 fontWeight: FontWeight.w200,
                                 color: Colors.black,
                               )
                             ),
                             ],),
-                            Row(children: <Widget>[
-                            Text("Time:",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ),
-                            ],),
-                            Row(children: <Widget>[
-                            Text("Points:",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ),
-                            ],),
-                            Row(children: <Widget>[
-                            Text("Distance:",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ),
-                            ],),
+                            // Row(children: <Widget>[
+                            // Text("Time:",
+                            //   style: TextStyle(
+                            //     fontSize: 20,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Colors.black,
+                            //   )
+                            // ),
+                            // ],),
+                            // Row(children: <Widget>[
+                            // Text("Points:",
+                            //   style: TextStyle(
+                            //     fontSize: 20,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Colors.black,
+                            //   )
+                            // ),
+                            // ],),
+                            // Row(children: <Widget>[
+                            // Text("Distance:",
+                            //   style: TextStyle(
+                            //     fontSize: 20,
+                            //     fontWeight: FontWeight.w200,
+                            //     color: Colors.black,
+                            //   )
+                            // ),
+                            // ],),
 
                             
                             // Text("Solo player minigames.\nBeat your high score in\nthese assault bike games.",
