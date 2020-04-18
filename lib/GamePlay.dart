@@ -30,6 +30,8 @@ class _GamePlayState extends State<GamePlay> {
   final String p2uid;
   _GamePlayState({Key key, @required this.p1Username, this.p1uid, this.p2Username, this.p2uid});
   DateTime now = DateTime.now();
+
+  bool playing = true;
   
   int _start = 3;
   int _current = 3;
@@ -188,8 +190,10 @@ class _GamePlayState extends State<GamePlay> {
                               DataSnapshot snapshot = snap.data.snapshot;
                               var value = snapshot.value;
                               percentDistProgBar = value.toInt()*50*3.14159/mile;
-                              distance = value.toInt()*50*3.14159/mile;
-                              if(distance >= 1.0){
+                              distance = value.toInt()*diameter*3.14159/mile;
+                              if(distance >= 1.0 && playing == true){
+                                playing = false;
+                                //Future<void>.microtask(() => gameFinish(p1uid, p1Username, p2Username, p1uid));
                                 gameFinish(p1uid, p1Username, p2Username, p1uid);
                               }
                               return Column(
@@ -486,8 +490,10 @@ class _GamePlayState extends State<GamePlay> {
                               DataSnapshot snapshot = snap.data.snapshot;
                               var value = snapshot.value;
                               percentDistProgBar = value.toInt()*50*3.14159/mile;
-                              distance = value.toInt()*50*3.14159/mile;
-                              if(distance >= 1.0){
+                              distance = value.toInt()*diameter*3.14159/mile;
+                              if(distance >= 1.0 && playing == true){
+                                playing = false;
+                                //Future<void>.microtask(() => gameFinish(p1uid, p1Username, p2Username, p1uid));
                                 gameFinish(p1uid, p1Username, p2Username, p2uid);
                               }
                               return Column(
