@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quiver/async.dart';
 import 'package:rider/GameResults.dart';
+import 'package:rider/auth.dart';
 import 'package:rider/timer_page.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
@@ -746,6 +747,9 @@ class _GamePlayState extends State<GamePlay> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').update({
+        'startReading': 1,
+    });
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -792,6 +796,7 @@ class _GamePlayState extends State<GamePlay> {
 
 
   gameFinish(String p1uid, String p1Username, String p2Username, String winner) async{
+    resetRead();
     var _db;
     String loser;
     if(winner == p1uid){

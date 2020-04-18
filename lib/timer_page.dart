@@ -61,7 +61,7 @@ class TimerPageState extends State<TimerPage> {
 
 
       calories = await  (miles*50).toInt();
-      updateUserData(user, minutes, calories, miles);
+      updatePrevWorkout(user, minutes, calories, miles);
       Navigator.pop(context);
       Navigator.pop(context);
 

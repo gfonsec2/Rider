@@ -378,6 +378,9 @@ class _SinglesGameStartState extends State<SinglesGameStart> {
 
   @override
   Widget build(BuildContext context) {
+  FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').update({
+        'startReading': 1,
+    });
     return Scaffold(
       body: SafeArea(
         child: Container(

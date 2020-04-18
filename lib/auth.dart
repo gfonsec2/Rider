@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 
 class AuthService {
@@ -61,9 +62,67 @@ class AuthService {
       'avgMph': (miles + milesDone) / ((time + timeDone)/60),
       'totalCalories': (calories + caloriesDone),
       'totalTime': (time + timeDone),
-      'lastActivity': DateTime.now()
+      'lastActivity': DateTime.now(),
+      'trialDistance': milesDone
     });
   }
+  
+
+
+
+  Future<void> updatePrevWorkout(FirebaseUser user, double timeDone, int caloriesDone,  double milesDone) async {
+    print("I am here");
+    DocumentReference reportRef = Firestore.instance.collection('users').document(user.uid);
+    double miles,time;
+    int calories;
+    var snapshot = await reportRef.get();
+
+    miles = snapshot['totalMiles'].toDouble();
+    time = snapshot['totalTime'].toDouble();
+    calories = snapshot['totalCalories'].toInt();
+
+    Firestore.instance.collection('users').document(user.uid).updateData({
+      'totalMiles': (miles + milesDone),
+      'prevAvgMph': (milesDone) / ((timeDone)/60),
+      'prevCalories': caloriesDone,
+      'prevDistance': milesDone,
+      'totalCalories': (calories + caloriesDone),
+      'totalTime': (time + timeDone),
+      'lastActivity': DateTime.now(),
+    });
+  }
+
+  Future<void> updateMultiplayer(FirebaseUser user, double timeDone, int caloriesDone,  double milesDone) async {
+    print("I am here");
+    DocumentReference reportRef = Firestore.instance.collection('users').document(user.uid);
+    double miles,time;
+    int calories;
+    var snapshot = await reportRef.get();
+
+    miles = snapshot['totalMiles'].toDouble();
+    time = snapshot['totalTime'].toDouble();
+    calories = snapshot['totalCalories'].toInt();
+
+    Firestore.instance.collection('users').document(user.uid).updateData({
+      'totalMiles': (miles + milesDone),
+      'prevAvgMph': (milesDone) / ((timeDone)/60),
+      'prevCalories': caloriesDone,
+      'prevDistance': milesDone,
+      'totalCalories': (calories + caloriesDone),
+      'totalTime': (time + timeDone),
+      'lastActivity': DateTime.now(),
+    });
+  }
+
+
+
+void resetRead()
+{
+     FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').update({
+        'startReading': 0,
+        'Rotations': 0 
+    });
+}
 
 Future<double> getMiles(FirebaseUser user) 
 async {
