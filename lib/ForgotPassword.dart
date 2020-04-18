@@ -81,34 +81,31 @@ Future<void> send() async {
   Widget _emailPromptText(){
     return Column(
       children: <Widget>[
+        // Container(
+        //   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+        //   child: Row(
+        //     children: <Widget>[
+        //       Icon(IconData(58837, fontFamily: 'MaterialIcons'), size: 22, color: Color(0xffffcc00)),
+        //       Text("Password Reset",
+        //         style: TextStyle(
+        //           fontSize: 22,
+        //           fontWeight: FontWeight.w600,
+        //           color: Color(0xffffcc00),
+        //         )
+        //       ),
+        //     ],
+        //   ),
+        // ),
         Container(
-          margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-          child: Row(
-            children: <Widget>[
-              Icon(IconData(58837, fontFamily: 'MaterialIcons'), size: 22, color: Color(0xffffcc00)),
-              Text("Password Reset",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xffffcc00),
-                )
-              ),
-            ],
-          ),
-        ),
-        Container(
-          child: Card(
-            shape: RoundedRectangleBorder(
-              side: BorderSide(color: Colors.white70, width: 1),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            elevation: 10,
             margin: EdgeInsets.all(10),
             child: Padding(
               padding: EdgeInsets.all(15),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text("In order to reset your password, please enter your email below. You will receive and email with a code. Enter the code below to reset your password."),
+                  Text("In order to reset your password, please enter your email below. You will receive and email with a code. Enter the code below to reset your password.",
+                  style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w200, fontSize: 16),
+                  ),
                   SizedBox(height: 5),
                   _invalidEmail(),
                   SizedBox(height: 5),
@@ -173,7 +170,6 @@ Future<void> send() async {
                 ],
               )
             ),
-          )
         ),
       ]
     );
@@ -182,34 +178,30 @@ Future<void> send() async {
   Widget _enterCodeCard() {
     return Column(
       children: <Widget>[
+        // Container(
+        //   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+        //   child: Row(
+        //     children: <Widget>[
+        //       Icon(IconData(58835, fontFamily: 'MaterialIcons'), size: 22, color: Color(0xffffcc00)),
+        //       Text("Password Reset",
+        //         style: TextStyle(
+        //           fontSize: 22,
+        //           fontWeight: FontWeight.w600,
+        //           color: Color(0xffffcc00),
+        //         )
+        //       ),
+        //     ],
+        //   ),
+        // ),
         Container(
-          margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-          child: Row(
-            children: <Widget>[
-              Icon(IconData(58835, fontFamily: 'MaterialIcons'), size: 22, color: Color(0xffffcc00)),
-              Text("Password Reset",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xffffcc00),
-                )
-              ),
-            ],
-          ),
-        ),
-        Container(
-          child: Card(
-            shape: RoundedRectangleBorder(
-              side: BorderSide(color: Colors.white70, width: 1),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            elevation: 10,
             margin: EdgeInsets.all(10),
             child: Padding(
               padding: EdgeInsets.all(15),
               child: Column(
                 children: <Widget>[
-                  Text("Enter the four-digit code sent to your email below."),
+                  Text("Enter the four-digit code sent to your email below.",
+                  style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w200, fontSize: 16)
+                  ),
                   SizedBox(height: 15),
                   Container(
                     padding: const EdgeInsets.only(top: 5.0),
@@ -276,7 +268,6 @@ Future<void> send() async {
                 ],
               )
             ),
-          )
         ),
       ]
     );
