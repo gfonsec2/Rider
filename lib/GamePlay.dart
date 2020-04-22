@@ -35,6 +35,7 @@ class _GamePlayState extends State<GamePlay> {
   DateTime now = DateTime.now();
 
   bool playing = true;
+  bool read = true;
   
   int _start = 3;
   int _current = 3;
@@ -63,17 +64,46 @@ class _GamePlayState extends State<GamePlay> {
           ),
           onPressed:  () => Navigator.pop(context)
         ),
-        FlatButton(
-          child: Text("Quit",
-            style: TextStyle(
-              color: Color(0xff66CCCC),
-              fontSize: 25,
-            )
-          ),
-          onPressed:  () {
-            gameFinish(p1uid, p1Username, p2Username, winner);
-          },
-        )
+        StreamBuilder(
+          stream: Firestore.instance.collection('lobbys').document(p1uid).snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return new Text("Loading...");
+            }
+            var userDocument = snapshot.data;
+            if(snapshot.hasData && read) {
+              return FlatButton(
+                child: Text("Quit",
+                  style: TextStyle(
+                    color: Color(0xff66CCCC),
+                    fontSize: 25,
+                  )
+                ),
+                onPressed:  () {
+                  read = false;
+                  var _db = Firestore.instance.collection('lobbys').document(p1uid);
+                  _db.updateData({
+                    "playing": false
+                  }).then((result){
+                    //print("new USer true");
+                  }).catchError((onError){
+                    print("onError");
+                  });
+                  gameFinish(p1uid, p1Username, p2Username, winner);
+                },
+              );
+            }
+            return FlatButton(
+              onPressed: (){},
+              child: Text("Quit",
+                style: TextStyle(
+                  color: Color(0xff66CCCC),
+                  fontSize: 25,
+                )
+              ),
+            );
+          }
+        ),
       ]
     );
     // set up the AlertDialog
@@ -126,11 +156,24 @@ class _GamePlayState extends State<GamePlay> {
           quitGameAlertDialog(context, p1uid);
         }
       },
-      child: Row(
-        children: <Widget>[
-          Icon(IconData(58848, fontFamily: 'MaterialIcons', matchTextDirection: true), size: 13),
-          Text("Quit"),
-        ],
+      child: StreamBuilder(
+        stream: Firestore.instance.collection('lobbys').document(p1uid).snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return new Text("Loading...");
+          }
+          var userDocument = snapshot.data;
+          if(snapshot.hasData && userDocument["playing"] == false && read) {
+            read = false;
+            gameFinish(p1uid, p1Username, p2Username, user.uid);
+          }
+          return Row(
+            children: <Widget>[
+              Icon(IconData(58848, fontFamily: 'MaterialIcons', matchTextDirection: true), size: 13),
+              Text("Quit"),
+            ],
+          );
+        }
       ),
     );        
   }

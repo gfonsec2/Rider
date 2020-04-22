@@ -41,8 +41,7 @@ Future<void> saveData()
 
       calories = await  (miles*50).toInt();
       updatePrevWorkout(user, minutes, calories, miles);
-      Navigator.pop(context);
-      Navigator.pop(context);
+      
 
     }
 
@@ -67,7 +66,9 @@ Future<void> saveData()
             )
           ),
           onPressed:  () {
-            saveData();
+            //saveData();
+            Navigator.pop(context);
+            Navigator.pop(context);
           },
         )
       ]

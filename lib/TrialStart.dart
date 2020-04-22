@@ -31,6 +31,7 @@ class _TrialStartState extends State<TrialStart> {
   double distance=0;
   int calories=0;
   DateTime now = DateTime.now();
+  bool reading = true;
   _TrialStartState({Key key, @required this.title, this.distance, this.calories, this.goal, this.start, this.current});
 
   showAlertDialog(BuildContext context) {
@@ -469,7 +470,8 @@ class _TrialStartState extends State<TrialStart> {
                                     var value = snapshot.value;
                                     var percentDistProgBar = value.toInt()*50*3.14159/(goal * 63360.0);
                                     distance = value.toInt()*50*3.14159/(goal * 63360.0);
-                                    if(percentDistProgBar >= 1.0){
+                                    if(percentDistProgBar >= 1.0 && reading){
+                                      reading = false;
                                       //gameFinish();
                                       Future<void>.microtask(() => gameFinish(formatHHMMSS(start), formatHHMMSS(current), distance, (distance*50).toInt(), start - current));
                                       //gameFinish(formatHHMMSS(start), time, distance, (distance * 50).toInt(), current);

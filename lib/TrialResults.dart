@@ -46,8 +46,7 @@ class _TrialResultsState extends State<TrialResults> {
 
       calories = await  (miles*50).toInt();
       updatePrevWorkout(user, minutes, calories, miles);
-      Navigator.pop(context);
-      Navigator.pop(context);
+      
 
     }
 
@@ -72,7 +71,9 @@ class _TrialResultsState extends State<TrialResults> {
             )
           ),
           onPressed:  () {
-            saveData();
+            Navigator.pop(context);
+            Navigator.pop(context);
+            //saveData();
           },
         )
       ]
