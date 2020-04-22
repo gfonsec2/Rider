@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -24,6 +26,8 @@ class _QuickStartState extends State<QuickStart> {
   double mph=0;
   double distance=0;
   int calories=0;
+  int current=1;
+  bool button = true;
   DateTime now = DateTime.now();
 
   _QuickStartState({Key key, @required this.mph, this.distance, this.calories});
@@ -33,7 +37,7 @@ class _QuickStartState extends State<QuickStart> {
     //updateUserData(user, timeDone, caloriesDone, milesDone);
   }
 
-  showAlertDialog(BuildContext context, FirebaseUser user) {
+  showAlertDialog(BuildContext context) {
     // set up the buttons
     //FirebaseUser user = Provider.of<FirebaseUser>(context);
     Widget buttons = Row(
@@ -56,7 +60,7 @@ class _QuickStartState extends State<QuickStart> {
             )
           ),
           onPressed: () {
-            quit(user, mph, calories, distance);
+            //quit(user, mph, calories, distance);
             Navigator.pop(context);
             Navigator.pop(context);
           },
@@ -106,7 +110,7 @@ class _QuickStartState extends State<QuickStart> {
   Widget _back(FirebaseUser user){
     return GestureDetector(
       onTap: (){
-        showAlertDialog(context, user);
+        showAlertDialog(context);
       },
       child: Row(
         children: <Widget>[
@@ -326,6 +330,67 @@ class _QuickStartState extends State<QuickStart> {
     );
   }
 
+  Timer _timer;
+  String time = "00:00";
+
+  String formatHHMMSS(int seconds) {
+    int hours = (seconds / 3600).truncate();
+    seconds = (seconds % 3600).truncate();
+    int minutes = (seconds / 60).truncate();
+
+    String hoursStr = (hours).toString().padLeft(2, '0');
+    String minutesStr = (minutes).toString().padLeft(2, '0');
+    String secondsStr = (seconds % 60).toString().padLeft(2, '0');
+
+    if (hours == 0) {
+      return "$minutesStr:$secondsStr";
+    }
+
+    return "$hoursStr:$minutesStr:$secondsStr";
+  }
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) => setState(
+        () {
+          if (current > 3599) {
+            timer.cancel();
+            //trialFailed(distance);
+          } else {
+            time = formatHHMMSS(current);
+            current = current + 1;
+          }
+        },
+      ),
+    );
+  }
+
+  void pressed() {
+    setState(() {  
+      if (current == 1) {
+        button = false;
+        startTimer();
+      } else {
+        showAlertDialog(context);
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+  
   Widget _stopwatch(context){
     return Container(
       height: 225,
@@ -356,7 +421,7 @@ class _QuickStartState extends State<QuickStart> {
               _back(user),
               _title(),
               Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   _mph(),
                   Row(
@@ -366,7 +431,21 @@ class _QuickStartState extends State<QuickStart> {
                       _cal(),
                     ],
                   ),
-                  _stopwatch(context)
+                  Text(time,
+                    style: TextStyle(
+                      fontSize: 85,
+                    ),
+                  ),
+                  OutlineButton(
+                    highlightElevation: 20,
+                    borderSide: BorderSide(
+                      color: Colors.black
+                    ),
+                    child: Text(button ? "Start" : "End",
+                      style: TextStyle(fontSize: 25.0,fontWeight: FontWeight.w300, color: Colors.black)),
+                      onPressed: (){pressed();},
+                  ),
+                  //_stopwatch(context)
                 ],
               ),
             ],

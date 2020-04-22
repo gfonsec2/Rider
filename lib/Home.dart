@@ -113,7 +113,7 @@ class _HomeState extends State<Home> {
                             );
                           }
                           var userDocument = snapshot.data;
-                          return Text(userDocument["prevAvgMph"].toString(),
+                          return Text(userDocument["prevAvgMph"].toStringAsFixed(2),
                             style: TextStyle(
                               fontSize: 60,
                               fontWeight: FontWeight.w200,

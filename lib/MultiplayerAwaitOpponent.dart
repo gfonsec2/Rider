@@ -12,6 +12,7 @@ class MultiplayerAwaitOpponent extends StatefulWidget {
 
 class _MultiplayerAwaitOpponentState extends State<MultiplayerAwaitOpponent> {
   DateTime now = DateTime.now();
+  bool read = true;
 
   alertDialog(BuildContext context) {
     Widget buttons = Row(
@@ -148,7 +149,8 @@ class _MultiplayerAwaitOpponentState extends State<MultiplayerAwaitOpponent> {
                     return new Text("... Lobby");
                   }
                   var userDocument = snapshot.data;
-                  if(snapshot.hasData && !userDocument["joinable"]) {
+                  if(snapshot.hasData && !userDocument["joinable"] && read) {
+                    read = false;
                     Future<void>.microtask(() =>
                      Navigator.push(context, 
                       MaterialPageRoute(

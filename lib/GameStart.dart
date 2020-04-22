@@ -44,6 +44,7 @@ class _GameStartState extends State<GameStart> {
   final String p2uid;
   _GameStartState({Key key, @required this.p1Username, this.p1uid, this.p2uid, this.p2Username});
   DateTime now = DateTime.now();
+  bool read = true;
 
   alertDialogPlayer1Leaving(BuildContext context) {
     Widget buttons = Row(
@@ -275,7 +276,8 @@ class _GameStartState extends State<GameStart> {
                 return new Text("Loading...");
               }
               var userDocument = snapshot.data;
-              if(snapshot.hasData && userDocument["joinable"]) {
+              if(snapshot.hasData && userDocument["joinable"] && read) {
+                read = false;
                 Future<void>.microtask(() => Navigator.pop(context));
               }
               return Row(

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -41,6 +43,7 @@ class _GamePlayState extends State<GamePlay> {
   double distance = 0;
   double percentDistProgBar=0.0;
   final double mile = 63360.0;
+  int current=0;
 
   void initState() {
     super.initState();
@@ -146,6 +149,7 @@ class _GamePlayState extends State<GamePlay> {
     sub.onDone(() {
       _visible = false;
       sub.cancel();
+      startTimer2();
     });
   }
 
@@ -263,7 +267,7 @@ class _GamePlayState extends State<GamePlay> {
                                     color: Colors.black,
                                   )
                                 ),
-                                Text(userDocument["avgMph"].toString(),
+                                Text(userDocument["avgMph"].toStringAsFixed(1),
                                   style: TextStyle(
                                     fontSize: 40,
                                     fontWeight: FontWeight.w200,
@@ -313,7 +317,7 @@ class _GamePlayState extends State<GamePlay> {
                                       var value = snapshot.value;
                                       mph = double.parse(value.toString());
                                       mph = (mph * diameter * 3.14159 *60/63360);
-                                      return Text( mph.toInt().toString(),
+                                      return Text(mph.toInt().toString(),
                                         style: TextStyle(fontSize: 45)
                                       );
                                     }
@@ -426,6 +430,43 @@ class _GamePlayState extends State<GamePlay> {
     );
   }
 
+  Timer _timer;
+  String time = "00:00";
+
+  String formatHHMMSS(int seconds) {
+    int hours = (seconds / 3600).truncate();
+    seconds = (seconds % 3600).truncate();
+    int minutes = (seconds / 60).truncate();
+
+    String hoursStr = (hours).toString().padLeft(2, '0');
+    String minutesStr = (minutes).toString().padLeft(2, '0');
+    String secondsStr = (seconds % 60).toString().padLeft(2, '0');
+
+    if (hours == 0) {
+      return "$minutesStr:$secondsStr";
+    }
+
+    return "$hoursStr:$minutesStr:$secondsStr";
+  }
+
+  void startTimer2() {
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) => setState(
+        () {
+          if (current > 3599) {
+            timer.cancel();
+            //trialFailed(distance);
+          } else {
+            time = formatHHMMSS(current);
+            current = current + 1;
+          }
+        },
+      ),
+    );
+  }
+
   Widget _stopwatch(context){
     return Container(
       height: 150,
@@ -435,7 +476,12 @@ class _GamePlayState extends State<GamePlay> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             //TimerPage()
-            TimerPage2(),
+            //TimerPage2(),
+            Text(time,
+              style: TextStyle(
+                fontSize: 85,
+              ),
+            ),
             Text("Elapsed Time",
               style: TextStyle(
                 fontSize: 22,
@@ -563,7 +609,7 @@ class _GamePlayState extends State<GamePlay> {
                                     color: Colors.black,
                                   )
                                 ),
-                                Text(userDocument["avgMph"].toString(),
+                                Text(userDocument["avgMph"].toStringAsFixed(1),
                                   style: TextStyle(
                                     fontSize: 40,
                                     fontWeight: FontWeight.w200,
@@ -746,6 +792,12 @@ class _GamePlayState extends State<GamePlay> {
   }
 
   @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').update({
         'startReading': 1,
@@ -792,8 +844,6 @@ class _GamePlayState extends State<GamePlay> {
       ),
     );
   }
-
-
 
   gameFinish(String p1uid, String p1Username, String p2Username, String winner) async{
     resetRead();
