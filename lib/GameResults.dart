@@ -18,7 +18,7 @@ class GameResults extends StatefulWidget {
   final String p2Username;
   final String winner;
   final String loser;
-  GameResults({Key key, this.p1uid, this.p2uid, this.p1Username, this.winner, this.loser, this.p2Username}) : super(key: key);
+  GameResults({Key key, this.p1uid, this.p2uid, this.p1Username, this.winner, this.loser, this.p2Username, String time}) : super(key: key);
 
   @override
   _GameResultsState createState() => _GameResultsState(p1uid: p1uid, p1Username: p1Username, p2uid: p2uid, p2Username: p2Username, winner: winner, loser: loser);
@@ -31,7 +31,8 @@ class _GameResultsState extends State<GameResults> {
   final String p2Username;
   final String winner;
   final String loser;
-  _GameResultsState({Key key, @required this.p1uid, this.winner, this.p2uid, this.p1Username, this.p2Username, this.loser});
+  final String time;
+  _GameResultsState({Key key, @required this.p1uid, this.winner, this.p2uid, this.p1Username, this.p2Username, this.loser, this.time});
 
   Future<void> saveData()
   async {
@@ -40,14 +41,14 @@ class _GameResultsState extends State<GameResults> {
 
     double miles;
     int calories;
-    //double minutes = int.parse(completedTime)/60;
+    double minutes = int.parse(time)/60;
     var va = await databaseReferencePulses.once().then((value) => 
     miles = (value.value.toInt()*50*3.14159/63360).toDouble());
     resetRead();
 
 
       calories = await  (miles*50).toInt();
-      //updatePrevWorkout(user, minutes, calories, miles);
+      updatePrevWorkout(user, minutes, calories, miles);
       
       Navigator.pop(context);
       Navigator.pop(context);
