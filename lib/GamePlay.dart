@@ -89,7 +89,7 @@ class _GamePlayState extends State<GamePlay> {
                   }).catchError((onError){
                     print("onError");
                   });
-                  gameFinish(p1uid, p1Username, p2Username, winner, 0);
+                  gameFinish(p1uid, p1Username, p2Username, winner);
                 },
               );
             }
@@ -165,7 +165,7 @@ class _GamePlayState extends State<GamePlay> {
           var userDocument = snapshot.data;
           if(snapshot.hasData && userDocument["playing"] == false && read) {
             read = false;
-            gameFinish(p1uid, p1Username, p2Username, user.uid, 0);
+            gameFinish(p1uid, p1Username, p2Username, user.uid);
           }
           return Row(
             children: <Widget>[
@@ -242,7 +242,7 @@ String secondsStr;
                               if(distance >= 1.0 && playing == true){
                                 playing = false;
                                 //Future<void>.microtask(() => gameFinish(p1uid, p1Username, p2Username, p1uid));
-                                gameFinish(p1uid, p1Username, p2Username, p1uid, current);
+                                gameFinish(p1uid, p1Username, p2Username, p1uid);
                               }
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -584,7 +584,7 @@ String secondsStr;
                               if(distance >= 1.0 && playing == true){
                                 playing = false;
                                 //Future<void>.microtask(() => gameFinish(p1uid, p1Username, p2Username, p1uid));
-                                gameFinish(p1uid, p1Username, p2Username, p2uid, current);
+                                gameFinish(p1uid, p1Username, p2Username, p2uid);
                               }
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -888,7 +888,7 @@ String secondsStr;
     );
   }
 
-  gameFinish(String p1uid, String p1Username, String p2Username, String winner, int time) async{
+  gameFinish(String p1uid, String p1Username, String p2Username, String winner) async{
     resetRead();
     var _db;
     String loser;
@@ -909,6 +909,7 @@ String secondsStr;
     }).catchError((onError){
       print("onError");
     });
+    print(current);
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GameResults(
       p1uid: p1uid,
       p1Username: p1Username,
@@ -916,7 +917,7 @@ String secondsStr;
       p2Username: p2Username,
       winner: winner,
       loser: loser,
-      time: time
+      time: current
     )));
   }
 }

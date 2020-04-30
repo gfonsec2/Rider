@@ -512,6 +512,7 @@ class _SinglesGameStartState extends State<SinglesGameStart> {
     print(avgMph);
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SinglesResults(
       completedTime: completedTime,
+      time: current,
       distance: distance,
       calories: calories,
       avgMph: avgMph.toInt()

@@ -104,6 +104,9 @@ class _HomeState extends State<Home> {
                       StreamBuilder(
                         stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
                         builder: (context, snapshot) {
+                        var userDocument = snapshot.data;
+                        double a = (userDocument["prevAvgMph"].toDouble()*10).toInt()/10;
+
                           if (!snapshot.hasData) {
                             return Text("0.0",
                               style: TextStyle(
@@ -112,8 +115,7 @@ class _HomeState extends State<Home> {
                               ),
                             );
                           }
-                          var userDocument = snapshot.data;
-                          return Text(userDocument["prevAvgMph"].toStringAsFixed(2),
+                          return Text(a.toString(),
                             style: TextStyle(
                               fontSize: 60,
                               fontWeight: FontWeight.w200,
@@ -151,6 +153,9 @@ class _HomeState extends State<Home> {
                      StreamBuilder(
                         stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
                         builder: (context, snapshot) {
+                          var userDocument = snapshot.data;
+                          double m = (userDocument["prevDistance"].toDouble()*10).toInt()/10;
+
                           if (!snapshot.hasData) {
                             return Text("0.0",
                               style: TextStyle(
@@ -159,8 +164,7 @@ class _HomeState extends State<Home> {
                               ),
                             );
                           }
-                          var userDocument = snapshot.data;
-                          return Text(userDocument["totalMiles"].toString(),
+                          return Text(m.toString(),
                             style: TextStyle(
                               fontSize: 60,
                               fontWeight: FontWeight.w200,

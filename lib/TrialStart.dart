@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:rider/TrialResults.dart';
 
 import 'TrialFailed.dart';
@@ -407,6 +409,8 @@ class _TrialStartState extends State<TrialStart> {
 
   @override
   Widget build(BuildContext context) {
+   user = Provider.of<FirebaseUser>(context);
+
     FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').update({
         'startReading': 1,
     });
@@ -579,7 +583,8 @@ class _TrialStartState extends State<TrialStart> {
       distance: distance,
       calories: calories,
       yourRecordTime: record,
-      avgMph: avgMph.toInt()
+      time: current,
+      avgMph: avgMph.toInt(),
     )));
   }
 }

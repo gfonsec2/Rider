@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'Home.dart';
 import 'auth.dart';
+import 'newHome.dart';
 
 FirebaseUser user;
 
@@ -15,10 +16,11 @@ class TrialResults extends StatefulWidget {
   final int calories;
   final String yourRecordTime;
   final int avgMph;
-  TrialResults({Key key, this.distance, this.calories, this.completedTime, this.yourRecordTime, this.goalTime, this.avgMph}) : super(key: key);
+  final int time;
+  TrialResults({Key key, this.distance, this.calories, this.completedTime, this.yourRecordTime, this.goalTime, this.avgMph, this.time}) : super(key: key);
 
   @override
-  _TrialResultsState createState() => _TrialResultsState(goalTime: goalTime, completedTime: completedTime, distance: distance, calories: calories, yourRecordTime: yourRecordTime, avgMph: avgMph);
+  _TrialResultsState createState() => _TrialResultsState(goalTime: goalTime, completedTime: completedTime, distance: distance, calories: calories, yourRecordTime: yourRecordTime, avgMph: avgMph, time: time);
 }
 
 class _TrialResultsState extends State<TrialResults> {
@@ -28,7 +30,8 @@ class _TrialResultsState extends State<TrialResults> {
   final int calories;
   final String yourRecordTime;
   final int avgMph;
-  _TrialResultsState({Key key, @required this.distance, this.calories, this.completedTime, this.yourRecordTime, this.goalTime, this.avgMph});
+  final int time;
+  _TrialResultsState({Key key, @required this.distance, this.calories, this.completedTime, this.yourRecordTime, this.goalTime, this.avgMph, this.time});
 
   Future<void> saveData()
   async {
@@ -36,17 +39,15 @@ class _TrialResultsState extends State<TrialResults> {
    // FirebaseUser user;
 
     double miles;
-    int calories;
-    var milliseconds = completedTime;
-    double minutes = int.parse(milliseconds)/60;
+        var milliseconds = completedTime;
+    double minutes = time/60;
     var va = await databaseReferencePulses.once().then((value) => 
-    miles = (value.value.toInt()*50*3.14159/63360).toDouble());
-    resetRead();
+    miles = (value.value.toInt()*25*3.14159/63360).toDouble());
+   
+      updatePrevWorkout(user, minutes, calories, distance);
+       resetRead();
+           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyTabbedPage()), (route) => false);
 
-
-      calories = await  (miles*50).toInt();
-      updatePrevWorkout(user, minutes, calories, miles);
-      
 
     }
 
@@ -71,9 +72,7 @@ class _TrialResultsState extends State<TrialResults> {
             )
           ),
           onPressed:  () {
-            Navigator.pop(context);
-            Navigator.pop(context);
-            //saveData();
+            saveData();
           },
         )
       ]
@@ -360,7 +359,7 @@ class _TrialResultsState extends State<TrialResults> {
 
   @override
   Widget build(BuildContext context) {
-     user = Provider.of<FirebaseUser>(context);
+    // user = Provider.of<FirebaseUser>(context);
     return Scaffold(
       backgroundColor: Color(0xffffcc00),
       body: SafeArea(

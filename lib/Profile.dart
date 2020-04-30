@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter/cupertino.dart';
 
+FirebaseUser user;
 class Profile extends StatefulWidget {
   Profile({Key key}): super(key: key);
   _ProfileState createState() => _ProfileState();
@@ -353,390 +354,442 @@ class _ProfileState extends State<Profile> {
     //     }
 
   Widget _menu(){
-    return Expanded(
-      child: ListView(
-        shrinkWrap: true,
-        padding: EdgeInsets.only(bottom:25),
-        children: <Widget>[
-            Card(
-              //color: Color(0xff60CECE),
-              shape: RoundedRectangleBorder(
-                // side: BorderSide(color: Colors.white70, width: 1),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              elevation: 10,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
-                child: Row(
-                  //mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        // Container(
-                        //   width: 34,
-                        //   height: 34,
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(5),
-                        //     gradient: LinearGradient(
-                        //       begin: Alignment.topLeft,
-                        //       end: Alignment.bottomRight,
-                        //       colors: [Color(0xffFFCC00), Color(0xffFF6666)])),
-                        //   // child: Center(
-                        //   //   child: Icon(IconData(0xF3E6,fontFamily: CupertinoIcons.iconFont, fontPackage: CupertinoIcons.iconFontPackage), size: 75, color: Colors.white,),
-                        //   // ),
-                        // ),
-                        // SizedBox(width:10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(children: <Widget>[
-                              Text("Total Wins:",
-                              style: TextStyle(
-                                fontFamily: 'ProximaNova',
-                                fontSize: 28,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ),
-                            ],),
-                            // Row(children: <Widget>[
-                            //  Text("Time:",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Colors.black,
-                            //   )
-                            // ), 
-                            // ],),
-                            //  Row(children: <Widget>[
-                            //  Text("Distance:",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Colors.black,
-                            //   )
-                            // ), 
-                            // ],),
-                            //  Row(children: <Widget>[
-                            //  Text("Average Speed:",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Colors.black,
-                            //   )
-                            // ), 
-                            // ],),
-                            // Text("Jump straight into the\nspeedometer and stop-\nwatch menu.",
-                            //   style: TextStyle(
-                            //     fontSize: 16,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Color(0xff838383),
-                            //   )
-                            // ),
-                          ]
-                        ),
-                      ],
-                    ),
-                    //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
-                  ],
-                ),
-              ),
-            ),
-             Card(
-               //color: Color(0xffFF6666),
-              shape: RoundedRectangleBorder(
-                //side: BorderSide(color: Colors.white70, width: 1),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              elevation: 10,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        // Container(
-                        //   width: 34,
-                        //   height: 34,
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(5),
-                        //     gradient: LinearGradient(
-                        //       begin: Alignment.topLeft,
-                        //       end: Alignment.bottomRight,
-                        //       colors: [Color(0xffFF6666), Color(0xff60CECE)])),
-                        //   // child: Center(
-                        //   //   child: Icon(Entypo.stopwatch, size: 65,color: Colors.white,)
-                        //   // ),
-                        // ),
-                        // SizedBox(width:10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(children: <Widget>[
-                        //   Container(
-                        //   width: 34,
-                        //   height: 34,
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(5),
-                        //     gradient: LinearGradient(
-                        //       begin: Alignment.topLeft,
-                        //       end: Alignment.bottomRight,
-                        //       colors: [Color(0xffFF6666), Color(0xff60CECE)])),
-                        //   // child: Center(
-                        //   //   child: Icon(Entypo.stopwatch, size: 65,color: Colors.white,)
-                        //   // ),
-                        // ),
-                        // SizedBox(width:10),
-                             Text("Total Miles:",
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ), 
-                            ],),
-                            // Row(children: <Widget>[
-                            //  Text("Total Miles:",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Colors.black,
-                            //   )
-                            // ), 
-                            // ],),
-                            // Row(children: <Widget>[
-                            //  Text("Best Time:",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Colors.black,
-                            //   )
-                            // ), 
-                            // ],),
-                            //  Row(children: <Widget>[
-                            //  Text("Best Speed:",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Colors.black,
-                            //   )
-                            // ), 
-                            // ],)
-                            // Text("Race against the clock to\ncross the finish line.\nCompare with friends.",
-                            //   style: TextStyle(
-                            //     fontSize: 16,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Color(0xff838383),
-                            //   )
-                            // ),
-                          ]
-                        ),
-                        
-                      ],
-                    ),
-                    //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
-                  ],
-                ),
-              ),
-            ),
-            Card(
-              //color: Color(0xffFFCC00),
-              shape: RoundedRectangleBorder(
-                //side: BorderSide(color: Colors.white70, width: 1),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              elevation: 10,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        // Container(
-                        //   width: 34,
-                        //   height: 34,
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(5),
-                        //     gradient: LinearGradient(
-                        //       begin: Alignment.topLeft,
-                        //       end: Alignment.bottomRight,
-                        //       colors: [Color(0xff60CECE), Color(0xff916DD5)])),
-                        //   // child: Center(
-                        //   //   child: Icon(Icons.people,size:65, color: Colors.white,),
-                        //   // ),
-                        // ),
-                        // SizedBox(width:10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(children: <Widget>[
-                        //        Container(
-                        //   width: 34,
-                        //   height: 34,
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(5),
-                        //     gradient: LinearGradient(
-                        //       begin: Alignment.topLeft,
-                        //       end: Alignment.bottomRight,
-                        //       colors: [Color(0xff60CECE), Color(0xff916DD5)])),
-                        //   // child: Center(
-                        //   //   child: Icon(Icons.people,size:65, color: Colors.white,),
-                        //   // ),
-                        // ),
-                        // SizedBox(width:10),
-                              Text("Total Calories:",
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ),
-                            ],),
-                            // Row(children: <Widget>[
-                            // Text("Wins:",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Colors.black,
-                            //   )
-                            // ),
-                            // ],),
-                            // Row(children: <Widget>[
-                            // Text("Points:",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Colors.black,
-                            //   )
-                            // ),
-                            // ],),
-                            // Row(children: <Widget>[
-                            // Text("Distance:",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Colors.black,
-                            //   )
-                            // ),
-                            // ],),
-                            // Text("Multiplayer",
-                            //   style: TextStyle(
-                            //     fontSize: 34,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Colors.black,
-                            //   )
-                            // ),
-                            // Text("Connect with friends and\nplay games designed to\ntest your abilities.",
-                            //   style: TextStyle(
-                            //     fontSize: 16,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Color(0xff838383),
-                            //   )
-                            // ),
-                          ]
-                        ),
-                        
-                      ],
-                    ),
-                    //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
-                                ],
-                ),
-              ),
-            ),
-             Card(
-               //color: Color(0xff916DD5),
-              shape: RoundedRectangleBorder(
-                //side: BorderSide(color: Colors.white70, width: 1),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              elevation: 10,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(children: <Widget>[
-                        //       Container(
-                        //   width: 34,
-                        //   height: 34,
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(5),
-                        //     gradient: LinearGradient(
-                        //       begin: Alignment.topLeft,
-                        //       end: Alignment.bottomRight,
-                        //       colors: [Color(0xff916DD5), Color(0xffFFCC00)])),
-                        //   // child: Center(
-                        //   //   child: Icon(Icons.person,size:65, color: Colors.white,),
-                        //   // ),
-                        // ),
-                        // SizedBox(width:10),
-                              Text("Average Speed:",
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.w200,
-                                color: Colors.black,
-                              )
-                            ),
-                            ],),
-                            // Row(children: <Widget>[
-                            // Text("Time:",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Colors.black,
-                            //   )
-                            // ),
-                            // ],),
-                            // Row(children: <Widget>[
-                            // Text("Points:",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Colors.black,
-                            //   )
-                            // ),
-                            // ],),
-                            // Row(children: <Widget>[
-                            // Text("Distance:",
-                            //   style: TextStyle(
-                            //     fontSize: 20,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Colors.black,
-                            //   )
-                            // ),
-                            // ],),
+    return StreamBuilder(
+      stream: Firestore.instance.collection('users').document(user.uid).snapshots(),
+      builder: (context, snapshot) { 
+        var userDocument = snapshot.data;
+        int t = userDocument["totalTime"].toInt();
+        double m = (userDocument["totalMiles"].toDouble()*10).toInt()/10;
 
-                            
-                            // Text("Solo player minigames.\nBeat your high score in\nthese assault bike games.",
-                            //   style: TextStyle(
-                            //     fontSize: 16,
-                            //     fontWeight: FontWeight.w200,
-                            //     color: Color(0xff838383),
-                            //   )
+        return Expanded(
+          child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.only(bottom:25),
+            children: <Widget>[
+                Card(
+                  //color: Color(0xff60CECE),
+                  shape: RoundedRectangleBorder(
+                    // side: BorderSide(color: Colors.white70, width: 1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  elevation: 10,
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
+                    child: Row(
+                      //mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            // Container(
+                            //   width: 34,
+                            //   height: 34,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(5),
+                            //     gradient: LinearGradient(
+                            //       begin: Alignment.topLeft,
+                            //       end: Alignment.bottomRight,
+                            //       colors: [Color(0xffFFCC00), Color(0xffFF6666)])),
+                            //   // child: Center(
+                            //   //   child: Icon(IconData(0xF3E6,fontFamily: CupertinoIcons.iconFont, fontPackage: CupertinoIcons.iconFontPackage), size: 75, color: Colors.white,),
+                            //   // ),
                             // ),
-                          ]
+                            // SizedBox(width:10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Row(children: <Widget>[
+                                  Text("Total Wins:",
+                                  style: TextStyle(
+                                    fontFamily: 'ProximaNova',
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.black,
+                                  ),
+                                  
+                                ),
+                               
+                                Text(userDocument["totalWins"].toString(),
+                                  style: TextStyle(
+                                    fontFamily: 'ProximaNova',
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.black,
+                                  ),
+                                )
+                                ],),
+                                // Row(children: <Widget>[
+                                //  Text("Time:",
+                                //   style: TextStyle(
+                                //     fontSize: 20,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Colors.black,
+                                //   )
+                                // ), 
+                                // ],),
+                                //  Row(children: <Widget>[
+                                //  Text("Distance:",
+                                //   style: TextStyle(
+                                //     fontSize: 20,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Colors.black,
+                                //   )
+                                // ), 
+                                // ],),
+                                //  Row(children: <Widget>[
+                                //  Text("Average Speed:",
+                                //   style: TextStyle(
+                                //     fontSize: 20,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Colors.black,
+                                //   )
+                                // ), 
+                                // ],),
+                                // Text("Jump straight into the\nspeedometer and stop-\nwatch menu.",
+                                //   style: TextStyle(
+                                //     fontSize: 16,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Color(0xff838383),
+                                //   )
+                                // ),
+                              ]
+                            ),
+                          ],
                         ),
+                        //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
                       ],
                     ),
-                    //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-        ],
-      ),
+                 Card(
+                   //color: Color(0xffFF6666),
+                  shape: RoundedRectangleBorder(
+                    //side: BorderSide(color: Colors.white70, width: 1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  elevation: 10,
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            // Container(
+                            //   width: 34,
+                            //   height: 34,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(5),
+                            //     gradient: LinearGradient(
+                            //       begin: Alignment.topLeft,
+                            //       end: Alignment.bottomRight,
+                            //       colors: [Color(0xffFF6666), Color(0xff60CECE)])),
+                            //   // child: Center(
+                            //   //   child: Icon(Entypo.stopwatch, size: 65,color: Colors.white,)
+                            //   // ),
+                            // ),
+                            // SizedBox(width:10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Row(children: <Widget>[
+                            //   Container(
+                            //   width: 34,
+                            //   height: 34,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(5),
+                            //     gradient: LinearGradient(
+                            //       begin: Alignment.topLeft,
+                            //       end: Alignment.bottomRight,
+                            //       colors: [Color(0xffFF6666), Color(0xff60CECE)])),
+                            //   // child: Center(
+                            //   //   child: Icon(Entypo.stopwatch, size: 65,color: Colors.white,)
+                            //   // ),
+                            // ),
+                            // SizedBox(width:10),
+                                 Text("Total Miles:",
+                                  style: TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.black,
+                                  )
+                                ), 
+                                Text(m.toString(),
+                                  style: TextStyle(
+                                    fontFamily: 'ProximaNova',
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.black,
+                                  ),
+                                )
+                                ],),
+                                // Row(children: <Widget>[
+                                //  Text("Total Miles:",
+                                //   style: TextStyle(
+                                //     fontSize: 20,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Colors.black,
+                                //   )
+                                // ), 
+                                // ],),
+                                // Row(children: <Widget>[
+                                //  Text("Best Time:",
+                                //   style: TextStyle(
+                                //     fontSize: 20,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Colors.black,
+                                //   )
+                                // ), 
+                                // ],),
+                                //  Row(children: <Widget>[
+                                //  Text("Best Speed:",
+                                //   style: TextStyle(
+                                //     fontSize: 20,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Colors.black,
+                                //   )
+                                // ), 
+                                // ],)
+                                // Text("Race against the clock to\ncross the finish line.\nCompare with friends.",
+                                //   style: TextStyle(
+                                //     fontSize: 16,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Color(0xff838383),
+                                //   )
+                                // ),
+                              ]
+                            ),
+                            
+                          ],
+                        ),
+                        //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+                      ],
+                    ),
+                  ),
+                ),
+                Card(
+                  //color: Color(0xffFFCC00),
+                  shape: RoundedRectangleBorder(
+                    //side: BorderSide(color: Colors.white70, width: 1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  elevation: 10,
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            // Container(
+                            //   width: 34,
+                            //   height: 34,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(5),
+                            //     gradient: LinearGradient(
+                            //       begin: Alignment.topLeft,
+                            //       end: Alignment.bottomRight,
+                            //       colors: [Color(0xff60CECE), Color(0xff916DD5)])),
+                            //   // child: Center(
+                            //   //   child: Icon(Icons.people,size:65, color: Colors.white,),
+                            //   // ),
+                            // ),
+                            // SizedBox(width:10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Row(children: <Widget>[
+                            //        Container(
+                            //   width: 34,
+                            //   height: 34,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(5),
+                            //     gradient: LinearGradient(
+                            //       begin: Alignment.topLeft,
+                            //       end: Alignment.bottomRight,
+                            //       colors: [Color(0xff60CECE), Color(0xff916DD5)])),
+                            //   // child: Center(
+                            //   //   child: Icon(Icons.people,size:65, color: Colors.white,),
+                            //   // ),
+                            // ),
+                            // SizedBox(width:10),
+                                  Text("Total Calories:",
+                                  style: TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.black,
+                                  )
+                                ),
+                                Text(userDocument["totalCalories"].toString(),
+                                  style: TextStyle(
+                                    fontFamily: 'ProximaNova',
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.black,
+                                  ),
+                                )
+                                ],),
+                                // Row(children: <Widget>[
+                                // Text("Wins:",
+                                //   style: TextStyle(
+                                //     fontSize: 20,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Colors.black,
+                                //   )
+                                // ),
+                                // ],),
+                                // Row(children: <Widget>[
+                                // Text("Points:",
+                                //   style: TextStyle(
+                                //     fontSize: 20,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Colors.black,
+                                //   )
+                                // ),
+                                // ],),
+                                // Row(children: <Widget>[
+                                // Text("Distance:",
+                                //   style: TextStyle(
+                                //     fontSize: 20,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Colors.black,
+                                //   )
+                                // ),
+                                // ],),
+                                // Text("Multiplayer",
+                                //   style: TextStyle(
+                                //     fontSize: 34,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Colors.black,
+                                //   )
+                                // ),
+                                // Text("Connect with friends and\nplay games designed to\ntest your abilities.",
+                                //   style: TextStyle(
+                                //     fontSize: 16,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Color(0xff838383),
+                                //   )
+                                // ),
+                              ]
+                            ),
+                            
+                          ],
+                        ),
+                        //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+                                    ],
+                    ),
+                  ),
+                ),
+                 Card(
+                   //color: Color(0xff916DD5),
+                  shape: RoundedRectangleBorder(
+                    //side: BorderSide(color: Colors.white70, width: 1),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  elevation: 10,
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(17, 25, 0, 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Row(children: <Widget>[
+                            //       Container(
+                            //   width: 34,
+                            //   height: 34,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(5),
+                            //     gradient: LinearGradient(
+                            //       begin: Alignment.topLeft,
+                            //       end: Alignment.bottomRight,
+                            //       colors: [Color(0xff916DD5), Color(0xffFFCC00)])),
+                            //   // child: Center(
+                            //   //   child: Icon(Icons.person,size:65, color: Colors.white,),
+                            //   // ),
+                            // ),
+                            // SizedBox(width:10),
+                                  Text("Total Time:",
+                                  style: TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.black,
+                                  )
+                                ),
+                                Text(t.toString() ,
+                                  style: TextStyle(
+                                    fontFamily: 'ProximaNova',
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Text(" minutes",
+                                  style: TextStyle(
+                                    fontFamily: 'ProximaNova',
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.black,
+                                  ),
+                                )
+                                ],),
+                                // Row(children: <Widget>[
+                                // Text("Time:",
+                                //   style: TextStyle(
+                                //     fontSize: 20,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Colors.black,
+                                //   )
+                                // ),
+                                // ],),
+                                // Row(children: <Widget>[
+                                // Text("Points:",
+                                //   style: TextStyle(
+                                //     fontSize: 20,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Colors.black,
+                                //   )
+                                // ),
+                                // ],),
+                                // Row(children: <Widget>[
+                                // Text("Distance:",
+                                //   style: TextStyle(
+                                //     fontSize: 20,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Colors.black,
+                                //   )
+                                // ),
+                                // ],),
+
+                                
+                                // Text("Solo player minigames.\nBeat your high score in\nthese assault bike games.",
+                                //   style: TextStyle(
+                                //     fontSize: 16,
+                                //     fontWeight: FontWeight.w200,
+                                //     color: Color(0xff838383),
+                                //   )
+                                // ),
+                              ]
+                            ),
+                          ],
+                        ),
+                        //Icon(IconData(58377, fontFamily: 'MaterialIcons', matchTextDirection: true)),
+                      ],
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        );
+      }
     );
   }
   @override
   Widget build(BuildContext context) {
+    user = Provider.of<FirebaseUser>(context);
     return Scaffold(
       body: SafeArea(
         child: Container(

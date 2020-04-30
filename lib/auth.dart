@@ -50,7 +50,6 @@ class AuthService {
 }
 
  Future<void> updateUserData(FirebaseUser user, double timeDone, int caloriesDone,  double milesDone) async {
-    print("I am here");
     DocumentReference reportRef = Firestore.instance.collection('users').document(user.uid);
     double miles,time;
     int calories;
@@ -86,7 +85,7 @@ class AuthService {
 
     Firestore.instance.collection('users').document(user.uid).updateData({
       'totalMiles': (miles + milesDone),
-      'prevAvgMph': (milesDone) / ((timeDone)/60),
+      'prevAvgMph': (milesDone)/(timeDone),
       'prevCalories': caloriesDone,
       'prevDistance': milesDone,
       'totalCalories': (calories + caloriesDone),

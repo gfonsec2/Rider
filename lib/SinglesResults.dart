@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:rider/auth.dart';
 
 import 'Home.dart';
+import 'newHome.dart';
   FirebaseUser user;
 
 class SinglesResults extends StatefulWidget {
@@ -13,10 +14,11 @@ class SinglesResults extends StatefulWidget {
   final double distance;
   final int calories;
   final int avgMph;
-  SinglesResults({Key key, this.distance, this.calories, this.completedTime,this.avgMph}) : super(key: key);
+  final int time;
+  SinglesResults({Key key, this.distance, this.calories, this.completedTime,this.avgMph, this.time}) : super(key: key);
 
   @override
-  _SinglesResultsState createState() => _SinglesResultsState(completedTime: completedTime, distance: distance, calories: calories, avgMph: avgMph);
+  _SinglesResultsState createState() => _SinglesResultsState(completedTime: completedTime, distance: distance, calories: calories, avgMph: avgMph, time: time);
 }
 
 class _SinglesResultsState extends State<SinglesResults> {
@@ -24,24 +26,20 @@ class _SinglesResultsState extends State<SinglesResults> {
   final double distance;
   final int calories;
   final int avgMph;
-  _SinglesResultsState({Key key, @required this.distance, this.calories, this.completedTime, this.avgMph});
+  final int time;
+  _SinglesResultsState({Key key, @required this.distance, this.calories, this.completedTime, this.avgMph, this.time});
 
 Future<void> saveData()
   async {
     AuthService authService;
    // FirebaseUser user;
 
-    double miles;
-    int calories;
-    double minutes = int.parse(completedTime)/60;
-    var va = await databaseReferencePulses.once().then((value) => 
-    miles = (value.value.toInt()*50*3.14159/63360).toDouble());
-    resetRead();
+    double minutes = time/60;
+    
+      updatePrevWorkout(user, minutes, calories, distance);
+      resetRead();
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyTabbedPage()), (route) => false);
 
-
-      calories = await  (miles*50).toInt();
-      updatePrevWorkout(user, minutes, calories, miles);
-      
 
     }
 
@@ -66,9 +64,7 @@ Future<void> saveData()
             )
           ),
           onPressed:  () {
-            //saveData();
-            Navigator.pop(context);
-            Navigator.pop(context);
+            saveData();
           },
         )
       ]

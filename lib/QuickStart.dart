@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:provider/provider.dart';
 import 'package:rider/auth.dart';
+import 'newHome.dart';
 import 'timer_page.dart';
 import 'package:intl/intl.dart';
 
+FirebaseUser user;
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
 final databaseRead = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('startReading');
@@ -32,10 +34,22 @@ class _QuickStartState extends State<QuickStart> {
 
   _QuickStartState({Key key, @required this.mph, this.distance, this.calories});
   
-  void quit(FirebaseUser user, double timeDone, int caloriesDone, double milesDone)
-  {
-    //updateUserData(user, timeDone, caloriesDone, milesDone);
-  }
+  Future<void> saveData()
+  async {
+    AuthService authService;
+   // FirebaseUser user;
+    double miles;
+    int calories;
+    double minutes = current/60;
+    var va = await databaseReferencePulses.once().then((value) => 
+    miles = (value.value.toInt()*50*3.14159/63360).toDouble());
+   
+    calories = await  (miles*50).toInt();
+    updatePrevWorkout(user, minutes, calories, miles);
+    resetRead();
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyTabbedPage()), (route) => false);
+
+    }
 
   showAlertDialog(BuildContext context) {
     // set up the buttons
@@ -60,9 +74,7 @@ class _QuickStartState extends State<QuickStart> {
             )
           ),
           onPressed: () {
-            //quit(user, mph, calories, distance);
-            Navigator.pop(context);
-            Navigator.pop(context);
+            saveData();
           },
         )
       ]
@@ -408,7 +420,7 @@ class _QuickStartState extends State<QuickStart> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseUser user = Provider.of<FirebaseUser>(context);
+      
     FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').update({
         'startReading': 1,
     });
