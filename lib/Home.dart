@@ -160,7 +160,7 @@ class _HomeState extends State<Home> {
                             );
                           }
                           var userDocument = snapshot.data;
-                          return Text(userDocument["prevMiles"].toString(),
+                          return Text(userDocument["totalMiles"].toString(),
                             style: TextStyle(
                               fontSize: 60,
                               fontWeight: FontWeight.w200,

@@ -18,7 +18,7 @@ class GameResults extends StatefulWidget {
   final String p2Username;
   final String winner;
   final String loser;
-  GameResults({Key key, this.p1uid, this.p2uid, this.p1Username, this.winner, this.loser, this.p2Username, String time}) : super(key: key);
+  GameResults({Key key, this.p1uid, this.p2uid, this.p1Username, this.winner, this.loser, this.p2Username, int time}) : super(key: key);
 
   @override
   _GameResultsState createState() => _GameResultsState(p1uid: p1uid, p1Username: p1Username, p2uid: p2uid, p2Username: p2Username, winner: winner, loser: loser);
@@ -31,7 +31,7 @@ class _GameResultsState extends State<GameResults> {
   final String p2Username;
   final String winner;
   final String loser;
-  final String time;
+  final int time;
   _GameResultsState({Key key, @required this.p1uid, this.winner, this.p2uid, this.p1Username, this.p2Username, this.loser, this.time});
 
   Future<void> saveData()
@@ -41,17 +41,20 @@ class _GameResultsState extends State<GameResults> {
 
     double miles;
     int calories;
-    double minutes = int.parse(time)/60;
+    print(time);
+    double minutes = (time)/60;
+    print(minutes);
     var va = await databaseReferencePulses.once().then((value) => 
     miles = (value.value.toInt()*50*3.14159/63360).toDouble());
     resetRead();
 
-
+    print("here");
       calories = await  (miles*50).toInt();
+    var _db = Firestore.instance.collection('lobbys').document(p1uid);
+    _db.delete();
       updatePrevWorkout(user, minutes, calories, miles);
-      
-      Navigator.pop(context);
-      Navigator.pop(context);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyTabbedPage()), (route) => false);
+
 
     }
 
@@ -76,7 +79,7 @@ class _GameResultsState extends State<GameResults> {
             )
           ),
           onPressed:  () {
-            quit(context);
+            saveData();
           },
         )
       ]

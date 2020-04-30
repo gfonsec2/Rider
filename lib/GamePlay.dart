@@ -89,7 +89,7 @@ class _GamePlayState extends State<GamePlay> {
                   }).catchError((onError){
                     print("onError");
                   });
-                  gameFinish(p1uid, p1Username, p2Username, winner);
+                  gameFinish(p1uid, p1Username, p2Username, winner, 0);
                 },
               );
             }
@@ -165,7 +165,7 @@ class _GamePlayState extends State<GamePlay> {
           var userDocument = snapshot.data;
           if(snapshot.hasData && userDocument["playing"] == false && read) {
             read = false;
-            gameFinish(p1uid, p1Username, p2Username, user.uid);
+            gameFinish(p1uid, p1Username, p2Username, user.uid, 0);
           }
           return Row(
             children: <Widget>[
@@ -195,7 +195,7 @@ class _GamePlayState extends State<GamePlay> {
       startTimer2();
     });
   }
-
+String secondsStr;
   Widget _player1Card(){
     double mph=0;
     double diameter =50;
@@ -242,7 +242,7 @@ class _GamePlayState extends State<GamePlay> {
                               if(distance >= 1.0 && playing == true){
                                 playing = false;
                                 //Future<void>.microtask(() => gameFinish(p1uid, p1Username, p2Username, p1uid));
-                                gameFinish(p1uid, p1Username, p2Username, p1uid);
+                                gameFinish(p1uid, p1Username, p2Username, p1uid, current);
                               }
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -483,7 +483,7 @@ class _GamePlayState extends State<GamePlay> {
 
     String hoursStr = (hours).toString().padLeft(2, '0');
     String minutesStr = (minutes).toString().padLeft(2, '0');
-    String secondsStr = (seconds % 60).toString().padLeft(2, '0');
+    secondsStr = (seconds % 60).toString().padLeft(2, '0');
 
     if (hours == 0) {
       return "$minutesStr:$secondsStr";
@@ -584,7 +584,7 @@ class _GamePlayState extends State<GamePlay> {
                               if(distance >= 1.0 && playing == true){
                                 playing = false;
                                 //Future<void>.microtask(() => gameFinish(p1uid, p1Username, p2Username, p1uid));
-                                gameFinish(p1uid, p1Username, p2Username, p2uid);
+                                gameFinish(p1uid, p1Username, p2Username, p2uid, current);
                               }
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -888,7 +888,7 @@ class _GamePlayState extends State<GamePlay> {
     );
   }
 
-  gameFinish(String p1uid, String p1Username, String p2Username, String winner) async{
+  gameFinish(String p1uid, String p1Username, String p2Username, String winner, int time) async{
     resetRead();
     var _db;
     String loser;
@@ -915,7 +915,8 @@ class _GamePlayState extends State<GamePlay> {
       p2uid: p2uid,
       p2Username: p2Username,
       winner: winner,
-      loser: loser
+      loser: loser,
+      time: time
     )));
   }
 }
