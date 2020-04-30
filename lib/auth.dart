@@ -124,6 +124,11 @@ void resetRead()
         'startReading': 0,
         'Rotations': 0 
     });
+    FirebaseDatabase.instance.reference().child("user2").child('rotations_per_minute_stream').update({
+        'startReading': 0,
+        'Rotations': 0 
+    });
+
 }
 
 Future<double> getMiles(FirebaseUser user) 
