@@ -33,7 +33,10 @@ class AuthService {
       'totalCalories': 0,
       'totalTime':0,
       'totalWins':0,
-      'lastActivity': DateTime.now()
+      'lastActivity': DateTime.now(),
+      'prevAvgMph': 0,
+      'prevCalories': 0,
+      'prevDistance': 0,
     });
   }
 
