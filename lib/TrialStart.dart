@@ -150,7 +150,7 @@ class _TrialStartState extends State<TrialStart> {
   }
   
   Widget _mph(){
-    double diameter =50;
+    double diameter =25;
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(150),
@@ -247,7 +247,7 @@ class _TrialStartState extends State<TrialStart> {
                     if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
                       DataSnapshot snapshot = snap.data.snapshot;
                       var value = snapshot.value;
-                      distance = value.toInt()*50*3.14159/63360;
+                      distance = value.toInt()*25*3.14159/63360;
                       return Text(
                         distance.toStringAsFixed(1),
                         style: TextStyle(fontSize: 45)
@@ -307,7 +307,7 @@ class _TrialStartState extends State<TrialStart> {
                     if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
                       DataSnapshot snapshot = snap.data.snapshot;
                       var value = snapshot.value;
-                      distance = value.toInt()*50*3.14159/63360;
+                      distance = value.toInt()*25*3.14159/63360;
                       calories = (distance*50).toInt();
                       return Text(calories.toString(),
                         style: TextStyle(fontSize: 45)
@@ -468,8 +468,8 @@ class _TrialStartState extends State<TrialStart> {
                                   if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
                                     DataSnapshot snapshot = snap.data.snapshot;
                                     var value = snapshot.value;
-                                    var percentDistProgBar = value.toInt()*50*3.14159/(goal * 63360.0);
-                                    distance = value.toInt()*50*3.14159/(goal * 63360.0);
+                                    var percentDistProgBar = value.toInt()*25*3.14159/(goal * 63360.0);
+                                    distance = value.toInt()*25*3.14159/(goal * 63360.0);
                                     if(percentDistProgBar >= 1.0 && reading){
                                       reading = false;
                                       //gameFinish();

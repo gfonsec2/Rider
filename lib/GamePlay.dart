@@ -198,7 +198,7 @@ class _GamePlayState extends State<GamePlay> {
 String secondsStr;
   Widget _player1Card(){
     double mph=0;
-    double diameter =50;
+    double diameter =25;
     return Container(
       child: Card(
         shape: RoundedRectangleBorder(
@@ -237,7 +237,7 @@ String secondsStr;
                             if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
                               DataSnapshot snapshot = snap.data.snapshot;
                               var value = snapshot.value;
-                              percentDistProgBar = value.toInt()*50*3.14159/mile;
+                              percentDistProgBar = value.toInt()*25*3.14159/mile;
                               distance = value.toInt()*diameter*3.14159/mile;
                               if(distance >= 1.0 && playing == true){
                                 playing = false;
@@ -416,8 +416,8 @@ String secondsStr;
                           if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
                             DataSnapshot snapshot = snap.data.snapshot;
                             var value = snapshot.value;
-                            percentDistProgBar = value.toInt()*50*3.14159/mile;
-                            distance = value.toInt()*50*3.14159/mile;
+                            percentDistProgBar = value.toInt()*25*3.14159/mile;
+                            distance = value.toInt()*25*3.14159/mile;
                             return Container(
                               width: 200,
                               height: 20,
@@ -537,10 +537,10 @@ String secondsStr;
       ),
     );
   }
-
+  
   Widget _player2Card(){
     double mph=0;
-    double diameter =50;
+    double diameter =25;
     return Container(
       child: Card(
         shape: RoundedRectangleBorder(
@@ -579,7 +579,7 @@ String secondsStr;
                             if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
                               DataSnapshot snapshot = snap.data.snapshot;
                               var value = snapshot.value;
-                              percentDistProgBar = value.toInt()*50*3.14159/mile;
+                              percentDistProgBar = value.toInt()*25*3.14159/mile;
                               distance = value.toInt()*diameter*3.14159/mile;
                               if(distance >= 1.0 && playing == true){
                                 playing = false;
@@ -758,8 +758,8 @@ String secondsStr;
                           if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
                             DataSnapshot snapshot = snap.data.snapshot;
                             var value = snapshot.value;
-                            percentDistProgBar = value.toInt()*50*3.14159/mile;
-                            distance = value.toInt()*50*3.14159/mile;
+                            percentDistProgBar = value.toInt()*25*3.14159/mile;
+                            distance = value.toInt()*25*3.14159/mile;
                             return Container(
                               width: 200,
                               height: 20,

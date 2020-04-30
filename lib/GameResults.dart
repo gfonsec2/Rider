@@ -150,7 +150,7 @@ class _GameResultsState extends State<GameResults> {
           ),
           Container(
             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Text("1st Place",
+            child: Text("Place",
               style: TextStyle(
                 fontSize: 40,
                 color: Colors.white,
@@ -334,12 +334,12 @@ class _GameResultsState extends State<GameResults> {
           ),
           Container(
             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Text("2nd Place",
+            child: Text("Place",
               style: TextStyle(
                 fontSize: 20,
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
-                fontFamily: "Open Sans"
+                fontFamily: "Marker Felt"
               ),
             ),
           ),

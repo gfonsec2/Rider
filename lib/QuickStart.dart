@@ -149,7 +149,7 @@ class _QuickStartState extends State<QuickStart> {
   }
   
   Widget _mph(){
-    double diameter =50;
+    double diameter =25;
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(150),
@@ -246,7 +246,7 @@ class _QuickStartState extends State<QuickStart> {
                     if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
                       DataSnapshot snapshot = snap.data.snapshot;
                       var value = snapshot.value;
-                      distance = value.toInt()*50*3.14159/63360;
+                      distance = value.toInt()*25*3.14159/63360;
                       return Text(
                         distance.toStringAsFixed(1),
                         style: TextStyle(fontSize: 45)
@@ -306,7 +306,7 @@ class _QuickStartState extends State<QuickStart> {
                     if(snap.hasData && !snap.hasError && snap.data.snapshot.value!=null){
                       DataSnapshot snapshot = snap.data.snapshot;
                       var value = snapshot.value;
-                      distance = value.toInt()*50*3.14159/63360;
+                      distance = value.toInt()*25*3.14159/63360;
                       calories = (distance*50).toInt();
                       return Text(calories.toString(),
                         style: TextStyle(fontSize: 45)
@@ -436,6 +436,14 @@ class _QuickStartState extends State<QuickStart> {
                       fontSize: 85,
                     ),
                   ),
+                  Text("Elapsed Time",
+                    style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w300
+                    ),
+                  ),
+                  SizedBox(height: 20),
                   OutlineButton(
                     highlightElevation: 20,
                     borderSide: BorderSide(
