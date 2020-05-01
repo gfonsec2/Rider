@@ -43,7 +43,8 @@ class _GamePlayState extends State<GamePlay> {
 
   double distance = 0;
   double percentDistProgBar=0.0;
-  final double mile = 63360.0;
+  final double mile = 31680.0;
+  final double mile2 = 63360.0;
   int current=0;
 
   void initState() {
@@ -238,8 +239,8 @@ String secondsStr;
                               DataSnapshot snapshot = snap.data.snapshot;
                               var value = snapshot.value;
                               percentDistProgBar = value.toInt()*25*3.14159/mile;
-                              distance = value.toInt()*diameter*3.14159/mile;
-                              if(distance >= 1.0 && playing == true){
+                              distance = value.toInt()*diameter*3.14159/mile2;
+                              if(distance >= 0.5 && playing == true){
                                 playing = false;
                                 //Future<void>.microtask(() => gameFinish(p1uid, p1Username, p2Username, p1uid));
                                 gameFinish(p1uid, p1Username, p2Username, p1uid);
@@ -458,7 +459,7 @@ String secondsStr;
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text("1 mi", style: TextStyle(fontSize: 15, color: Colors.black))
+                            Text("0.5 mi", style: TextStyle(fontSize: 15, color: Colors.black))
                           ],
                         ),
                       ),
@@ -580,8 +581,8 @@ String secondsStr;
                               DataSnapshot snapshot = snap.data.snapshot;
                               var value = snapshot.value;
                               percentDistProgBar = value.toInt()*25*3.14159/mile;
-                              distance = value.toInt()*diameter*3.14159/mile;
-                              if(distance >= 1.0 && playing == true){
+                              distance = value.toInt()*diameter*3.14159/mile2;
+                              if(distance >= 0.5 && playing == true){
                                 playing = false;
                                 //Future<void>.microtask(() => gameFinish(p1uid, p1Username, p2Username, p1uid));
                                 gameFinish(p1uid, p1Username, p2Username, p2uid);
@@ -800,7 +801,7 @@ String secondsStr;
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text("1 mi", style: TextStyle(fontSize: 15, color: Colors.black))
+                            Text("0.5 mi", style: TextStyle(fontSize: 15, color: Colors.black))
                           ],
                         ),
                       ),

@@ -327,7 +327,7 @@ class _SinglesState extends State<Singles> {
               // _game(2, "2.0 Miles", Color(0xffFF6666), Color(0xff60CECE)),
               // _game(3, "3.0 Miles", Color(0xff60CECE), Color(0xff916DD5)),
               _customGame(context),
-               _game(0.5, "0.5 Mile","Begginer", Color(0xff85B684)),
+               _game(0.5, "0.5 Mile","Beginner", Color(0xff85B684)),
               _game(1, "1.0 Mile","Intermediate", Color(0xffFFCC00)),
               _game(2, "2.0 Miles","Intermediate", Color(0xffFFCC00)),
               _game(3, "3.0 Miles","Advanced", Color(0xffFF6666)),
