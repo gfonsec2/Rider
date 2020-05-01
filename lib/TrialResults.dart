@@ -46,7 +46,7 @@ class _TrialResultsState extends State<TrialResults> {
    
       updatePrevWorkout(user, minutes, calories, distance);
        resetRead();
-           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyTabbedPage()), (route) => false);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyTabbedPage()), (route) => false);
 
 
     }

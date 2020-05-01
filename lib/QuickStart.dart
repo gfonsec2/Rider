@@ -42,7 +42,7 @@ class _QuickStartState extends State<QuickStart> {
     int calories;
     double minutes = current/60;
     var va = await databaseReferencePulses.once().then((value) => 
-    miles = (value.value.toInt()*50*3.14159/63360).toDouble());
+    miles = (value.value.toInt()*25*3.14159/63360).toDouble());
    
     calories = await  (miles*50).toInt();
     updatePrevWorkout(user, minutes, calories, miles);
@@ -420,7 +420,7 @@ class _QuickStartState extends State<QuickStart> {
 
   @override
   Widget build(BuildContext context) {
-      
+    user = Provider.of<FirebaseUser>(context);
     FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').update({
         'startReading': 1,
     });

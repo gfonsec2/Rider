@@ -11,6 +11,8 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:intl/intl.dart';
 
+import 'auth.dart';
+
 final databaseReference = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('RPM');
 final databaseReferencePulses = FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').child('Rotations');
 double miles;
@@ -501,7 +503,9 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  
   Widget build(BuildContext context) {
+    resetRead();
     return Scaffold(
       body: SafeArea(
         child: Container(

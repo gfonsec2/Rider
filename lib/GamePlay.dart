@@ -845,6 +845,9 @@ String secondsStr;
     FirebaseDatabase.instance.reference().child("user").child('rotations_per_minute_stream').update({
         'startReading': 1,
     });
+    FirebaseDatabase.instance.reference().child("user2").child('rotations_per_minute_stream').update({
+        'startReading': 1,
+    });
     return Scaffold(
       body: Stack(
         children: <Widget>[
